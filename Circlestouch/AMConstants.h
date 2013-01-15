@@ -9,11 +9,12 @@
 //
 // App constants
 //
-#define APP_NAME @"Nine Bubbles"
+#define APP_NAME @"Circlestouch"
 #define APP_ID_IN_APP_STORE @""
 #define APP_VERSION @"1.0"
-#define APP_COPYRIGHT @"Albert Mata 2012-2013"
+#define APP_COPYRIGHT @"Albert Mata 2013"
 #define APP_TWITTER @"almata"
+#define APP_MAIN_FONT @"Heiti SC"
 
 //
 // Possible game status
@@ -22,6 +23,7 @@ typedef enum {
     AMGameStatusBeforeFirstGame,
     AMGameStatusGamePaused,
     AMGameStatusGameOver,
+    AMGameStatusGamePlaying,
     AMGameStatusUndefined
 } AMGameStatus;
 
@@ -119,4 +121,7 @@ typedef enum {
 // TODO: Mirar com de fàcil/difícil seria fer versió per Windows8.
 // TODO: Versió especial per kids.
 
-
+//
+// Things to keep in mind
+//
+// 1. To make the icons brighter, in Pixelmator add 25% of brightness.

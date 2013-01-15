@@ -36,8 +36,8 @@
     UIColor *color = [UIColor whiteColor];
     UIColor *backgroundColor = [UIColor clearColor];
     float alpha = 0.7f;
-    UIFont *font = [UIFont fontWithName:@"Trebuchet-BoldItalic" size:14.0f];
-    UIFont *mainFont = [UIFont fontWithName:@"Trebuchet-BoldItalic" size:19.0f];
+    UIFont *font = [UIFont fontWithName:APP_MAIN_FONT size:14.0f];
+    UIFont *mainFont = [UIFont fontWithName:APP_MAIN_FONT size:19.0f];
     float viewHeight;
     float viewVerticalMargin;
     

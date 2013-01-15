@@ -33,7 +33,7 @@
 - (void)drawUserInterface
 {
     self.view.backgroundColor = [UIColor blackColor];
-    self.view.alpha = 0.66f;
+    self.view.alpha = 0.875f;//0.66f;
 
     int pageControlOriginY = SCREEN_HEIGHT - MARGIN_BOTTOM - 100;
     int playButtonOriginY = pageControlOriginY - 65;
@@ -127,6 +127,7 @@
         case AMGameStatusBeforeFirstGame:
             self.statisticsController.gameStatus.text = NSLocalizedString(@"Start a new game!", @"Game status");
             break;
+        case AMGameStatusGamePlaying:
         case AMGameStatusGamePaused:
             self.statisticsController.gameStatus.text = NSLocalizedString(@"Game paused", @"Game status");
             break;
@@ -141,7 +142,7 @@
 
 - (void)setTextForPlayButton
 {
-    if ([self.delegate gameStatus] == AMGameStatusGamePaused) {
+    if ([self.delegate gameStatus] == AMGameStatusGamePlaying || [self.delegate gameStatus] == AMGameStatusGamePaused) {
         self.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
     } else {
         self.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");

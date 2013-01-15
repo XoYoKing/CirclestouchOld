@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Albert Mata. All rights reserved.
 //
 
+#import "AMConstants.h"
 #import "AMGrayButton.h"
 
 @interface AMGrayButton ()
@@ -41,7 +42,8 @@
             [self addSubview:self->image];            
         }
         [self setTitle:text forState:UIControlStateNormal];
-        self.titleLabel.font = [UIFont fontWithName:@"Trebuchet-BoldItalic" size:16.0f];
+        //self.titleLabel.font = [UIFont fontWithName:@"Trebuchet-BoldItalic" size:16.0f];
+        self.titleLabel.font = [UIFont fontWithName:APP_MAIN_FONT size:16.0f];
         self.titleLabel.alpha = 0.7f;
         self.contentEdgeInsets = UIEdgeInsetsMake(0, (imageNamed) ? 70 : 0, 0, 0);
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

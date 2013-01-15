@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Albert Mata. All rights reserved.
 //
 
+#import "AMConstants.h"
 #import "AMStatisticsController.h"
 
 @implementation AMStatisticsController
@@ -29,8 +30,8 @@
 {
     UIColor *color = [UIColor whiteColor];
     UIColor *backgroundColor = [UIColor clearColor];
-    UIFont *font = [UIFont fontWithName:@"Trebuchet-BoldItalic" size:16.0f];
-    UIFont *mainFont = [UIFont fontWithName:@"Trebuchet-BoldItalic" size:28.0f];
+    UIFont *font = [UIFont fontWithName:APP_MAIN_FONT size:16.0f];
+    UIFont *mainFont = [UIFont fontWithName:APP_MAIN_FONT size:28.0f];
     float viewWidth;
     float viewHeight;
     float viewHorizontalMargin;

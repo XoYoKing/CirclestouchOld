@@ -34,8 +34,10 @@
     self.gameManager = [[AMGameManager alloc] init];
     
     // Add background
-    UIColor *firstColor = [UIColor colorWithRed:0.42f green:0.42f blue:0.47f alpha:1.0f];
-    UIColor *secondColor = [UIColor colorWithRed:0.40f green:0.40f blue:0.45f alpha:1.0f];
+    //UIColor *firstColor = [UIColor colorWithRed:0.42f green:0.42f blue:0.47f alpha:1.0f];
+    //UIColor *secondColor = [UIColor colorWithRed:0.40f green:0.40f blue:0.45f alpha:1.0f];
+    UIColor *firstColor = [UIColor colorWithRed:0.925f green:0.9222f blue:0.906f alpha:1.0f];
+    UIColor *secondColor = [UIColor colorWithRed:0.925f green:0.9222f blue:0.906f alpha:1.0f];
     AMBackground *background = [[AMBackground alloc] initWithFrame:[[UIScreen mainScreen] bounds] //self.view.frame
                                                      andFirstColor:firstColor
                                                     andSecondColor:secondColor
@@ -43,14 +45,18 @@
     [self.view addSubview:background];
     
     // Add top bar
-    UINavigationBar *topBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, -1, SCREEN_WIDTH, MARGIN_TOP)];
-    topBar.tintColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.15f alpha:1.0f];
-    topBar.translucent = YES;
+    //UINavigationBar *topBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, -1, SCREEN_WIDTH, MARGIN_TOP)];
+    //topBar.tintColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.15f alpha:1.0f];
+    //topBar.translucent = YES;
+    //[self.view addSubview:topBar];
+    UIView *topBar = [[UIView alloc] initWithFrame:CGRectMake(0, -1, SCREEN_WIDTH, MARGIN_TOP)];
+    topBar.backgroundColor = [UIColor clearColor];
     [self.view addSubview:topBar];
 
     // Add bottom bar
     UIView *bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - MARGIN_BOTTOM + 1, SCREEN_WIDTH, MARGIN_BOTTOM)];
-    bottomBar.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.15f alpha:0.9f];
+    bottomBar.backgroundColor = [UIColor clearColor];
+    //bottomBar.backgroundColor = [UIColor colorWithRed:0.26f green:0.26f blue:0.26f alpha:1.0f];
     [self.view addSubview:bottomBar];
     
     // Add view for colors to touch and avoid
@@ -73,10 +79,13 @@
     self.timePlayingButton = tpb;
     [self.timePlayingButton setTitle:[NSString stringWithFormat:@"%i", self.gameManager.timePlaying] forState:UIControlStateNormal];
     [self.timePlayingButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    self.timePlayingButton.backgroundColor = [UIColor clearColor];
-    self.timePlayingButton.alpha = 0.4f;
+
+    //self.timePlayingButton.backgroundColor = [UIColor darkGrayColor];//[UIColor clearColor];
+    //self.timePlayingButton.alpha = 0.4f;
     self.timePlayingButton.titleLabel.frame = self.timePlayingButton.frame;
-    self.timePlayingButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:32.0];
+    //self.timePlayingButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:32.0];
+    self.timePlayingButton.titleLabel.font = [UIFont fontWithName:APP_MAIN_FONT size:32.0];
+    [self.timePlayingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.timePlayingButton addTarget:self action:@selector(showPageControl:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.timePlayingButton];
     
@@ -88,7 +97,7 @@
                                                                                         23)
                                                            andLivesRemaining:self.gameManager.livesRemaining];
     self.livesRepresentation = lr;
-    self.livesRepresentation.alpha = 0.75f;
+    self.livesRepresentation.alpha = 0.9f;//0.75f;
     [self.view addSubview:self.livesRepresentation];
 }
 
@@ -201,7 +210,9 @@ void SoundFinished (SystemSoundID snd, void* context)
     [self inactivateTimePlayingTimer];
     [self inactivateCircleCreationTimer];
     
-    int page = ([self gameStatus] == AMGameStatusGamePaused || [self gameStatus] == AMGameStatusGameOver) ? 1 : 0;    
+    int page = ([self gameStatus] == AMGameStatusGamePlaying ||
+                [self gameStatus] == AMGameStatusGamePaused ||
+                [self gameStatus] == AMGameStatusGameOver) ? 1 : 0;
     self.pageControlController = [[AMPageControlController alloc] initWithFrame:[[UIScreen mainScreen] bounds]
                                                                     andDelegate:self
                                                                   andPageToShow:page];
@@ -231,12 +242,16 @@ void SoundFinished (SystemSoundID snd, void* context)
     
     // Animation to show that some colors to touch and avoid are going to change
     UIView __block *v1 = [[UIView alloc] initWithFrame:CGRectMake(-5, MARGIN_TOP - 7, 8, 2)];
-    v1.backgroundColor = [UIColor whiteColor];
-    v1.alpha = 0.7f;
+    if ([self gameStatus] == AMGameStatusGamePlaying) {
+        v1.backgroundColor = [UIColor blackColor];
+    } else {
+        v1.backgroundColor = [UIColor whiteColor];
+    }
+    v1.alpha = 0.75f;
     [self.view addSubview:v1];
     UIView __block *v2 = [[UIView alloc] initWithFrame:CGRectMake(-80, MARGIN_TOP - 7, 8, 2)];
     v2.backgroundColor = v1.backgroundColor;
-    v2.alpha = 0.7f;
+    v2.alpha = 0.75f;
     [self.view addSubview:v2];
     [UIView animateWithDuration:COLORS_CHANGING_ALERT delay:0.0f
                         options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse)
@@ -298,8 +313,8 @@ void SoundFinished (SystemSoundID snd, void* context)
     [UIView animateWithDuration:0.7f delay:0.0
                         options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse)
                      animations:^() {
-                         buttonCircle.alpha = 0.65f;
-                         buttonCircle.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
+                         buttonCircle.alpha = 0.80f;//0.65f;
+                         buttonCircle.transform = CGAffineTransformMakeScale(0.93f, 0.93f);
                      }
                      completion:nil];
     
@@ -440,6 +455,9 @@ void SoundFinished (SystemSoundID snd, void* context)
 
 - (AMGameStatus)gameStatus
 {
+    if (!self.pageControlController)
+        return AMGameStatusGamePlaying;
+            
     if (self.gameManager.livesRemaining > 0 &&
         self.gameManager.timePlaying == 0 &&
         self.gameManager.circlesAvoidedBadly == 0 &&

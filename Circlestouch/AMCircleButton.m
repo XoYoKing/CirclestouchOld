@@ -35,14 +35,14 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     // Versió amb volum i llums
-    CGContextSetAllowsAntialiasing(context, true);
+ /*   CGContextSetAllowsAntialiasing(context, true);
     CGContextSetShouldAntialias(context, true);
     CGContextClearRect(context, rect);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     const CGFloat* components = CGColorGetComponents(self.color.CGColor);
     CGFloat colors[] =
     {
-        components[0] + 0.1, components[1] + 0.1, components[2] + 0.1, 0.6f,
+        components[0] + 0.05, components[1] + 0.05, components[2] + 0.05, 0.7f,
         components[0], components[1], components[2], 0.8f,
         components[0] - 0.05, components[1] - 0.05, components[2] - 0.05, 1.0f
     };
@@ -53,11 +53,11 @@
     CGPoint midCenter = CGPointMake(rect.size.width / 2, rect.size.height / 2);
     CGContextDrawRadialGradient(context, glossGradient, topCenter, 0, midCenter, rect.size.width / 2, kCGGradientDrawsAfterEndLocation);
     CGColorSpaceRelease(colorSpace);
-    CGGradientRelease(glossGradient);
+    CGGradientRelease(glossGradient);*/
     
     // Versió més simple feta per mi en primer lloc
-    // CGContextSetFillColorWithColor(context, self.color.CGColor);
-    // CGContextFillEllipseInRect(context, CGRectMake(0, 0, rect.size.width, rect.size.height));
+     CGContextSetFillColorWithColor(context, self.color.CGColor);
+     CGContextFillEllipseInRect(context, CGRectMake(0, 0, rect.size.width, rect.size.height));
 }
 
 @end

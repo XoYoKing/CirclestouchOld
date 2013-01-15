@@ -66,7 +66,7 @@
     
     // Credits at the bottom
     UILabel *about = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 85, self.view.frame.size.width, 85)];
-    about.font = [UIFont fontWithName:@"Trebuchet-BoldItalic" size:13.0f];
+    about.font = [UIFont fontWithName:APP_MAIN_FONT size:13.0f];
     about.numberOfLines = 0;
     about.text = [NSString stringWithFormat:NSLocalizedString(@"Version %@\nCopyright © %@.\nAll rights reserved.", @"Settings screen"), APP_VERSION, APP_COPYRIGHT];
     about.textAlignment = NSTextAlignmentCenter;
