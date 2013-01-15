@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AMConstants.h"
+#import "AMGameCenterHelper.h"
 #import "AMGameDelegate.h"
 #import "AMInfoController.h"
 #import "AMStatisticsController.h"

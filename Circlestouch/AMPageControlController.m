@@ -134,6 +134,7 @@
         case AMGameStatusGameOver:
             self.statisticsController.gameStatus.text =
             [NSString stringWithFormat:NSLocalizedString(@"Final score: %i", @"Game status"), [self.delegate timePlaying]];
+            [[AMGameCenterHelper sharedInstance] reportScore:[self.delegate timePlaying]];
             break;
         default:
             break;

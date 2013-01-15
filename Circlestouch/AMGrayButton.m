@@ -42,10 +42,9 @@
             [self addSubview:self->image];            
         }
         [self setTitle:text forState:UIControlStateNormal];
-        //self.titleLabel.font = [UIFont fontWithName:@"Trebuchet-BoldItalic" size:16.0f];
         self.titleLabel.font = [UIFont fontWithName:APP_MAIN_FONT size:16.0f];
         self.titleLabel.alpha = 0.7f;
-        self.contentEdgeInsets = UIEdgeInsetsMake(0, (imageNamed) ? 70 : 0, 0, 0);
+        self.contentEdgeInsets = UIEdgeInsetsMake(3, (imageNamed) ? 60 : 0, 0, 0);
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     }
     return self;
@@ -66,7 +65,7 @@
         self->image.frame = CGRectMake(self->imageMarginLeft, self.frame.size.height / 2 - self->imageSize / 2, self->imageSize, self->imageSize);
         [self addSubview:self->image];
     }
-    self.contentEdgeInsets = UIEdgeInsetsMake(0, (imageNamed) ? 70 : 0, 0, 0);
+    self.contentEdgeInsets = UIEdgeInsetsMake(3, (imageNamed) ? 60 : 0, 0, 0);
 }
 
 - (void)setTextAlignment:(UIControlContentHorizontalAlignment)textAlignment

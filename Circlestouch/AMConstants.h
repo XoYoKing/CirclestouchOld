@@ -104,3 +104,7 @@ typedef enum {
 // -------------------------------------------------------------------------------------------------
 //
 // 1. To make the icons brighter, in Pixelmator add 25% of brightness.
+// 2. Post about GameCenter by Toni Sala:
+//    http://indiedevstories.com/2011/04/03/game-center-integration-leaderboards-and-achievements/
+// 3.
+//

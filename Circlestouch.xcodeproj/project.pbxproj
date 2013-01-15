@@ -34,6 +34,8 @@
 		4066868F166C9E110039FB98 /* AMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4066868E166C9E110039FB98 /* AMAppDelegate.m */; };
 		40668698166C9E110039FB98 /* AMMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40668697166C9E110039FB98 /* AMMainController.m */; };
 		406686A3166C9F670039FB98 /* AMCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 406686A2166C9F670039FB98 /* AMCircleButton.m */; };
+		4079A5A516A5B5F60085F15C /* AMGameCenterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4079A5A416A5B5F60085F15C /* AMGameCenterHelper.m */; };
+		4079A5A816A5B8950085F15C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4079A5A716A5B8950085F15C /* GameKit.framework */; };
 		40909A041678B6500036F73E /* AMGrayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 40909A031678B6500036F73E /* AMGrayButton.m */; };
 		409231881678F75800D17A2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4092318A1678F75800D17A2A /* Localizable.strings */; };
 		40A3264016750FB500C18B0F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A3263F16750FB500C18B0F /* AudioToolbox.framework */; };
@@ -87,6 +89,9 @@
 		40668697166C9E110039FB98 /* AMMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMMainController.m; sourceTree = "<group>"; };
 		406686A1166C9F670039FB98 /* AMCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMCircleButton.h; sourceTree = "<group>"; };
 		406686A2166C9F670039FB98 /* AMCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMCircleButton.m; sourceTree = "<group>"; };
+		4079A5A316A5B5F60085F15C /* AMGameCenterHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGameCenterHelper.h; sourceTree = "<group>"; };
+		4079A5A416A5B5F60085F15C /* AMGameCenterHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGameCenterHelper.m; sourceTree = "<group>"; };
+		4079A5A716A5B8950085F15C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		40909A021678B6500036F73E /* AMGrayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGrayButton.h; sourceTree = "<group>"; };
 		40909A031678B6500036F73E /* AMGrayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGrayButton.m; sourceTree = "<group>"; };
 		40909A091678D7DE0036F73E /* AMGameDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGameDelegate.h; sourceTree = "<group>"; };
@@ -126,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4079A5A816A5B8950085F15C /* GameKit.framework in Frameworks */,
 				40A3264016750FB500C18B0F /* AudioToolbox.framework in Frameworks */,
 				4066867F166C9E110039FB98 /* UIKit.framework in Frameworks */,
 				40668681166C9E110039FB98 /* Foundation.framework in Frameworks */,
@@ -182,6 +188,7 @@
 		4066866F166C9E110039FB98 = {
 			isa = PBXGroup;
 			children = (
+				4079A5A716A5B8950085F15C /* GameKit.framework */,
 				40668684166C9E110039FB98 /* Circlestouch */,
 				4066867D166C9E110039FB98 /* Frameworks */,
 				4066867B166C9E110039FB98 /* Products */,
@@ -212,6 +219,8 @@
 			children = (
 				40DE79B1166E20CD00500786 /* AMConstants.h */,
 				40909A091678D7DE0036F73E /* AMGameDelegate.h */,
+				4079A5A316A5B5F60085F15C /* AMGameCenterHelper.h */,
+				4079A5A416A5B5F60085F15C /* AMGameCenterHelper.m */,
 				4066868D166C9E110039FB98 /* AMAppDelegate.h */,
 				4066868E166C9E110039FB98 /* AMAppDelegate.m */,
 				400B00E5166D47BF00B2A1DB /* Model */,
@@ -389,6 +398,7 @@
 				40E4A6A616724A9900B5F180 /* AMStatisticsController.m in Sources */,
 				40E4A6AB16724AC400B5F180 /* AMAboutController.m in Sources */,
 				40909A041678B6500036F73E /* AMGrayButton.m in Sources */,
+				4079A5A516A5B5F60085F15C /* AMGameCenterHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

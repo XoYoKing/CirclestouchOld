@@ -8,6 +8,7 @@
 
 #import "AMAppDelegate.h"
 #import "AMMainController.h"
+#import "AMGameCenterHelper.h"
 
 @implementation AMAppDelegate
 
@@ -19,6 +20,7 @@
     self.viewController = [[AMMainController alloc] init];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    [[AMGameCenterHelper sharedInstance] authenticateLocalPlayer];
     return YES;
 }
 
