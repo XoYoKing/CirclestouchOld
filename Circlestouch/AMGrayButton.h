@@ -1,6 +1,6 @@
 //
 //  AMGrayButton.h
-//  Test01
+//  Circlestouch
 //
 //  Created by Albert Mata on 12/12/2012.
 //  Copyright (c) 2012 Albert Mata. All rights reserved.

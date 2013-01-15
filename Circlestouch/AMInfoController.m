@@ -1,6 +1,6 @@
 //
 //  AMInfoController.m
-//  Test01
+//  Circlestouch
 //
 //  Created by Albert Mata on 05/12/2012.
 //  Copyright (c) 2012 Albert Mata. All rights reserved.
@@ -106,7 +106,7 @@
                                                               y,
                                                               self.view.frame.size.width - 60,
                                                               self.availableHeightForMainText - y)];
-    main.text = NSLocalizedString(@"Touch the right colors before they turn black to achieve the highest score! Black circles indicate mistakes!", @"Info screen");
+    main.text = NSLocalizedString(@"Touch the right circles before they turn black to achieve the highest score! Black circles indicate mistakes!", @"Info screen");
     main.numberOfLines = 0;
     main.textAlignment = NSTextAlignmentCenter;
     main.textColor = [UIColor whiteColor];

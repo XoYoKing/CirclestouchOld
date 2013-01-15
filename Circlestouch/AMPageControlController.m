@@ -1,6 +1,6 @@
 //
-//  AMDarkController.m
-//  Test01
+//  AMPageControlController.m
+//  Circlestouch
 //
 //  Created by Albert Mata on 07/12/2012.
 //  Copyright (c) 2012 Albert Mata. All rights reserved.
@@ -33,7 +33,7 @@
 - (void)drawUserInterface
 {
     self.view.backgroundColor = [UIColor blackColor];
-    self.view.alpha = 0.875f;//0.66f;
+    self.view.alpha = 0.85f;
 
     int pageControlOriginY = SCREEN_HEIGHT - MARGIN_BOTTOM - 100;
     int playButtonOriginY = pageControlOriginY - 65;

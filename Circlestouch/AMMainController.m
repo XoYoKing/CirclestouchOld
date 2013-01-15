@@ -1,6 +1,6 @@
 //
-//  AMViewController.m
-//  Test01
+//  AMMainController.m
+//  Circlestouch
 //
 //  Created by Albert Mata on 03/12/2012.
 //  Copyright (c) 2012 Albert Mata. All rights reserved.
@@ -11,7 +11,6 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import "AMConstants.h"
-#import "AMBackground.h"
 #import "AMMainController.h"
 #import "AMCircle.h"
 #import "AMCircleButton.h"
@@ -34,21 +33,9 @@
     self.gameManager = [[AMGameManager alloc] init];
     
     // Add background
-    //UIColor *firstColor = [UIColor colorWithRed:0.42f green:0.42f blue:0.47f alpha:1.0f];
-    //UIColor *secondColor = [UIColor colorWithRed:0.40f green:0.40f blue:0.45f alpha:1.0f];
-    UIColor *firstColor = [UIColor colorWithRed:0.925f green:0.9222f blue:0.906f alpha:1.0f];
-    UIColor *secondColor = [UIColor colorWithRed:0.925f green:0.9222f blue:0.906f alpha:1.0f];
-    AMBackground *background = [[AMBackground alloc] initWithFrame:[[UIScreen mainScreen] bounds] //self.view.frame
-                                                     andFirstColor:firstColor
-                                                    andSecondColor:secondColor
-                                                    andSquaresSize:BACKGROUND_SQUARE_SIZE];
-    [self.view addSubview:background];
+    self.view.backgroundColor = [UIColor colorWithRed:0.925f green:0.9222f blue:0.906f alpha:1.0f];
     
     // Add top bar
-    //UINavigationBar *topBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, -1, SCREEN_WIDTH, MARGIN_TOP)];
-    //topBar.tintColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.15f alpha:1.0f];
-    //topBar.translucent = YES;
-    //[self.view addSubview:topBar];
     UIView *topBar = [[UIView alloc] initWithFrame:CGRectMake(0, -1, SCREEN_WIDTH, MARGIN_TOP)];
     topBar.backgroundColor = [UIColor clearColor];
     [self.view addSubview:topBar];
@@ -56,7 +43,6 @@
     // Add bottom bar
     UIView *bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - MARGIN_BOTTOM + 1, SCREEN_WIDTH, MARGIN_BOTTOM)];
     bottomBar.backgroundColor = [UIColor clearColor];
-    //bottomBar.backgroundColor = [UIColor colorWithRed:0.26f green:0.26f blue:0.26f alpha:1.0f];
     [self.view addSubview:bottomBar];
     
     // Add view for colors to touch and avoid
@@ -73,17 +59,13 @@
 
     // Add timePlayingButton (10, 10, 90 and 40 are correct absolute values for position and size)
     UIButton *tpb = [[UIButton alloc] initWithFrame:CGRectMake(10,
-                                                               SCREEN_HEIGHT - MARGIN_BOTTOM + 10,
+                                                               SCREEN_HEIGHT - MARGIN_BOTTOM + 12,
                                                                90,
                                                                40)];
     self.timePlayingButton = tpb;
     [self.timePlayingButton setTitle:[NSString stringWithFormat:@"%i", self.gameManager.timePlaying] forState:UIControlStateNormal];
     [self.timePlayingButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-
-    //self.timePlayingButton.backgroundColor = [UIColor darkGrayColor];//[UIColor clearColor];
-    //self.timePlayingButton.alpha = 0.4f;
     self.timePlayingButton.titleLabel.frame = self.timePlayingButton.frame;
-    //self.timePlayingButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:32.0];
     self.timePlayingButton.titleLabel.font = [UIFont fontWithName:APP_MAIN_FONT size:32.0];
     [self.timePlayingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.timePlayingButton addTarget:self action:@selector(showPageControl:) forControlEvents:UIControlEventTouchUpInside];
@@ -97,7 +79,7 @@
                                                                                         23)
                                                            andLivesRemaining:self.gameManager.livesRemaining];
     self.livesRepresentation = lr;
-    self.livesRepresentation.alpha = 0.9f;//0.75f;
+    self.livesRepresentation.alpha = 0.9f;
     [self.view addSubview:self.livesRepresentation];
 }
 
@@ -288,7 +270,6 @@ void SoundFinished (SystemSoundID snd, void* context)
         // Without this, when it can't find a location it tries forever, as it blocks the app and so no circles are removed
         // from GameManager, so no location can be ever found.
         if (tries++ > 10) {
-            //NSLog(@"createNewCircle > Ho he provat ja +10 cops, surto i torno a entrar.");
             [self activateCircleCreationTimer:0.1f];
             return;
         }
@@ -335,7 +316,7 @@ void SoundFinished (SystemSoundID snd, void* context)
     int min = 10.0f * MAX(MIN_CIRCLE_CREATION_INTERVAL + 0.4f - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_CREATION_INTERVAL);
     int max = 10.0f * MAX(MAX_CIRCLE_CREATION_INTERVAL - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_CREATION_INTERVAL + 0.3f);
     float temp = (min + (arc4random() % (max - min))) / 10.0f;
-    //NSLog(@"nextIntervalForCircleCreation > time = %i - min = %i - max = %i - val = %.1f", self.gameManager.timePlaying, min, max, temp);
+    // NSLog(@"nextIntervalForCircleCreation > time = %i - min = %i - max = %i - val = %.1f", self.gameManager.timePlaying, min, max, temp);
     return temp;
 }
 
@@ -344,7 +325,7 @@ void SoundFinished (SystemSoundID snd, void* context)
     int min = 10.0f * MAX(MIN_CIRCLE_LIFE + 1.0f - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_LIFE);
     int max = 10.0f * MAX(MAX_CIRCLE_LIFE - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_LIFE + 0.5f); 
     float temp = (min + (arc4random() % (max - min))) / 10.0f;
-    //NSLog(@"nextCircleLife > time = %i - min = %i - max = %i - val = %.1f", self.gameManager.timePlaying, min, max, temp);
+    // NSLog(@"nextCircleLife > time = %i - min = %i - max = %i - val = %.1f", self.gameManager.timePlaying, min, max, temp);
     return temp;
 }
 
@@ -455,7 +436,7 @@ void SoundFinished (SystemSoundID snd, void* context)
 
 - (AMGameStatus)gameStatus
 {
-    if (!self.pageControlController)
+    if (!self.pageControlController && self.gameManager.livesRemaining > 0)
         return AMGameStatusGamePlaying;
             
     if (self.gameManager.livesRemaining > 0 &&

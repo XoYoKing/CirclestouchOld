@@ -1,6 +1,6 @@
 //
 //  AMGameManager.m
-//  Test01
+//  Circlestouch
 //
 //  Created by Albert Mata on 03/12/2012.
 //  Copyright (c) 2012 Albert Mata. All rights reserved.
@@ -85,25 +85,20 @@
         case 0:
             return [UIColor colorWithRed:0.5f green:0.0f blue:0.5f alpha:1.0f]; // purple
         case 1:
-            //return [UIColor colorWithRed:1.0f green:0.5f blue:0.5f alpha:1.0f]; // salmon
             return [UIColor colorWithRed:0.953f green:0.518f blue:0.478f alpha:1.0f]; // salmon
         case 2:
-            //return [UIColor colorWithRed:0.4f green:0.6f blue:1.0f alpha:1.0f]; // light blue
             return [UIColor colorWithRed:0.404f green:0.733f blue:0.953f alpha:1.0f]; // light blue
         case 3:
-            //return [UIColor colorWithRed:0.6f green:0.0f blue:0.0f alpha:1.0f]; // red
             return [UIColor colorWithRed:0.7f green:0.1f blue:0.1f alpha:1.0f]; // red
         case 4:
             return [UIColor colorWithRed:0.15f green:0.15f blue:0.7f alpha:1.0f]; // dark blue
         case 5:
             return [UIColor colorWithRed:0.5f green:0.8f blue:0.0f alpha:1.0f]; // green
         case 6:
-            //return [UIColor colorWithRed:0.8f green:0.8f blue:0.8f alpha:1.0f]; // light gray
             return [UIColor colorWithRed:0.5f green:0.5f blue:0.5f alpha:1.0f]; // light gray
         case 7:
             return [UIColor colorWithRed:1.0f green:0.5f blue:0.0f alpha:1.0f]; // orange
         case 8:
-            //return [UIColor colorWithRed:1.0f green:1.0f blue:0.25f alpha:1.0f]; // yellow
             return [UIColor colorWithRed:1.0f green:0.8f blue:0.0f alpha:1.0f]; // dark yellow
         default:
             return [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]; // white

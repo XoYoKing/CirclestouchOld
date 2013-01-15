@@ -1,6 +1,6 @@
 //
 //  AMConstants.h
-//  Test01
+//  Circlestouch
 //
 //  Created by Albert Mata on 04/12/2012.
 //  Copyright (c) 2012 Albert Mata. All rights reserved.
@@ -12,7 +12,7 @@
 #define APP_NAME @"Circlestouch"
 #define APP_ID_IN_APP_STORE @""
 #define APP_VERSION @"1.0"
-#define APP_COPYRIGHT @"Albert Mata 2013"
+#define APP_COPYRIGHT @"2013 Albert Mata"
 #define APP_TWITTER @"almata"
 #define APP_MAIN_FONT @"Heiti SC"
 
@@ -100,28 +100,7 @@ typedef enum {
 #define IMG_RATE @"rate" 
 
 //
-// TODOs
-// ---------------------------------------------
-//
-// TODO: Afegir integració amb GameCenter.
-// TODO: Publicar scores a Twitter i Facebook.
-// TODO: Afegir link a la pàgina web dins de l'app.
-// TODO: Canviar les Launch Screen per unes amb aM.
-// TODO: Refer la icona principal (9 boles?).
-// TODO: Fer la pàgina web de l'app (domini propi o xxx.albertmata.net).
-// TODO: Enviar textos definitius als traductors (Mouni, JJ, Jeroen, Nicole, Toni, Pedro, (gallec), (euskera)).
-// TODO: Afegir totes les traduccions i18n i comprovar que funcionin.
-// TODO: Escriure un bon post tècnic explicant aspectes de l'app.
-
-//
-// TODOs (després de publicar la primera versió)
-// ---------------------------------------------
-//
-// TODO: Preparar versió per iPad.
-// TODO: Mirar com de fàcil/difícil seria fer versió per Windows8.
-// TODO: Versió especial per kids.
-
-//
 // Things to keep in mind
+// -------------------------------------------------------------------------------------------------
 //
 // 1. To make the icons brighter, in Pixelmator add 25% of brightness.
