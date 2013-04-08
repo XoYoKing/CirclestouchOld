@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		400B00EE166D4D9700B2A1DB /* AMGameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 400B00ED166D4D9700B2A1DB /* AMGameManager.m */; };
+		400B00EE166D4D9700B2A1DB /* AMGGameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 400B00ED166D4D9700B2A1DB /* AMGGameManager.m */; };
 		400BF0CF16A5483200C88FF3 /* rate.png in Resources */ = {isa = PBXBuildFile; fileRef = 400BF0CD16A5483200C88FF3 /* rate.png */; };
 		400BF0D016A5483200C88FF3 /* rate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 400BF0CE16A5483200C88FF3 /* rate@2x.png */; };
-		40398A6E16762AE5007133FD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 40398A6D16762AE5007133FD /* Icon.png */; };
-		40398A7116762AEA007133FD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40398A7016762AEA007133FD /* Icon@2x.png */; };
+		40418C281711B2170027DA83 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 40418C271711B2170027DA83 /* Default.png */; };
+		40418C2A1711B21B0027DA83 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40418C291711B21B0027DA83 /* Default@2x.png */; };
+		40418C2C1711B2200027DA83 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40418C2B1711B2200027DA83 /* Default-568h@2x.png */; };
 		405474891684C375000A7004 /* bottom_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 405474791684C375000A7004 /* bottom_left.png */; };
 		4054748A1684C375000A7004 /* bottom_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4054747A1684C375000A7004 /* bottom_left@2x.png */; };
 		4054748B1684C375000A7004 /* bottom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 4054747B1684C375000A7004 /* bottom_right.png */; };
@@ -31,36 +32,36 @@
 		40668683166C9E110039FB98 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40668682166C9E110039FB98 /* CoreGraphics.framework */; };
 		40668689166C9E110039FB98 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 40668687166C9E110039FB98 /* InfoPlist.strings */; };
 		4066868B166C9E110039FB98 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4066868A166C9E110039FB98 /* main.m */; };
-		4066868F166C9E110039FB98 /* AMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4066868E166C9E110039FB98 /* AMAppDelegate.m */; };
-		40668698166C9E110039FB98 /* AMMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40668697166C9E110039FB98 /* AMMainController.m */; };
-		406686A3166C9F670039FB98 /* AMCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 406686A2166C9F670039FB98 /* AMCircleButton.m */; };
-		4079A5A516A5B5F60085F15C /* AMGameCenterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4079A5A416A5B5F60085F15C /* AMGameCenterHelper.m */; };
+		4066868F166C9E110039FB98 /* AMGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4066868E166C9E110039FB98 /* AMGAppDelegate.m */; };
+		40668698166C9E110039FB98 /* AMGMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40668697166C9E110039FB98 /* AMGMainController.m */; };
+		406686A3166C9F670039FB98 /* AMGCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 406686A2166C9F670039FB98 /* AMGCircleButton.m */; };
+		4079A5A516A5B5F60085F15C /* AMGGameCenterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4079A5A416A5B5F60085F15C /* AMGGameCenterHelper.m */; };
 		4079A5A816A5B8950085F15C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4079A5A716A5B8950085F15C /* GameKit.framework */; };
-		40909A041678B6500036F73E /* AMGrayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 40909A031678B6500036F73E /* AMGrayButton.m */; };
 		409231881678F75800D17A2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4092318A1678F75800D17A2A /* Localizable.strings */; };
 		40A3264016750FB500C18B0F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A3263F16750FB500C18B0F /* AudioToolbox.framework */; };
-		40A326461675155900C18B0F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A326451675155800C18B0F /* Default.png */; };
-		40A32648167515B600C18B0F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A32647167515B600C18B0F /* Default-568h@2x.png */; };
-		40A3264A167515FA00C18B0F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A32649167515FA00C18B0F /* Default@2x.png */; };
 		40A3265016751C2600C18B0F /* changing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 40A3264F16751C2600C18B0F /* changing.wav */; };
+		40A3EF791710476E00DB8A85 /* AMGBlackRectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A3EF781710476E00DB8A85 /* AMGBlackRectButton.m */; };
+		40A3EF7B17109CCB00DB8A85 /* Icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A3EF7A17109CCB00DB8A85 /* Icon-57.png */; };
+		40A3EF7D17109CD100DB8A85 /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A3EF7C17109CD100DB8A85 /* Icon-114.png */; };
 		40DBD6E2167781AD008F019D /* wrong.aif in Resources */ = {isa = PBXBuildFile; fileRef = 40DBD6E0167781AD008F019D /* wrong.aif */; };
 		40DBD6E41677827C008F019D /* right.aif in Resources */ = {isa = PBXBuildFile; fileRef = 40DBD6E31677827C008F019D /* right.aif */; };
-		40DE79AF166E08A700500786 /* AMLivesRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE79AE166E08A700500786 /* AMLivesRepresentation.m */; };
-		40DE79B4166E2F4400500786 /* AMCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE79B3166E2F4300500786 /* AMCircle.m */; };
-		40DE79B7166E6A2A00500786 /* AMColorsPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE79B6166E6A2A00500786 /* AMColorsPanel.m */; };
-		40DE79C1166F69AC00500786 /* AMInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE79BF166F69AC00500786 /* AMInfoController.m */; };
-		40E4A6A0167247F800B5F180 /* AMPageControlController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E4A69E167247F800B5F180 /* AMPageControlController.m */; };
-		40E4A6A616724A9900B5F180 /* AMStatisticsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E4A6A416724A9800B5F180 /* AMStatisticsController.m */; };
-		40E4A6AB16724AC400B5F180 /* AMAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E4A6A916724AC300B5F180 /* AMAboutController.m */; };
+		40DE79AF166E08A700500786 /* AMGLivesRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE79AE166E08A700500786 /* AMGLivesRepresentation.m */; };
+		40DE79B4166E2F4400500786 /* AMGCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE79B3166E2F4300500786 /* AMGCircle.m */; };
+		40DE79B7166E6A2A00500786 /* AMGColorsPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE79B6166E6A2A00500786 /* AMGColorsPanel.m */; };
+		40DE79C1166F69AC00500786 /* AMGInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE79BF166F69AC00500786 /* AMGInfoController.m */; };
+		40E4A6A0167247F800B5F180 /* AMGPageControlController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E4A69E167247F800B5F180 /* AMGPageControlController.m */; };
+		40E4A6A616724A9900B5F180 /* AMGStatisticsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E4A6A416724A9800B5F180 /* AMGStatisticsController.m */; };
+		40E4A6AB16724AC400B5F180 /* AMGAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E4A6A916724AC300B5F180 /* AMGAboutController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		400B00EC166D4D9700B2A1DB /* AMGameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGameManager.h; sourceTree = "<group>"; };
-		400B00ED166D4D9700B2A1DB /* AMGameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGameManager.m; sourceTree = "<group>"; };
+		400B00EC166D4D9700B2A1DB /* AMGGameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGGameManager.h; sourceTree = "<group>"; };
+		400B00ED166D4D9700B2A1DB /* AMGGameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGGameManager.m; sourceTree = "<group>"; };
 		400BF0CD16A5483200C88FF3 /* rate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rate.png; sourceTree = "<group>"; };
 		400BF0CE16A5483200C88FF3 /* rate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rate@2x.png"; sourceTree = "<group>"; };
-		40398A6D16762AE5007133FD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
-		40398A7016762AEA007133FD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
+		40418C271711B2170027DA83 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		40418C291711B21B0027DA83 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		40418C2B1711B2200027DA83 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		405474791684C375000A7004 /* bottom_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_left.png; sourceTree = "<group>"; };
 		4054747A1684C375000A7004 /* bottom_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom_left@2x.png"; sourceTree = "<group>"; };
 		4054747B1684C375000A7004 /* bottom_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_right.png; sourceTree = "<group>"; };
@@ -83,18 +84,16 @@
 		40668688166C9E110039FB98 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4066868A166C9E110039FB98 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4066868C166C9E110039FB98 /* Circlestouch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Circlestouch-Prefix.pch"; sourceTree = "<group>"; };
-		4066868D166C9E110039FB98 /* AMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMAppDelegate.h; sourceTree = "<group>"; };
-		4066868E166C9E110039FB98 /* AMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMAppDelegate.m; sourceTree = "<group>"; };
-		40668696166C9E110039FB98 /* AMMainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMMainController.h; sourceTree = "<group>"; };
-		40668697166C9E110039FB98 /* AMMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMMainController.m; sourceTree = "<group>"; };
-		406686A1166C9F670039FB98 /* AMCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMCircleButton.h; sourceTree = "<group>"; };
-		406686A2166C9F670039FB98 /* AMCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMCircleButton.m; sourceTree = "<group>"; };
-		4079A5A316A5B5F60085F15C /* AMGameCenterHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGameCenterHelper.h; sourceTree = "<group>"; };
-		4079A5A416A5B5F60085F15C /* AMGameCenterHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGameCenterHelper.m; sourceTree = "<group>"; };
+		4066868D166C9E110039FB98 /* AMGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMGAppDelegate.h; sourceTree = "<group>"; };
+		4066868E166C9E110039FB98 /* AMGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMGAppDelegate.m; sourceTree = "<group>"; };
+		40668696166C9E110039FB98 /* AMGMainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMGMainController.h; sourceTree = "<group>"; };
+		40668697166C9E110039FB98 /* AMGMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMGMainController.m; sourceTree = "<group>"; };
+		406686A1166C9F670039FB98 /* AMGCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGCircleButton.h; sourceTree = "<group>"; };
+		406686A2166C9F670039FB98 /* AMGCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGCircleButton.m; sourceTree = "<group>"; };
+		4079A5A316A5B5F60085F15C /* AMGGameCenterHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGGameCenterHelper.h; sourceTree = "<group>"; };
+		4079A5A416A5B5F60085F15C /* AMGGameCenterHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGGameCenterHelper.m; sourceTree = "<group>"; };
 		4079A5A716A5B8950085F15C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		40909A021678B6500036F73E /* AMGrayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGrayButton.h; sourceTree = "<group>"; };
-		40909A031678B6500036F73E /* AMGrayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGrayButton.m; sourceTree = "<group>"; };
-		40909A091678D7DE0036F73E /* AMGameDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGameDelegate.h; sourceTree = "<group>"; };
+		40909A091678D7DE0036F73E /* AMGGameDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGGameDelegate.h; sourceTree = "<group>"; };
 		409231891678F75800D17A2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4092318B1678F92700D17A2A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4092318C1678F93100D17A2A /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -103,27 +102,28 @@
 		4092318F1678F96000D17A2A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		409231901678F97200D17A2A /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		40A3263F16750FB500C18B0F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		40A326451675155800C18B0F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		40A32647167515B600C18B0F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		40A32649167515FA00C18B0F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		40A3264F16751C2600C18B0F /* changing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = changing.wav; sourceTree = "<group>"; };
+		40A3EF771710476E00DB8A85 /* AMGBlackRectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGBlackRectButton.h; sourceTree = "<group>"; };
+		40A3EF781710476E00DB8A85 /* AMGBlackRectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGBlackRectButton.m; sourceTree = "<group>"; };
+		40A3EF7A17109CCB00DB8A85 /* Icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-57.png"; sourceTree = "<group>"; };
+		40A3EF7C17109CD100DB8A85 /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-114.png"; sourceTree = "<group>"; };
 		40DBD6E0167781AD008F019D /* wrong.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrong.aif; sourceTree = "<group>"; };
 		40DBD6E31677827C008F019D /* right.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = right.aif; sourceTree = "<group>"; };
-		40DE79AD166E08A700500786 /* AMLivesRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMLivesRepresentation.h; sourceTree = "<group>"; };
-		40DE79AE166E08A700500786 /* AMLivesRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMLivesRepresentation.m; sourceTree = "<group>"; };
-		40DE79B1166E20CD00500786 /* AMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMConstants.h; sourceTree = "<group>"; };
-		40DE79B2166E2F4300500786 /* AMCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMCircle.h; sourceTree = "<group>"; };
-		40DE79B3166E2F4300500786 /* AMCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMCircle.m; sourceTree = "<group>"; };
-		40DE79B5166E6A2A00500786 /* AMColorsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMColorsPanel.h; sourceTree = "<group>"; };
-		40DE79B6166E6A2A00500786 /* AMColorsPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMColorsPanel.m; sourceTree = "<group>"; };
-		40DE79BE166F69AC00500786 /* AMInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMInfoController.h; sourceTree = "<group>"; };
-		40DE79BF166F69AC00500786 /* AMInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMInfoController.m; sourceTree = "<group>"; };
-		40E4A69D167247F800B5F180 /* AMPageControlController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPageControlController.h; sourceTree = "<group>"; };
-		40E4A69E167247F800B5F180 /* AMPageControlController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPageControlController.m; sourceTree = "<group>"; };
-		40E4A6A316724A9800B5F180 /* AMStatisticsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMStatisticsController.h; sourceTree = "<group>"; };
-		40E4A6A416724A9800B5F180 /* AMStatisticsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMStatisticsController.m; sourceTree = "<group>"; };
-		40E4A6A816724AC300B5F180 /* AMAboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMAboutController.h; sourceTree = "<group>"; };
-		40E4A6A916724AC300B5F180 /* AMAboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMAboutController.m; sourceTree = "<group>"; };
+		40DE79AD166E08A700500786 /* AMGLivesRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGLivesRepresentation.h; sourceTree = "<group>"; };
+		40DE79AE166E08A700500786 /* AMGLivesRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGLivesRepresentation.m; sourceTree = "<group>"; };
+		40DE79B1166E20CD00500786 /* AMGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGConstants.h; sourceTree = "<group>"; };
+		40DE79B2166E2F4300500786 /* AMGCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGCircle.h; sourceTree = "<group>"; };
+		40DE79B3166E2F4300500786 /* AMGCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGCircle.m; sourceTree = "<group>"; };
+		40DE79B5166E6A2A00500786 /* AMGColorsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGColorsPanel.h; sourceTree = "<group>"; };
+		40DE79B6166E6A2A00500786 /* AMGColorsPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGColorsPanel.m; sourceTree = "<group>"; };
+		40DE79BE166F69AC00500786 /* AMGInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGInfoController.h; sourceTree = "<group>"; };
+		40DE79BF166F69AC00500786 /* AMGInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGInfoController.m; sourceTree = "<group>"; };
+		40E4A69D167247F800B5F180 /* AMGPageControlController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGPageControlController.h; sourceTree = "<group>"; };
+		40E4A69E167247F800B5F180 /* AMGPageControlController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGPageControlController.m; sourceTree = "<group>"; };
+		40E4A6A316724A9800B5F180 /* AMGStatisticsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGStatisticsController.h; sourceTree = "<group>"; };
+		40E4A6A416724A9800B5F180 /* AMGStatisticsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGStatisticsController.m; sourceTree = "<group>"; };
+		40E4A6A816724AC300B5F180 /* AMGAboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGAboutController.h; sourceTree = "<group>"; };
+		40E4A6A916724AC300B5F180 /* AMGAboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGAboutController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,10 +145,10 @@
 		400B00E5166D47BF00B2A1DB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				400B00EC166D4D9700B2A1DB /* AMGameManager.h */,
-				400B00ED166D4D9700B2A1DB /* AMGameManager.m */,
-				40DE79B2166E2F4300500786 /* AMCircle.h */,
-				40DE79B3166E2F4300500786 /* AMCircle.m */,
+				400B00EC166D4D9700B2A1DB /* AMGGameManager.h */,
+				400B00ED166D4D9700B2A1DB /* AMGGameManager.m */,
+				40DE79B2166E2F4300500786 /* AMGCircle.h */,
+				40DE79B3166E2F4300500786 /* AMGCircle.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -156,14 +156,14 @@
 		400B00E7166D47C900B2A1DB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				406686A1166C9F670039FB98 /* AMCircleButton.h */,
-				406686A2166C9F670039FB98 /* AMCircleButton.m */,
-				40DE79AD166E08A700500786 /* AMLivesRepresentation.h */,
-				40DE79AE166E08A700500786 /* AMLivesRepresentation.m */,
-				40DE79B5166E6A2A00500786 /* AMColorsPanel.h */,
-				40DE79B6166E6A2A00500786 /* AMColorsPanel.m */,
-				40909A021678B6500036F73E /* AMGrayButton.h */,
-				40909A031678B6500036F73E /* AMGrayButton.m */,
+				406686A1166C9F670039FB98 /* AMGCircleButton.h */,
+				406686A2166C9F670039FB98 /* AMGCircleButton.m */,
+				40DE79AD166E08A700500786 /* AMGLivesRepresentation.h */,
+				40DE79AE166E08A700500786 /* AMGLivesRepresentation.m */,
+				40DE79B5166E6A2A00500786 /* AMGColorsPanel.h */,
+				40DE79B6166E6A2A00500786 /* AMGColorsPanel.m */,
+				40A3EF771710476E00DB8A85 /* AMGBlackRectButton.h */,
+				40A3EF781710476E00DB8A85 /* AMGBlackRectButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -171,16 +171,16 @@
 		400B00E8166D47D000B2A1DB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				40668696166C9E110039FB98 /* AMMainController.h */,
-				40668697166C9E110039FB98 /* AMMainController.m */,
-				40DE79BE166F69AC00500786 /* AMInfoController.h */,
-				40DE79BF166F69AC00500786 /* AMInfoController.m */,
-				40E4A69D167247F800B5F180 /* AMPageControlController.h */,
-				40E4A69E167247F800B5F180 /* AMPageControlController.m */,
-				40E4A6A316724A9800B5F180 /* AMStatisticsController.h */,
-				40E4A6A416724A9800B5F180 /* AMStatisticsController.m */,
-				40E4A6A816724AC300B5F180 /* AMAboutController.h */,
-				40E4A6A916724AC300B5F180 /* AMAboutController.m */,
+				40668696166C9E110039FB98 /* AMGMainController.h */,
+				40668697166C9E110039FB98 /* AMGMainController.m */,
+				40DE79BE166F69AC00500786 /* AMGInfoController.h */,
+				40DE79BF166F69AC00500786 /* AMGInfoController.m */,
+				40E4A69D167247F800B5F180 /* AMGPageControlController.h */,
+				40E4A69E167247F800B5F180 /* AMGPageControlController.m */,
+				40E4A6A316724A9800B5F180 /* AMGStatisticsController.h */,
+				40E4A6A416724A9800B5F180 /* AMGStatisticsController.m */,
+				40E4A6A816724AC300B5F180 /* AMGAboutController.h */,
+				40E4A6A916724AC300B5F180 /* AMGAboutController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -188,7 +188,11 @@
 		4066866F166C9E110039FB98 = {
 			isa = PBXGroup;
 			children = (
-				4079A5A716A5B8950085F15C /* GameKit.framework */,
+				40418C2B1711B2200027DA83 /* Default-568h@2x.png */,
+				40418C291711B21B0027DA83 /* Default@2x.png */,
+				40418C271711B2170027DA83 /* Default.png */,
+				40A3EF7C17109CD100DB8A85 /* Icon-114.png */,
+				40A3EF7A17109CCB00DB8A85 /* Icon-57.png */,
 				40668684166C9E110039FB98 /* Circlestouch */,
 				4066867D166C9E110039FB98 /* Frameworks */,
 				4066867B166C9E110039FB98 /* Products */,
@@ -206,6 +210,7 @@
 		4066867D166C9E110039FB98 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4079A5A716A5B8950085F15C /* GameKit.framework */,
 				40A3263F16750FB500C18B0F /* AudioToolbox.framework */,
 				4066867E166C9E110039FB98 /* UIKit.framework */,
 				40668680166C9E110039FB98 /* Foundation.framework */,
@@ -217,12 +222,12 @@
 		40668684166C9E110039FB98 /* Circlestouch */ = {
 			isa = PBXGroup;
 			children = (
-				40DE79B1166E20CD00500786 /* AMConstants.h */,
-				40909A091678D7DE0036F73E /* AMGameDelegate.h */,
-				4079A5A316A5B5F60085F15C /* AMGameCenterHelper.h */,
-				4079A5A416A5B5F60085F15C /* AMGameCenterHelper.m */,
-				4066868D166C9E110039FB98 /* AMAppDelegate.h */,
-				4066868E166C9E110039FB98 /* AMAppDelegate.m */,
+				40DE79B1166E20CD00500786 /* AMGConstants.h */,
+				40909A091678D7DE0036F73E /* AMGGameDelegate.h */,
+				4079A5A316A5B5F60085F15C /* AMGGameCenterHelper.h */,
+				4079A5A416A5B5F60085F15C /* AMGGameCenterHelper.m */,
+				4066868D166C9E110039FB98 /* AMGAppDelegate.h */,
+				4066868E166C9E110039FB98 /* AMGAppDelegate.m */,
 				400B00E5166D47BF00B2A1DB /* Model */,
 				400B00E7166D47C900B2A1DB /* View */,
 				400B00E8166D47D000B2A1DB /* Controller */,
@@ -241,11 +246,6 @@
 				40668687166C9E110039FB98 /* InfoPlist.strings */,
 				4066868A166C9E110039FB98 /* main.m */,
 				4066868C166C9E110039FB98 /* Circlestouch-Prefix.pch */,
-				40398A7016762AEA007133FD /* Icon@2x.png */,
-				40398A6D16762AE5007133FD /* Icon.png */,
-				40A326451675155800C18B0F /* Default.png */,
-				40A32649167515FA00C18B0F /* Default@2x.png */,
-				40A32647167515B600C18B0F /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -350,12 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40668689166C9E110039FB98 /* InfoPlist.strings in Resources */,
-				40A326461675155900C18B0F /* Default.png in Resources */,
-				40A32648167515B600C18B0F /* Default-568h@2x.png in Resources */,
-				40A3264A167515FA00C18B0F /* Default@2x.png in Resources */,
 				40A3265016751C2600C18B0F /* changing.wav in Resources */,
-				40398A6E16762AE5007133FD /* Icon.png in Resources */,
-				40398A7116762AEA007133FD /* Icon@2x.png in Resources */,
 				40DBD6E2167781AD008F019D /* wrong.aif in Resources */,
 				40DBD6E41677827C008F019D /* right.aif in Resources */,
 				409231881678F75800D17A2A /* Localizable.strings in Resources */,
@@ -375,6 +370,11 @@
 				405474981684C375000A7004 /* twitter@2x.png in Resources */,
 				400BF0CF16A5483200C88FF3 /* rate.png in Resources */,
 				400BF0D016A5483200C88FF3 /* rate@2x.png in Resources */,
+				40A3EF7B17109CCB00DB8A85 /* Icon-57.png in Resources */,
+				40A3EF7D17109CD100DB8A85 /* Icon-114.png in Resources */,
+				40418C281711B2170027DA83 /* Default.png in Resources */,
+				40418C2A1711B21B0027DA83 /* Default@2x.png in Resources */,
+				40418C2C1711B2200027DA83 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,19 +386,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				4066868B166C9E110039FB98 /* main.m in Sources */,
-				4066868F166C9E110039FB98 /* AMAppDelegate.m in Sources */,
-				40668698166C9E110039FB98 /* AMMainController.m in Sources */,
-				406686A3166C9F670039FB98 /* AMCircleButton.m in Sources */,
-				400B00EE166D4D9700B2A1DB /* AMGameManager.m in Sources */,
-				40DE79AF166E08A700500786 /* AMLivesRepresentation.m in Sources */,
-				40DE79B4166E2F4400500786 /* AMCircle.m in Sources */,
-				40DE79B7166E6A2A00500786 /* AMColorsPanel.m in Sources */,
-				40DE79C1166F69AC00500786 /* AMInfoController.m in Sources */,
-				40E4A6A0167247F800B5F180 /* AMPageControlController.m in Sources */,
-				40E4A6A616724A9900B5F180 /* AMStatisticsController.m in Sources */,
-				40E4A6AB16724AC400B5F180 /* AMAboutController.m in Sources */,
-				40909A041678B6500036F73E /* AMGrayButton.m in Sources */,
-				4079A5A516A5B5F60085F15C /* AMGameCenterHelper.m in Sources */,
+				4066868F166C9E110039FB98 /* AMGAppDelegate.m in Sources */,
+				40668698166C9E110039FB98 /* AMGMainController.m in Sources */,
+				406686A3166C9F670039FB98 /* AMGCircleButton.m in Sources */,
+				400B00EE166D4D9700B2A1DB /* AMGGameManager.m in Sources */,
+				40DE79AF166E08A700500786 /* AMGLivesRepresentation.m in Sources */,
+				40DE79B4166E2F4400500786 /* AMGCircle.m in Sources */,
+				40DE79B7166E6A2A00500786 /* AMGColorsPanel.m in Sources */,
+				40DE79C1166F69AC00500786 /* AMGInfoController.m in Sources */,
+				40E4A6A0167247F800B5F180 /* AMGPageControlController.m in Sources */,
+				40E4A6A616724A9900B5F180 /* AMGStatisticsController.m in Sources */,
+				40E4A6AB16724AC400B5F180 /* AMGAboutController.m in Sources */,
+				4079A5A516A5B5F60085F15C /* AMGGameCenterHelper.m in Sources */,
+				40A3EF791710476E00DB8A85 /* AMGBlackRectButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,7 +452,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -473,7 +473,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -486,9 +486,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circlestouch/Circlestouch-Prefix.pch";
 				INFOPLIST_FILE = "Circlestouch/Circlestouch-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Circlestouch;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -499,9 +499,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circlestouch/Circlestouch-Prefix.pch";
 				INFOPLIST_FILE = "Circlestouch/Circlestouch-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Circlestouch;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

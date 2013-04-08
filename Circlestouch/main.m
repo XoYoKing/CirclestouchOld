@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AMAppDelegate.h"
+#import "AMGAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AMAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AMGAppDelegate class]));
     }
 }
