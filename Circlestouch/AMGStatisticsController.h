@@ -10,12 +10,10 @@
 
 @interface AMGStatisticsController : UIViewController
 
-@property (nonatomic, weak) UILabel *touchedWellResult;
-@property (nonatomic, weak) UILabel *avoidedWellResult;
-@property (nonatomic, weak) UILabel *touchedBadlyResult;
-@property (nonatomic, weak) UILabel *avoidedBadlyResult;
-@property (nonatomic, weak) UILabel *gameStatus;
-
-- (id)initWithFrame:(CGRect)viewFrame;
+@property (nonatomic, strong) UILabel *touchedWellResult;
+@property (nonatomic, strong) UILabel *avoidedWellResult;
+@property (nonatomic, strong) UILabel *touchedBadlyResult;
+@property (nonatomic, strong) UILabel *avoidedBadlyResult;
+@property (nonatomic, strong) UILabel *gameStatus;
 
 @end

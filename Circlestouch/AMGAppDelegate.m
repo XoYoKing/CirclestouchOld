@@ -8,19 +8,17 @@
 
 #import "AMGAppDelegate.h"
 #import "AMGMainController.h"
-#import "AMGGameCenterHelper.h"
 
 @implementation AMGAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // NSLog(@"AMGAppDelegate > application:didFinishLaunchingWithOptions:");
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.viewController = [[AMGMainController alloc] init];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-    [[AMGGameCenterHelper sharedInstance] authenticateLocalPlayer];
+    //[[AMGGameCenterHelper sharedInstance] authenticateLocalPlayer];
     return YES;
 }
 

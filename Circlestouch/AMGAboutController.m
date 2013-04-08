@@ -8,112 +8,148 @@
 
 #import "AMGAboutController.h"
 #import "AMGPageControlController.h"
+#import "AMGBlackRectButton.h"
 
 #define TURN_SOUND_ON NSLocalizedString(@"Turn sound on", @"Settings screen")
 #define TURN_SOUND_OFF NSLocalizedString(@"Turn sound off", @"Settings screen")
 
+@interface AMGAboutController()
+@property (nonatomic, strong) AMGBlackRectButton *soundButton;
+@end
+
 @implementation AMGAboutController
 
-- (id)init
-{
-    return [self initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 0.0f) andDelegate:nil];
-}
+#pragma mark - Drawing view
 
-- (id)initWithFrame:(CGRect)viewFrame andDelegate:(id<AMGGameDelegate>)delegate
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super init];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.view.frame = viewFrame;
-        self.delegate = delegate;
+        [self setup];
     }
-    [self drawUserInterface];
     return self;
 }
 
-- (void)drawUserInterface
+- (void)setup
 {
-    float buttonHeight = 55;
-
-    // Button for turn sound on and off
-    AMGBlackRectButton *sb = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, buttonHeight)
-                                                          andImageName:nil
-                                                           andFontName:APP_MAIN_FONT
-                                                               andText:nil];
-    self.soundButton = sb;
+    float availableHeight = PAGECONTROL_DOTS_Y - MARGIN_TOP;
+    float spaceHeight = (availableHeight - 4 * 55.0f) / 5;
+    float y = MARGIN_TOP + spaceHeight;
+    
+    // Sound button
+    
+    self.soundButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
+                                                    andImageName:nil
+                                                     andFontName:APP_MAIN_FONT
+                                                         andText:nil];
     self.soundButton.whiteBorder = NO;
-    if ([self.delegate soundActivated]) {
-        self.soundButton.imageName = IMG_SOUND_ON;
-        self.soundButton.text = TURN_SOUND_OFF;
-    } else {
-        self.soundButton.imageName = IMG_SOUND_OFF;
-        self.soundButton.text = TURN_SOUND_ON;
-    }
-    [self.view addSubview:self.soundButton];
-    [self.soundButton addTarget:self action:@selector(soundButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.soundButton.imageName = ([self.gameDelegate soundActivated]) ? @"sound_on" : @"sound_off";
+    self.soundButton.text = ([self.gameDelegate soundActivated]) ? TURN_SOUND_OFF : TURN_SOUND_ON;
+    y += 55.0f + spaceHeight;
     
-    // Button for rating on AppStore
-    AMGBlackRectButton *rateButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, buttonHeight)
-                                                                  andImageName:IMG_RATE
+    // Web button
+    
+    AMGBlackRectButton *webButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
+                                                                 andImageName:@"web"
+                                                                  andFontName:APP_MAIN_FONT
+                                                                      andText:[NSString stringWithFormat:NSLocalizedString(@"Visit %@'s website", @"Settings screen"), APP_NAME]];
+    webButton.whiteBorder = NO;
+    y += 55.0f + spaceHeight;
+    
+    // Email button
+    
+    AMGBlackRectButton *emailButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
+                                                                   andImageName:@"email"
+                                                                    andFontName:APP_MAIN_FONT
+                                                                        andText:[NSString stringWithFormat:NSLocalizedString(@"Send me an email", @"Settings screen")]];
+    emailButton.whiteBorder = NO;
+    y += 55.0f + spaceHeight;
+    
+    // Rate button
+    
+    AMGBlackRectButton *rateButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
+                                                                  andImageName:@"rate"
                                                                    andFontName:APP_MAIN_FONT
-                                                                       andText:[NSString stringWithFormat:NSLocalizedString(@"Love %@? Rate it!", @"Settings screen"), APP_NAME]];
+                                                                       andText:[NSString stringWithFormat:NSLocalizedString(@"Love %@? Rate it! :)", @"Settings screen"), APP_NAME]];
     rateButton.whiteBorder = NO;
-    [self.view addSubview:rateButton];
-    [rateButton addTarget:self action:@selector(rateButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    // Button for following on Twitter
-    AMGBlackRectButton *twitterButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, buttonHeight)
-                                                                     andImageName:IMG_TWITTER
-                                                                      andFontName:APP_MAIN_FONT
-                                                                          andText:[NSString stringWithFormat:NSLocalizedString(@"Follow @%@ on Twitter", @"Settings screen"), APP_TWITTER]];
-    twitterButton.whiteBorder = NO;
-    [self.view addSubview:twitterButton];
-    [twitterButton addTarget:self action:@selector(twitterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    // Adding buttons to view and setting target actions.
+    
+    [self.view addSubview:self.soundButton];
+    [self.view addSubview:webButton];
+    [self.view addSubview:emailButton];
+    [self.view addSubview:rateButton];
+    
+    [self.soundButton addTarget:self action:@selector(changeSound) forControlEvents:UIControlEventTouchUpInside];
+    [webButton addTarget:self action:@selector(openWeb) forControlEvents:UIControlEventTouchUpInside];
+    [emailButton addTarget:self action:@selector(sendEmail) forControlEvents:UIControlEventTouchUpInside];
+    [rateButton addTarget:self action:@selector(rateApp) forControlEvents:UIControlEventTouchUpInside];
     
     // Credits at the bottom
-    UILabel *about = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 85, self.view.frame.size.width, 85)];
-    about.font = [UIFont fontWithName:APP_MAIN_FONT size:13.0f];
-    about.numberOfLines = 0;
-    about.text = [NSString stringWithFormat:NSLocalizedString(@"Version %@\nCopyright © %@\nAll rights reserved", @"Settings screen"), APP_VERSION, APP_COPYRIGHT];
-    about.textAlignment = NSTextAlignmentCenter;
-    about.backgroundColor = [UIColor clearColor];
-    about.textColor = [UIColor whiteColor];
-    [self.view addSubview:about];
+    
+    UILabel *credits1 = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, PAGECONTROL_DOTS_Y + 25.0f, 320.0f, 20.0f)];
+    credits1.font = [UIFont fontWithName:APP_MAIN_FONT size:13.0f];
+    credits1.text = [NSString stringWithFormat:APP_NAME];
+    credits1.textAlignment = NSTextAlignmentCenter;
+    credits1.backgroundColor = [UIColor clearColor];
+    credits1.textColor = [UIColor whiteColor];
+    [self.view addSubview:credits1];
+    
+    UILabel *credits2 = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, PAGECONTROL_DOTS_Y + 45.0f, 320.0f, 20.0f)];
+    credits2.font = [UIFont fontWithName:APP_MAIN_FONT size:13.0f];
+    credits2.text = [NSString stringWithFormat:NSLocalizedString(@"Version %@", @"Settings screen"), APP_VERSION];
+    credits2.textAlignment = NSTextAlignmentCenter;
+    credits2.backgroundColor = [UIColor clearColor];
+    credits2.textColor = [UIColor whiteColor];
+    [self.view addSubview:credits2];
+
+    
+    UILabel *credits3 = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, PAGECONTROL_DOTS_Y + 65.0f, 320.0f, 20.0f)];
+    credits3.font = [UIFont fontWithName:APP_MAIN_FONT size:13.0f];
+    credits3.text = [NSString stringWithFormat:NSLocalizedString(@"© %@", @"Settings screen"), APP_COPYRIGHT];
+    credits3.textAlignment = NSTextAlignmentCenter;
+    credits3.backgroundColor = [UIColor clearColor];
+    credits3.textColor = [UIColor whiteColor];
+    [self.view addSubview:credits3];
 }
 
-- (void)soundButtonPressed:(id)sender
+#pragma mark - Button's target actions
+
+- (void)changeSound
 {
-    if ([self.delegate soundActivated]) {
-        self.soundButton.imageName = IMG_SOUND_OFF;
+    if ([self.gameDelegate soundActivated]) {
+        self.soundButton.imageName = @"sound_off";
         self.soundButton.text = TURN_SOUND_ON;
-        [self.delegate setSoundActivated:NO];
+        [self.gameDelegate setSoundActivated:NO];
     } else {
-        self.soundButton.imageName = IMG_SOUND_ON;
+        self.soundButton.imageName = @"sound_on";
         self.soundButton.text = TURN_SOUND_OFF;
-        [self.delegate setSoundActivated:YES];
+        [self.gameDelegate setSoundActivated:YES];
     }
 }
 
-- (void)rateButtonPressed:(id)sender
+- (void)sendEmail
 {
-    NSString *str = [NSString stringWithFormat:
-                     @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", APP_ID_IN_APP_STORE];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
+        controller.mailComposeDelegate = self.emailDelegate;
+        [controller setToRecipients:@[APP_EMAIL]];
+        [controller setSubject:[NSString stringWithFormat:@"%@ %@", APP_NAME, APP_VERSION]];
+        [controller setMessageBody:@"" isHTML:NO];
+        if (controller) [(UIViewController *)self.emailDelegate presentViewController:controller animated:YES completion:nil];
+    } else {
+        // This device can't send emails
+    }
 }
 
-- (void)twitterButtonPressed:(id)sender
+- (void)openWeb
 {
-    NSString *str = [NSString stringWithFormat:@"twitter://user?screen_name=%@", APP_TWITTER];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_WEB_URL]];
 }
 
-#pragma mark -
-#pragma mark Memory management
-#pragma mark -
-
-- (void)didReceiveMemoryWarning
+- (void)rateApp
 {
-    [super didReceiveMemoryWarning];
-    NSLog(@"AMGAboutController > didReceiveMemoryWarning");
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_RATE_URL]];
 }
 
 @end

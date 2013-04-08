@@ -8,45 +8,42 @@
 
 #import "AMGInfoController.h"
 
+@interface AMGInfoController()
+@property (nonatomic, strong) UIImageView *topLeftArrow;
+@property (nonatomic, strong) UIImageView *topRightArrow;
+@property (nonatomic, strong) UIImageView *bottomLeftArrow;
+@property (nonatomic, strong) UIImageView *bottomRightArrow;
+@end
+
 @implementation AMGInfoController
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    return [self initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 0.0f) andAvailableHeightForMainText:0];
-}
-
-- (id)initWithFrame:(CGRect)viewFrame andAvailableHeightForMainText:(int)availableHeightForMainText
-{
-    self = [super init];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.view.frame = viewFrame;
-        self.availableHeightForMainText = availableHeightForMainText;
+        [self setup];
     }
-    [self drawUserInterface];
     return self;
 }
 
-- (void)drawUserInterface
+- (void)setup
 {
-    // Images for little arrows
-    [self addImages];
+    [self addArrows];
     [self animateArrows];
     
     UIColor *color = [UIColor whiteColor];
     UIColor *backgroundColor = [UIColor clearColor];
-    float alpha = 0.7f;
     UIFont *font = [UIFont fontWithName:APP_MAIN_FONT size:14.0f];
     UIFont *mainFont = [UIFont fontWithName:APP_MAIN_FONT size:19.0f];
-    float viewHeight;
-    float viewVerticalMargin;
+    float alpha = 0.7f;
+    
+    float y, height;
     
     // "Colors to touch"
-    viewHeight = 30;
-    viewVerticalMargin = 25;
-    UILabel *colorsTouch = [[UILabel alloc] initWithFrame:CGRectMake(10,
-                                                                     viewVerticalMargin,
-                                                                     self.view.frame.size.width / 2 - 20,
-                                                                     viewHeight)];
+    
+    height = 30.0f;
+    y = MARGIN_TOP + 25.0f;
+    UILabel *colorsTouch = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, y, SCREEN_WIDTH / 2 - 20.0f, height)];
     colorsTouch.text = NSLocalizedString(@"Colors to touch", @"Info screen");
     colorsTouch.textColor = color;
     colorsTouch.backgroundColor = backgroundColor;
@@ -55,12 +52,10 @@
     [self.view addSubview:colorsTouch];
     
     // "Colors to avoid"
-    viewHeight = 30;
-    viewVerticalMargin = 25;
-    UILabel *colorsAvoid = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 10,
-                                                                     viewVerticalMargin,
-                                                                     self.view.frame.size.width / 2 - 20,
-                                                                     viewHeight)];
+    
+    height = 30.0f;
+    y = MARGIN_TOP + 25.0f;
+    UILabel *colorsAvoid = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 + 10.0f, y, SCREEN_WIDTH / 2 - 20.0f, height)];
     colorsAvoid.text = NSLocalizedString(@"Colors to avoid", @"Info screen");
     colorsAvoid.textAlignment = NSTextAlignmentRight;
     colorsAvoid.textColor = color;
@@ -70,12 +65,10 @@
     [self.view addSubview:colorsAvoid];
 
     // "Current score - (tap to pause)"
-    viewHeight = 50;
-    viewVerticalMargin = 28;
-    UILabel *currentScore = [[UILabel alloc] initWithFrame:CGRectMake(10,
-                                                                     self.view.frame.size.height - viewHeight - viewVerticalMargin,
-                                                                     self.view.frame.size.width / 2 - 20,
-                                                                     viewHeight)];
+    
+    height = 50.0f;
+    y = SCREEN_HEIGHT - MARGIN_BOTTOM - height - 25.0f;
+    UILabel *currentScore = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, y, SCREEN_WIDTH / 2 - 20.0f, height)];
     currentScore.text = NSLocalizedString(@"Current score\n(tap to pause)", @"Info screen");
     currentScore.numberOfLines = 0;
     currentScore.textColor = color;
@@ -85,12 +78,10 @@
     [self.view addSubview:currentScore];
     
     // "Remaining lives"
-    viewHeight = 30;
-    viewVerticalMargin = 28;
-    UILabel *power = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 + 10,
-                                                               self.view.frame.size.height - viewHeight - viewVerticalMargin,
-                                                               self.view.frame.size.width / 2 - 20,
-                                                               viewHeight)];
+    
+    height = 30.0f;
+    y = SCREEN_HEIGHT - MARGIN_BOTTOM - height - 25.0f;
+    UILabel *power = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 + 10.0f, y, SCREEN_WIDTH / 2 - 20.0f, height)];
     power.text = NSLocalizedString(@"Remaining lives", @"Info screen");
     power.textAlignment = NSTextAlignmentRight;
     power.textColor = color;
@@ -99,13 +90,23 @@
     power.font = font;
     [self.view addSubview:power];
     
+    // Button to start or resume game
+    
+    self.playButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, PAGECONTROL_DOTS_Y - 70.0f, SCREEN_WIDTH, 60.0f)
+                                                   andImageName:nil
+                                                    andFontName:APP_MAIN_FONT
+                                                        andText:nil];
+    self.playButton.whiteBorder = NO;
+    self.playButton.textHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    //[self.playButton addTarget:self.delegate action:@selector(userPressedResumeOrNewGame:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.playButton];
+    
     // Main game explanation in the middle of the screen
-    int y = colorsTouch.frame.origin.y + colorsTouch.frame.size.height;
-    UILabel *main = [[UILabel alloc] initWithFrame:CGRectMake(30,
-                                                              y,
-                                                              self.view.frame.size.width - 60,
-                                                              self.availableHeightForMainText - y)];
-    main.text = NSLocalizedString(@"Touch the right circles before they turn black to achieve the highest score! Black circles indicate mistakes!", @"Info screen");
+    
+    y = MARGIN_TOP + (IS_WIDESCREEN ? 90.0f : 50.0f);
+    UILabel *main = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, y, SCREEN_WIDTH - 60.0f, 150.0f)];
+    main.text = NSLocalizedString(@"Touch the right circles before they turn black to achieve the highest score! "
+                                  "Black circles indicate mistakes!", @"Info screen");
     main.numberOfLines = 0;
     main.textAlignment = NSTextAlignmentCenter;
     main.textColor = [UIColor whiteColor];
@@ -114,46 +115,32 @@
     [self.view addSubview:main];
 }
 
-- (void)addImages
+- (void)addArrows
 {
-    float imageSize = 24.0f;
-    float horizontalMargin = 40.0f;
-    float verticalMargin = 6.0f;
+    float size = 24.0f;
+    float x = 40.0f;
+    float y = MARGIN_TOP + 6.0f;
     
     // Top left
-    UIImageView *tla = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW_TOP_LEFT]];
-    self.topLeftArrow = tla;
-    self.topLeftArrow.frame = CGRectMake(horizontalMargin,
-                                         verticalMargin,
-                                         imageSize,
-                                         imageSize);
+    self.topLeftArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW_TOP_LEFT]];
+    self.topLeftArrow.frame = CGRectMake(x, y, size, size);
     [self.view addSubview:self.topLeftArrow];
     
     // Top right
-    UIImageView *tra = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW_TOP_RIGHT]];
-    self.topRightArrow = tra;
-    self.topRightArrow.frame = CGRectMake(self.view.frame.size.width - horizontalMargin - imageSize,
-                                          verticalMargin,
-                                          imageSize,
-                                          imageSize);
+    self.topRightArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW_TOP_RIGHT]];
+    self.topRightArrow.frame = CGRectMake(SCREEN_WIDTH - x - size, y, size, size);
     [self.view addSubview:self.topRightArrow];
     
+    y = SCREEN_HEIGHT - MARGIN_BOTTOM - size - 6.0f;
+    
     // Bottom left
-    UIImageView *bla = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW_BOTTOM_LEFT]];
-    self.bottomLeftArrow = bla;
-    self.bottomLeftArrow.frame = CGRectMake(horizontalMargin,
-                                            self.view.frame.size.height - imageSize - verticalMargin,
-                                            imageSize,
-                                            imageSize);
+    self.bottomLeftArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW_BOTTOM_LEFT]];
+    self.bottomLeftArrow.frame = CGRectMake(x, y, size, size);
     [self.view addSubview:self.bottomLeftArrow];
     
     // Bottom right
-    UIImageView *bra = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW_BOTTOM_RIGHT]];
-    self.bottomRightArrow = bra;
-    self.bottomRightArrow.frame = CGRectMake(self.view.frame.size.width - horizontalMargin - imageSize,
-                                             self.view.frame.size.height - imageSize - verticalMargin,
-                                             imageSize,
-                                             imageSize);
+    self.bottomRightArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW_BOTTOM_RIGHT]];
+    self.bottomRightArrow.frame = CGRectMake(SCREEN_WIDTH - x - size, y, size, size);
     [self.view addSubview:self.bottomRightArrow];
 }
 
@@ -173,16 +160,6 @@
                          self.bottomRightArrow.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
                      }
                      completion:nil];    
-}
-
-#pragma mark -
-#pragma mark Memory management
-#pragma mark -
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    NSLog(@"AMGInfoController > didReceiveMemoryWarning");
 }
 
 @end

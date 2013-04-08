@@ -14,8 +14,8 @@
 #pragma mark Initialization
 #pragma mark -
 
-// Singleton
-static AMGGameCenterHelper *sharedHelper = nil;
+static AMGGameCenterHelper *sharedHelper = nil; // Singleton
+
 + (AMGGameCenterHelper *) sharedInstance
 {
     if (!sharedHelper) {

@@ -10,156 +10,140 @@
 
 @implementation AMGStatisticsController
 
-- (id)init
-{
-    return [self initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 0.0f)];
-}
+#pragma mark - Drawing view
 
-- (id)initWithFrame:(CGRect)viewFrame
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super init];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.view.frame = viewFrame;
+        [self setup];
     }
-    [self drawUserInterface];
     return self;
 }
 
-- (void)drawUserInterface
+- (void)setup
 {
     UIColor *color = [UIColor whiteColor];
     UIColor *backgroundColor = [UIColor clearColor];
-    UIFont *font = [UIFont fontWithName:APP_MAIN_FONT size:16.0f];
-    UIFont *mainFont = [UIFont fontWithName:APP_MAIN_FONT size:28.0f];
-    float viewWidth;
-    float viewHeight;
-    float viewHorizontalMargin;
-    float viewVerticalMargin;
+    UIFont *smallFont = [UIFont fontWithName:APP_MAIN_FONT size:16.0f];
+    UIFont *middleFont = [UIFont fontWithName:APP_MAIN_FONT size:22.0f];
+    UIFont *bigFont = [UIFont fontWithName:APP_MAIN_FONT size:28.0f];
     
-    viewWidth = 210;
-    viewHeight = 30;
-    viewHorizontalMargin = 30;
-    viewVerticalMargin = 40;
-    
+    float width = 210.0f;
+    float height = 30.0f;
+    float x = 30.0f;
+    float y = MARGIN_TOP + (IS_WIDESCREEN ? 80.0f : 40.0f);
+        
     // "Circles well touched"
-    UILabel *circlesTouchedWell = [[UILabel alloc] initWithFrame:CGRectMake(viewHorizontalMargin,
-                                                                            viewVerticalMargin,
-                                                                            viewWidth,
-                                                                            viewHeight)];
+    
+    UILabel *circlesTouchedWell = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
     circlesTouchedWell.text = NSLocalizedString(@"Circles touched correctly", @"Statistics screen");
     circlesTouchedWell.textColor = color;
     circlesTouchedWell.backgroundColor = backgroundColor;
-    circlesTouchedWell.font = font;
+    circlesTouchedWell.font = smallFont;
     [self.view addSubview:circlesTouchedWell];
     
     // Result for "Circles well touched"
-    UILabel *twr = [[UILabel alloc] initWithFrame:CGRectMake(viewHorizontalMargin + viewWidth,
-                                                             viewVerticalMargin,
-                                                             50,
-                                                             viewHeight)];
-    self.touchedWellResult = twr;
+    
+    self.touchedWellResult = [[UILabel alloc] initWithFrame:CGRectMake(x + width, y, 50.0f, height)];
     self.touchedWellResult.textColor = color;
     self.touchedWellResult.backgroundColor = backgroundColor;
-    self.touchedWellResult.font = font;
+    self.touchedWellResult.font = smallFont;
     self.touchedWellResult.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:self.touchedWellResult];
 
     // "Circles well avoided"
-    viewVerticalMargin += viewHeight + 5;
-    UILabel *circlesAvoidedWell = [[UILabel alloc] initWithFrame:CGRectMake(viewHorizontalMargin,
-                                                                            viewVerticalMargin,
-                                                                            viewWidth,
-                                                                            viewHeight)];
+    
+    y += height + 5.0f;
+    
+    UILabel *circlesAvoidedWell = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
     circlesAvoidedWell.text = NSLocalizedString(@"Circles avoided correctly", @"Statistics screen");
     circlesAvoidedWell.textColor = color;
     circlesAvoidedWell.backgroundColor = backgroundColor;
-    circlesAvoidedWell.font = font;
+    circlesAvoidedWell.font = smallFont;
     [self.view addSubview:circlesAvoidedWell];
     
     // Result for "Circles well avoided"
-    UILabel *awr = [[UILabel alloc] initWithFrame:CGRectMake(viewHorizontalMargin + viewWidth,
-                                                             viewVerticalMargin,
-                                                             50,
-                                                             viewHeight)];
-    self.avoidedWellResult = awr;
+    
+    self.avoidedWellResult = [[UILabel alloc] initWithFrame:CGRectMake(x + width, y, 50.0f, height)];
     self.avoidedWellResult.textColor = color;
     self.avoidedWellResult.backgroundColor = backgroundColor;
-    self.avoidedWellResult.font = font;
+    self.avoidedWellResult.font = smallFont;
     self.avoidedWellResult.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:self.avoidedWellResult];
     
 
     // "Circles badly touched"
-    viewVerticalMargin += viewHeight + 5;
-    UILabel *circlesTouchedBadly = [[UILabel alloc] initWithFrame:CGRectMake(viewHorizontalMargin,
-                                                                             viewVerticalMargin,
-                                                                             viewWidth,
-                                                                             viewHeight)];
+    
+    y += height + 5.0f;
+    
+    UILabel *circlesTouchedBadly = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
     circlesTouchedBadly.text = NSLocalizedString(@"Circles touched incorrectly", @"Statistics screen");
     circlesTouchedBadly.textColor = color;
     circlesTouchedBadly.backgroundColor = backgroundColor;
-    circlesTouchedBadly.font = font;
+    circlesTouchedBadly.font = smallFont;
     [self.view addSubview:circlesTouchedBadly];
     
     // Result for "Circles badly touched"
-    UILabel *tbr = [[UILabel alloc] initWithFrame:CGRectMake(viewHorizontalMargin + viewWidth,
-                                                             viewVerticalMargin,
-                                                             50,
-                                                             viewHeight)];
-    self.touchedBadlyResult = tbr;
+    
+    self.touchedBadlyResult = [[UILabel alloc] initWithFrame:CGRectMake(x + width, y, 50.0f, height)];
     self.touchedBadlyResult.textColor = color;
     self.touchedBadlyResult.backgroundColor = backgroundColor;
-    self.touchedBadlyResult.font = font;
+    self.touchedBadlyResult.font = smallFont;
     self.touchedBadlyResult.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:self.touchedBadlyResult];
     
     // "Circles badly avoided"
-    viewVerticalMargin += viewHeight + 5;
-    UILabel *circlesAvoidedBadly = [[UILabel alloc] initWithFrame:CGRectMake(viewHorizontalMargin,
-                                                                             viewVerticalMargin,
-                                                                             viewWidth,
-                                                                             viewHeight)];
+    
+    y += height + 5.0f;
+    
+    UILabel *circlesAvoidedBadly = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
     circlesAvoidedBadly.text = NSLocalizedString(@"Circles avoided incorrectly", @"Statistics screen");
     circlesAvoidedBadly.textColor = color;
     circlesAvoidedBadly.backgroundColor = backgroundColor;
-    circlesAvoidedBadly.font = font;
+    circlesAvoidedBadly.font = smallFont;
     [self.view addSubview:circlesAvoidedBadly];
     
     // Result for "Circles badly avoided"
-    UILabel *abr = [[UILabel alloc] initWithFrame:CGRectMake(viewHorizontalMargin + viewWidth,
-                                                             viewVerticalMargin,
-                                                             50,
-                                                             viewHeight)];
-    self.avoidedBadlyResult = abr;
+    
+    self.avoidedBadlyResult = [[UILabel alloc] initWithFrame:CGRectMake(x + width, y, 50.0f, height)];
     self.avoidedBadlyResult.textColor = color;
     self.avoidedBadlyResult.backgroundColor = backgroundColor;
-    self.avoidedBadlyResult.font = font;
+    self.avoidedBadlyResult.font = smallFont;
     self.avoidedBadlyResult.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:self.avoidedBadlyResult];
     
-    // "Game over / paused"
-    viewHeight = 50;
-    viewVerticalMargin = 20;
-    UILabel *gs = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                            self.view.frame.size.height - viewHeight - viewVerticalMargin,
-                                                            self.view.frame.size.width,
-                                                            viewHeight)];
-    self.gameStatus = gs;
+    // "Game over / Game paused / Start a new game!"
+    
+    y = PAGECONTROL_DOTS_Y - (IS_WIDESCREEN ? 100.0f : 70.0f);
+    
+    self.gameStatus = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, SCREEN_WIDTH, 50.0f)];
     self.gameStatus.textColor = color;
     self.gameStatus.backgroundColor = backgroundColor;
-    self.gameStatus.font = mainFont;
+    self.gameStatus.font = bigFont;
     self.gameStatus.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.gameStatus];
-}
-
-#pragma mark -
-#pragma mark Memory management
-#pragma mark -
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    NSLog(@"AMGStatisticsController > didReceiveMemoryWarning");
+    
+    // "Best score"
+    
+    y = PAGECONTROL_DOTS_Y + 45.0f;
+    
+    UILabel *bestScore = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
+    bestScore.text = NSLocalizedString(@"Your best score", @"Statistics screen");
+    bestScore.textColor = color;
+    bestScore.backgroundColor = backgroundColor;
+    bestScore.font = middleFont;
+    [self.view addSubview:bestScore];
+    
+    // Result for "Best score ever"
+    
+    UILabel *bestScoreResult = [[UILabel alloc] initWithFrame:CGRectMake(x + width, y, 50.0f, height)];
+    bestScoreResult.text = @"9990"; // TEMP************************************************************************************************
+    bestScoreResult.textColor = color;
+    bestScoreResult.backgroundColor = backgroundColor;
+    bestScoreResult.font = middleFont;
+    bestScoreResult.textAlignment = NSTextAlignmentRight;
+    [self.view addSubview:bestScoreResult];
 }
 
 @end

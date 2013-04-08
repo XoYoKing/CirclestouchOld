@@ -19,8 +19,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.colorsToTouch = colorsToTouch;
-        self.colorsToAvoid = colorsToAvoid;
+        _colorsToTouch = colorsToTouch;
+        _colorsToAvoid = colorsToAvoid;
     }
     return self;
 }

@@ -9,12 +9,18 @@
 //
 // App constants
 //
-#define APP_NAME @"Circlestouch"
-#define APP_ID_IN_APP_STORE @""
-#define APP_VERSION @"1.0"
+#define APP_NAME      @"Circlestouch"
+#define APP_VERSION   @"1.0"
 #define APP_COPYRIGHT @"2013 Albert Mata"
-#define APP_TWITTER @"almata"
 #define APP_MAIN_FONT @"Heiti SC"
+#define APP_EMAIL     @"hello@albertmata.net"
+#define APP_WEB_URL   @"http://www.circlestouch.com"
+#define APP_RATE_URL  @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=623927812"
+
+//
+// Macros
+//
+#define IS_WIDESCREEN (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
 
 //
 // Possible game status
@@ -54,8 +60,9 @@ typedef enum {
 //
 // Screen's top & bottom areas
 //
-#define MARGIN_TOP 50
-#define MARGIN_BOTTOM 58
+#define MARGIN_TOP         50
+#define MARGIN_BOTTOM      58
+#define PAGECONTROL_DOTS_Y (SCREEN_HEIGHT - MARGIN_BOTTOM - 100)
 
 //
 // Minicircles at the top area
@@ -94,17 +101,5 @@ typedef enum {
 #define IMG_ARROW_TOP_RIGHT @"top_right"
 #define IMG_ARROW_BOTTOM_LEFT @"bottom_left"
 #define IMG_ARROW_BOTTOM_RIGHT @"bottom_right"
-#define IMG_SOUND_ON @"sound_on"
-#define IMG_SOUND_OFF @"sound_off"
-#define IMG_TWITTER @"twitter"
-#define IMG_RATE @"rate" 
 
-//
-// Things to keep in mind
-// -------------------------------------------------------------------------------------------------
-//
-// 1. To make the icons brighter, in Pixelmator add 25% of brightness.
-// 2. Post about GameCenter by Toni Sala:
-//    http://indiedevstories.com/2011/04/03/game-center-integration-leaderboards-and-achievements/
-// 3.
-//
+

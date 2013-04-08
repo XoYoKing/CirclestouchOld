@@ -7,69 +7,49 @@
 //
 
 #import "AMGPageControlController.h"
+#import "AMGInfoController.h"
+#import "AMGStatisticsController.h"
+#import "AMGAboutController.h"
 
 #define NUM_PAGES_IN_PAGECONTROL 3
 
+@interface AMGPageControlController()
+@property (nonatomic, strong) AMGInfoController *infoController;
+@property (nonatomic, strong) AMGStatisticsController *statisticsController;
+@property (nonatomic, strong) AMGAboutController *aboutController;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIPageControl * pageControl;
+@end
+
 @implementation AMGPageControlController
 
-- (id)init
-{
-    return [self initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 0.0f) andDelegate:nil andPageToShow:0];
-}
+#pragma mark - Drawing view
 
-- (id)initWithFrame:(CGRect)viewFrame andDelegate:(id<AMGGameDelegate>)delegate andPageToShow:(int)pageToShow
-{
-    self = [super init];
-    if (self) {
-        self.view.frame = viewFrame;
-        self.delegate = delegate;
-        self.pageToShow = pageToShow;
-    }
-    [self drawUserInterface];
-    return self;
-}
-
-- (void)drawUserInterface
+- (void)viewWillAppear:(BOOL)animated
 {
     self.view.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.1f alpha:1.0f];
     self.view.alpha = 0.75f;
+    
+    // The three UIViewControllers in UIScrollView
+    
+    self.infoController = [AMGInfoController new];
+    self.infoController.view.frame = CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    int pageControlOriginY = SCREEN_HEIGHT - MARGIN_BOTTOM - 100;
-    int playButtonOriginY = pageControlOriginY - 65;
+    self.statisticsController = [AMGStatisticsController new];
+    self.statisticsController.view.frame = CGRectMake(SCREEN_WIDTH, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
     
-    // The three UIViewControllers
-    self.infoController = [[AMGInfoController alloc]
-                           initWithFrame:CGRectMake(0,
-                                                    0,
-                                                    SCREEN_WIDTH,
-                                                    SCREEN_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM)
-                           andAvailableHeightForMainText:playButtonOriginY - MARGIN_TOP];
-
-    self.statisticsController = [[AMGStatisticsController alloc]
-                                 initWithFrame:CGRectMake(SCREEN_WIDTH,
-                                                          0,
-                                                          SCREEN_WIDTH,
-                                                           SCREEN_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM)];
-    [self setTextForCirclesResults];
-    [self setTextForGameStatusLabel];
+    self.aboutController = [AMGAboutController new];
+    self.aboutController.view.frame = CGRectMake(SCREEN_WIDTH * 2, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.aboutController.gameDelegate = self.delegate;
+    self.aboutController.emailDelegate = self;
     
-    self.aboutController = [[AMGAboutController alloc]
-                            initWithFrame: CGRectMake(SCREEN_WIDTH * 2,
-                                                      0,
-                                                      SCREEN_WIDTH,
-                                                      SCREEN_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM)
-                            andDelegate:self.delegate];
+    // The UIScrollView itself
     
-    UIScrollView *sv = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
-                                                                      MARGIN_TOP,
-                                                                      SCREEN_WIDTH,
-                                                                      SCREEN_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM)];
-    self.scrollView = sv;
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT)];
     self.scrollView.delegate = self;
     [self.view addSubview:self.scrollView];
     
-    CGSize scrollViewContentSize = CGSizeMake(SCREEN_WIDTH * NUM_PAGES_IN_PAGECONTROL,
-                                              SCREEN_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM);
+    CGSize scrollViewContentSize = CGSizeMake(SCREEN_WIDTH * NUM_PAGES_IN_PAGECONTROL, SCREEN_HEIGHT);
     [self.scrollView setContentSize:scrollViewContentSize];
     [self.scrollView addSubview:self.infoController.view];
     [self.scrollView addSubview:self.statisticsController.view];
@@ -77,34 +57,48 @@
     [self.scrollView setPagingEnabled:YES];
     self.scrollView.showsHorizontalScrollIndicator = NO;
     
-    // PageControl (the three dots)
-    int pageControlWidth = 100;
-    int pageControlHeight = 30;
-    UIPageControl *pc = [[UIPageControl alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - pageControlWidth / 2,
-                                                                        SCREEN_HEIGHT - MARGIN_BOTTOM - 100,
-                                                                        pageControlWidth,
-                                                                        pageControlHeight)];
-    self.pageControl = pc;
+    // The UIPageControl (the three dots)
+    
+    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - 100.0f / 2, PAGECONTROL_DOTS_Y, 100.0f, 30.0f)];
     self.pageControl.numberOfPages = NUM_PAGES_IN_PAGECONTROL;
     self.pageControl.currentPage = self.pageToShow;
     self.scrollView.contentOffset = CGPointMake(self.pageToShow * SCREEN_WIDTH, 0);
     self.pageControl.enabled = NO;
     [self.view addSubview:self.pageControl];
     
-    // Button to start or resume game
-    AMGBlackRectButton *pb = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0, playButtonOriginY, self.view.frame.size.width, 60)
-                                                          andImageName:nil
-                                                           andFontName:APP_MAIN_FONT
-                                                               andText:nil];
-    self.playButton = pb;
-    [self setTextForPlayButton];
-    self.playButton.whiteBorder = NO;
-    self.playButton.textHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [self.playButton addTarget:self.delegate action:@selector(userPressedResumeOrNewGame:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.playButton];
     
     [self drawTopAndBottomLines];
+    
+    
+    [self setTextForCirclesResults];
+    [self setTextForGameStatusLabel];
+    [self setTextForPlayButton];
 }
+
+- (void)drawTopAndBottomLines
+{
+    UIColor *color = [UIColor whiteColor];
+    float alpha = 0.7f;
+    
+    UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0.0f, MARGIN_TOP - 2.0f, SCREEN_WIDTH, 1.0f)];
+    top.backgroundColor = color;
+    top.alpha = alpha;
+    [self.view addSubview:top];
+    
+    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0.0f, SCREEN_HEIGHT - MARGIN_BOTTOM, SCREEN_WIDTH, 1.0f)];
+    bottom.backgroundColor = color;
+    bottom.alpha = alpha;
+    [self.view addSubview:bottom];
+}
+
+// D'AQUI CAP A SOTA NO REVISAT
+// D'AQUI CAP A SOTA NO REVISAT
+// D'AQUI CAP A SOTA NO REVISAT
+// D'AQUI CAP A SOTA NO REVISAT
+// D'AQUI CAP A SOTA NO REVISAT
+
+
+
 
 - (void)someStatisticHasChanged
 {
@@ -134,7 +128,7 @@
         case AMGGameStatusGameOver:
             self.statisticsController.gameStatus.text =
             [NSString stringWithFormat:NSLocalizedString(@"Final score: %i", @"Game status"), [self.delegate timePlaying]];
-            [[AMGGameCenterHelper sharedInstance] reportScore:[self.delegate timePlaying]];
+            //[[AMGGameCenterHelper sharedInstance] reportScore:[self.delegate timePlaying]];
             break;
         default:
             break;
@@ -144,35 +138,13 @@
 - (void)setTextForPlayButton
 {
     if ([self.delegate gameStatus] == AMGGameStatusGamePlaying || [self.delegate gameStatus] == AMGGameStatusGamePaused) {
-        self.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
+        //self.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
     } else {
-        self.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");
+        //self.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");
     }    
 }
 
-- (void)drawTopAndBottomLines
-{
-    UIColor *color = [UIColor whiteColor];
-    float alpha = 0.7f;
-    
-    // White thick line below colors panel
-    UIView *thickLineTop = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                    MARGIN_TOP - 2,
-                                                                    SCREEN_WIDTH,
-                                                                    1)];
-    thickLineTop.backgroundColor = color;
-    thickLineTop.alpha = alpha;
-    [self.view addSubview:thickLineTop];
-    
-    // White thick line above time and lives representation
-    UIView *thickLineBottom = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                       SCREEN_HEIGHT - MARGIN_BOTTOM,
-                                                                       SCREEN_WIDTH,
-                                                                       1)];
-    thickLineBottom.backgroundColor = color;
-    thickLineBottom.alpha = alpha;
-    [self.view addSubview:thickLineBottom];
-}
+
 
 - (void)animateArrowsInInfoController
 {
@@ -191,13 +163,18 @@
 }
 
 #pragma mark -
-#pragma mark Memory management
+#pragma mark MFMailComposeViewControllerDelegate
 #pragma mark -
 
-- (void)didReceiveMemoryWarning
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError*)error
 {
-    [super didReceiveMemoryWarning];
-    NSLog(@"AMGPageControlController > didReceiveMemoryWarning");
+    if (result == MFMailComposeResultSent) {
+        // The email couldn't be sent
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 @end

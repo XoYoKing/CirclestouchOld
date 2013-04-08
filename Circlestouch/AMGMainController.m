@@ -160,7 +160,7 @@ void SoundFinished (SystemSoundID snd, void* context)
     sender.alpha = 0.85f;
     
     // Delay execution of my block for VANISH_DURATION_WRONG_STEP1 seconds.
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, VANISH_DURATION_WRONG_STEP1 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, VANISH_DURATION_WRONG_STEP1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:VANISH_DURATION_WRONG_STEP2
                               delay:0.0f
                             options:UIViewAnimationOptionCurveEaseIn
@@ -194,9 +194,9 @@ void SoundFinished (SystemSoundID snd, void* context)
     int page = ([self gameStatus] == AMGGameStatusGamePlaying ||
                 [self gameStatus] == AMGGameStatusGamePaused ||
                 [self gameStatus] == AMGGameStatusGameOver) ? 1 : 0;
-    self.pageControlController = [[AMGPageControlController alloc] initWithFrame:[[UIScreen mainScreen] bounds]
-                                                                    andDelegate:self
-                                                                  andPageToShow:page];
+    self.pageControlController = [AMGPageControlController new];
+    self.pageControlController.delegate = self;
+    self.pageControlController.pageToShow = page;
     [self.view addSubview:self.pageControlController.view];
 }
 

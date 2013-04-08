@@ -7,28 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AMGGameCenterHelper.h"
+#import <MessageUI/MFMailComposeViewController.h>
 #import "AMGGameDelegate.h"
-#import "AMGInfoController.h"
-#import "AMGStatisticsController.h"
-#import "AMGAboutController.h"
-#import "AMGBlackRectButton.h"
 
-@interface AMGPageControlController : UIViewController <UIScrollViewDelegate>
+@interface AMGPageControlController : UIViewController <UIScrollViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, weak) id<AMGGameDelegate> delegate;
-
-@property (nonatomic, strong) AMGInfoController *infoController;
-@property (nonatomic, strong) AMGStatisticsController *statisticsController;
-@property (nonatomic, strong) AMGAboutController *aboutController;
-
-@property (nonatomic, weak) UIScrollView *scrollView;
-@property (nonatomic, weak) UIPageControl * pageControl;
-@property (nonatomic, weak) AMGBlackRectButton *playButton;
-
 @property (nonatomic) int pageToShow;
 
-- (id)initWithFrame:(CGRect)viewFrame andDelegate:(id<AMGGameDelegate>)delegate andPageToShow:(int)pageToShow;
 - (void)someStatisticHasChanged;
 - (void)animateArrowsInInfoController;
 

@@ -7,17 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMGBlackRectButton.h"
 
 @interface AMGInfoController : UIViewController
 
-@property (nonatomic, weak) UIImageView *topLeftArrow;
-@property (nonatomic, weak) UIImageView *topRightArrow;
-@property (nonatomic, weak) UIImageView *bottomLeftArrow;
-@property (nonatomic, weak) UIImageView *bottomRightArrow;
+@property (nonatomic, strong) AMGBlackRectButton *playButton;
 
-@property (nonatomic) int availableHeightForMainText;
-
-- (id)initWithFrame:(CGRect)viewFrame andAvailableHeightForMainText:(int)availableHeightForMainText;
 - (void)animateArrows;
 
 @end

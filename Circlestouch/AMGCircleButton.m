@@ -19,7 +19,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.color = color;
+        _color = color;
     }
     return self;
 }

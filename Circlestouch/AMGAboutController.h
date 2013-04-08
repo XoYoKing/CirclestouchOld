@@ -7,14 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MFMailComposeViewController.h>
 #import "AMGGameDelegate.h"
-#import "AMGBlackRectButton.h"
 
 @interface AMGAboutController : UIViewController
 
-@property (nonatomic, weak) AMGBlackRectButton *soundButton;
-@property (nonatomic, weak) id<AMGGameDelegate> delegate;
-
-- (id)initWithFrame:(CGRect)viewFrame andDelegate:(id<AMGGameDelegate>)delegate;
+@property (nonatomic, weak) id<AMGGameDelegate> gameDelegate;
+@property (nonatomic, weak) id<MFMailComposeViewControllerDelegate> emailDelegate;
 
 @end
