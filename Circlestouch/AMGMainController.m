@@ -14,15 +14,9 @@
 #import "AMGCircle.h"
 #import "AMGCircleButton.h"
 
-#define KEY_TIME_PLAYING @"timePlaying"
-#define KEY_LIVES_REMAINING @"livesRemaining"
-#define KEY_CIRCLES_TOUCHED_WELL @"circlesTouchedWell"
-#define KEY_CIRCLES_TOUCHED_BADLY @"circlesTouchedBadly"
-#define KEY_CIRCLES_AVOIDED_WELL @"circlesAvoidedWell"
-#define KEY_CIRCLES_AVOIDED_BADLY @"circlesAvoidedBadly"
-#define KEY_SOUND_ACTIVATED @"soundActivated"
-
 @implementation AMGMainController
+
+@synthesize soundActivated; // required as it's a property defined in a protocol
 
 - (void)viewDidLoad
 {
@@ -45,39 +39,28 @@
     [self.view addSubview:bottomBar];
     
     // Add view for colors to touch and avoid
-    AMGColorsPanel *cp = [[AMGColorsPanel alloc] initWithFrame:CGRectMake(0,
-                                                                        0,
-                                                                        SCREEN_WIDTH,
-                                                                        MARGIN_TOP)
+    self.colorsPanel = [[AMGColorsPanel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, MARGIN_TOP)
                                             andColorsToTouch:self.gameManager.colorsToTouch
                                             andColorsToAvoid:self.gameManager.colorsToAvoid];
-    self.colorsPanel = cp;
     self.colorsPanel.backgroundColor = [UIColor clearColor];
     self.colorsPanel.alpha = 0.8f;
     [self.view addSubview:self.colorsPanel];
 
     // Add timePlayingButton (10, 10, 90 and 40 are correct absolute values for position and size)
-    UIButton *tpb = [[UIButton alloc] initWithFrame:CGRectMake(10,
-                                                               SCREEN_HEIGHT - MARGIN_BOTTOM + 12,
-                                                               90,
-                                                               40)];
-    self.timePlayingButton = tpb;
+    self.timePlayingButton = [[UIButton alloc] initWithFrame:CGRectMake(10.0f, SCREEN_HEIGHT - MARGIN_BOTTOM + 12.0f, 90.0f, 40.0f)];
     [self.timePlayingButton setTitle:[NSString stringWithFormat:@"%i", self.gameManager.timePlaying] forState:UIControlStateNormal];
     [self.timePlayingButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     self.timePlayingButton.titleLabel.frame = self.timePlayingButton.frame;
     self.timePlayingButton.titleLabel.font = [UIFont fontWithName:APP_MAIN_FONT size:32.0];
     [self.timePlayingButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self.timePlayingButton addTarget:self action:@selector(showPageControl:) forControlEvents:UIControlEventTouchUpInside];
+    [self.timePlayingButton addTarget:self action:@selector(showPageControl) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.timePlayingButton];
     
     // Add livesRepresentation (10, 19, 14 and 23 are correct absolute values for position and size)
-    int x = 10 + self.timePlayingButton.frame.origin.x + self.timePlayingButton.frame.size.width;
-    AMGLivesRepresentation *lr = [[AMGLivesRepresentation alloc] initWithFrame:CGRectMake(x,
-                                                                                        SCREEN_HEIGHT - MARGIN_BOTTOM + 19,
-                                                                                        SCREEN_WIDTH - x - 14,
-                                                                                        23)
+    int x = 10.0f + self.timePlayingButton.frame.origin.x + self.timePlayingButton.frame.size.width;
+    self.livesRepresentation = [[AMGLivesRepresentation alloc] initWithFrame:CGRectMake(x, SCREEN_HEIGHT - MARGIN_BOTTOM + 19.0f,
+                                                                                        SCREEN_WIDTH - x - 14.0f, 23.0f)
                                                            andLivesRemaining:self.gameManager.livesRemaining];
-    self.livesRepresentation = lr;
     self.livesRepresentation.alpha = 0.9f;
     [self.view addSubview:self.livesRepresentation];
 }
@@ -181,7 +164,7 @@ void SoundFinished (SystemSoundID snd, void* context)
     });
 }
 
-- (void)showPageControl:(id)sender
+- (void)showPageControl
 {
     if (self.pageControlController) {
         [self.pageControlController animateArrowsInInfoController];
@@ -194,8 +177,7 @@ void SoundFinished (SystemSoundID snd, void* context)
     int page = ([self gameStatus] == AMGGameStatusGamePlaying ||
                 [self gameStatus] == AMGGameStatusGamePaused ||
                 [self gameStatus] == AMGGameStatusGameOver) ? 1 : 0;
-    self.pageControlController = [AMGPageControlController new];
-    self.pageControlController.delegate = self;
+    self.pageControlController = [[AMGPageControlController alloc] initWithDelegate:self];
     self.pageControlController.pageToShow = page;
     [self.view addSubview:self.pageControlController.view];
 }
@@ -485,8 +467,11 @@ void SoundFinished (SystemSoundID snd, void* context)
     if ([self gameStatus] == AMGGameStatusGameOver) {
         [self inactivateCircleCreationTimer];
         [self inactivateTimePlayingTimer];
+        if (self.gameManager.timePlaying > [[NSUserDefaults standardUserDefaults] integerForKey:KEY_BEST_SCORE]) {
+            [[NSUserDefaults standardUserDefaults] setInteger:self.gameManager.timePlaying forKey:KEY_BEST_SCORE];
+        }
         // Checking AMGPageControlController isn't shown, as game can finish while paused
-        if (!self.pageControlController) [self showPageControl:nil];
+        if (!self.pageControlController) [self showPageControl];
     }
 }
 
@@ -570,6 +555,7 @@ void SoundFinished (SystemSoundID snd, void* context)
     [userDefaults setInteger:self.gameManager.circlesAvoidedWell forKey:KEY_CIRCLES_AVOIDED_WELL];
     [userDefaults setInteger:self.gameManager.circlesAvoidedBadly forKey:KEY_CIRCLES_AVOIDED_BADLY];
     [userDefaults setBool:self.soundActivated forKey:KEY_SOUND_ACTIVATED];
+    [userDefaults synchronize];
 }
 
 - (void)loadGame
@@ -590,16 +576,6 @@ void SoundFinished (SystemSoundID snd, void* context)
     // View
     [self.timePlayingButton setTitle:[NSString stringWithFormat:@"%i", self.gameManager.timePlaying] forState:UIControlStateNormal];
     self.livesRepresentation.livesRemaining = self.gameManager.livesRemaining;
-}
-
-#pragma mark -
-#pragma mark Memory management
-#pragma mark -
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    NSLog(@"AMGMainController > didReceiveMemoryWarning");
 }
 
 @end

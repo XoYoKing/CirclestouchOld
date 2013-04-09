@@ -23,11 +23,11 @@
 
 @property (nonatomic, strong) AMGPageControlController *pageControlController;
 
-@property (nonatomic, weak) AMGColorsPanel *colorsPanel;
-@property (nonatomic, weak) AMGLivesRepresentation *livesRepresentation;
-@property (nonatomic, weak) UIButton *timePlayingButton;
+@property (nonatomic, strong) AMGColorsPanel *colorsPanel;
+@property (nonatomic, strong) AMGLivesRepresentation *livesRepresentation;
+@property (nonatomic, strong) UIButton *timePlayingButton;
 
-@property (nonatomic, getter=soundActivated, setter=setSoundActivated:) BOOL soundActivated;
+//@property (nonatomic, getter=soundActivated, setter=setSoundActivated:) BOOL soundActivated;
 
 @property (nonatomic) float lifeAcum;
 @property (nonatomic) int circlesAcum;
@@ -36,7 +36,7 @@
 - (void)inactivateTimePlayingTimer;
 - (void)inactivateColorsChangingTimer;
 - (void)inactivateCircleCreationTimer;
-- (void)showPageControl:(id)sender;
+- (void)showPageControl;
 - (void)saveGame;
 - (void)loadGame;
 

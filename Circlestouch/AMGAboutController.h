@@ -12,7 +12,8 @@
 
 @interface AMGAboutController : UIViewController
 
-@property (nonatomic, weak) id<AMGGameDelegate> gameDelegate;
 @property (nonatomic, weak) id<MFMailComposeViewControllerDelegate> emailDelegate;
+
+- (id)initWithGameDelegate:(id<AMGGameDelegate>)gameDelegate;
 
 @end

@@ -14,6 +14,7 @@
 #define TURN_SOUND_OFF NSLocalizedString(@"Turn sound off", @"Settings screen")
 
 @interface AMGAboutController()
+@property (nonatomic, weak) id<AMGGameDelegate> gameDelegate;
 @property (nonatomic, strong) AMGBlackRectButton *soundButton;
 @end
 
@@ -21,10 +22,11 @@
 
 #pragma mark - Drawing view
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithGameDelegate:(id<AMGGameDelegate>)gameDelegate
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
+        _gameDelegate = gameDelegate;
         [self setup];
     }
     return self;
@@ -117,14 +119,14 @@
 
 - (void)changeSound
 {
-    if ([self.gameDelegate soundActivated]) {
+    if (self.gameDelegate.soundActivated) {
         self.soundButton.imageName = @"sound_off";
         self.soundButton.text = TURN_SOUND_ON;
-        [self.gameDelegate setSoundActivated:NO];
+        self.gameDelegate.soundActivated = NO;
     } else {
         self.soundButton.imageName = @"sound_on";
         self.soundButton.text = TURN_SOUND_OFF;
-        [self.gameDelegate setSoundActivated:YES];
+        self.gameDelegate.soundActivated = YES;
     }
 }
 

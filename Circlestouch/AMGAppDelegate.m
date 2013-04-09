@@ -62,7 +62,7 @@
     // NSLog(@"AMGAppDelegate > applicationDidBecomeActive:");
     [self.viewController activateColorsChangingTimer];
     [self.viewController loadGame];
-    [self.viewController showPageControl:nil];
+    [self.viewController showPageControl];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -10,6 +10,8 @@
 
 @protocol AMGGameDelegate <NSObject>
 
+@property (nonatomic) BOOL soundActivated;
+
 - (void)userPressedResumeOrNewGame:(id)sender;
 - (int)circlesTouchedWell;
 - (int)circlesTouchedBadly;
@@ -18,7 +20,5 @@
 - (int)timePlaying;
 - (int)livesRemaining;
 - (AMGGameStatus)gameStatus;
-- (BOOL)soundActivated;
-- (void)setSoundActivated:(BOOL)soundActivated;
 
 @end

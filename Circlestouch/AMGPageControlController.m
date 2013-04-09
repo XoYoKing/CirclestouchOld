@@ -14,6 +14,7 @@
 #define NUM_PAGES_IN_PAGECONTROL 3
 
 @interface AMGPageControlController()
+@property (nonatomic, weak) id<AMGGameDelegate> delegate;
 @property (nonatomic, strong) AMGInfoController *infoController;
 @property (nonatomic, strong) AMGStatisticsController *statisticsController;
 @property (nonatomic, strong) AMGAboutController *aboutController;
@@ -25,7 +26,17 @@
 
 #pragma mark - Drawing view
 
-- (void)viewWillAppear:(BOOL)animated
+- (id)initWithDelegate:(id<AMGGameDelegate>)delegate
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        _delegate = delegate;
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup
 {
     self.view.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.1f alpha:1.0f];
     self.view.alpha = 0.75f;
@@ -34,13 +45,14 @@
     
     self.infoController = [AMGInfoController new];
     self.infoController.view.frame = CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.infoController.gameDelegate = self.delegate;
 
     self.statisticsController = [AMGStatisticsController new];
     self.statisticsController.view.frame = CGRectMake(SCREEN_WIDTH, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.statisticsController.gameDelegate = self.delegate;
     
-    self.aboutController = [AMGAboutController new];
+    self.aboutController = [[AMGAboutController alloc] initWithGameDelegate:self.delegate];
     self.aboutController.view.frame = CGRectMake(SCREEN_WIDTH * 2, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
-    self.aboutController.gameDelegate = self.delegate;
     self.aboutController.emailDelegate = self;
     
     // The UIScrollView itself
@@ -91,28 +103,16 @@
     [self.view addSubview:bottom];
 }
 
-// D'AQUI CAP A SOTA NO REVISAT
-// D'AQUI CAP A SOTA NO REVISAT
-// D'AQUI CAP A SOTA NO REVISAT
-// D'AQUI CAP A SOTA NO REVISAT
-// D'AQUI CAP A SOTA NO REVISAT
-
-
-
-
-- (void)someStatisticHasChanged
+- (void)setTextForPlayButton
 {
-    [self setTextForCirclesResults];
-    [self setTextForGameStatusLabel];
-    [self setTextForPlayButton];
-}
-
-- (void)setTextForCirclesResults
-{
-    self.statisticsController.touchedWellResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesTouchedWell]];
-    self.statisticsController.avoidedWellResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesAvoidedWell]];
-    self.statisticsController.touchedBadlyResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesTouchedBadly]];
-    self.statisticsController.avoidedBadlyResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesAvoidedBadly]];
+    if ([self.delegate gameStatus] == AMGGameStatusGamePlaying || [self.delegate gameStatus] == AMGGameStatusGamePaused) {
+        self.infoController.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
+        self.statisticsController.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
+    } else {
+        self.infoController.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");        
+        self.statisticsController.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");
+        [self.statisticsController hidePlayButtonForSomeSeconds];
+    }
 }
 
 - (void)setTextForGameStatusLabel
@@ -127,7 +127,7 @@
             break;
         case AMGGameStatusGameOver:
             self.statisticsController.gameStatus.text =
-            [NSString stringWithFormat:NSLocalizedString(@"Final score: %i", @"Game status"), [self.delegate timePlaying]];
+            [NSString stringWithFormat:NSLocalizedString(@"Final score: %i", @"Statistics screen"), [self.delegate timePlaying]];
             //[[AMGGameCenterHelper sharedInstance] reportScore:[self.delegate timePlaying]];
             break;
         default:
@@ -135,16 +135,31 @@
     }
 }
 
-- (void)setTextForPlayButton
+- (void)setTextForCirclesResults
 {
-    if ([self.delegate gameStatus] == AMGGameStatusGamePlaying || [self.delegate gameStatus] == AMGGameStatusGamePaused) {
-        //self.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
-    } else {
-        //self.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");
-    }    
+    self.statisticsController.touchedWellResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesTouchedWell]];
+    self.statisticsController.avoidedWellResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesAvoidedWell]];
+    self.statisticsController.touchedBadlyResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesTouchedBadly]];
+    self.statisticsController.avoidedBadlyResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesAvoidedBadly]];
 }
 
+#pragma mark - Accessors
 
+- (void)setPageToShow:(int)pageToShow
+{
+    _pageToShow = pageToShow;
+    self.pageControl.currentPage = pageToShow;
+    self.scrollView.contentOffset = CGPointMake(pageToShow * SCREEN_WIDTH, 0);
+}
+
+#pragma mark - Public methods
+
+- (void)someStatisticHasChanged
+{
+    [self setTextForCirclesResults];
+    [self setTextForGameStatusLabel];
+    [self setTextForPlayButton];
+}
 
 - (void)animateArrowsInInfoController
 {
@@ -175,6 +190,5 @@
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 @end

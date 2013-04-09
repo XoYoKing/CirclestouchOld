@@ -12,8 +12,9 @@
 
 @interface AMGPageControlController : UIViewController <UIScrollViewDelegate, MFMailComposeViewControllerDelegate>
 
-@property (nonatomic, weak) id<AMGGameDelegate> delegate;
 @property (nonatomic) int pageToShow;
+
+- (id)initWithDelegate:(id<AMGGameDelegate>)delegate;
 
 - (void)someStatisticHasChanged;
 - (void)animateArrowsInInfoController;

@@ -64,7 +64,7 @@
         _imageName = [imageName copy];
         _text = [text copy];
         
-        self.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:1.0f];
+        self.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.1f alpha:1.0f];
         self.titleLabel.font = [UIFont fontWithName:fontName size:FONT_SIZE];
         
         [self setupImage:imageName];

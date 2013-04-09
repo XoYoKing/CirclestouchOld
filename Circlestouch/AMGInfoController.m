@@ -92,21 +92,19 @@
     
     // Button to start or resume game
     
-    self.playButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, PAGECONTROL_DOTS_Y - 70.0f, SCREEN_WIDTH, 60.0f)
+    self.playButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(20.0f, PAGECONTROL_DOTS_Y - 70.0f, SCREEN_WIDTH - 40.0f, 60.0f)
                                                    andImageName:nil
                                                     andFontName:APP_MAIN_FONT
                                                         andText:nil];
-    self.playButton.whiteBorder = NO;
     self.playButton.textHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    //[self.playButton addTarget:self.delegate action:@selector(userPressedResumeOrNewGame:) forControlEvents:UIControlEventTouchUpInside];
+    [self.playButton addTarget:self.gameDelegate action:@selector(userPressedResumeOrNewGame:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.playButton];
     
     // Main game explanation in the middle of the screen
     
     y = MARGIN_TOP + (IS_WIDESCREEN ? 90.0f : 50.0f);
     UILabel *main = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, y, SCREEN_WIDTH - 60.0f, 150.0f)];
-    main.text = NSLocalizedString(@"Touch the right circles before they turn black to achieve the highest score! "
-                                  "Black circles indicate mistakes!", @"Info screen");
+    main.text = NSLocalizedString(@"Long explanation", @"Info screen");
     main.numberOfLines = 0;
     main.textAlignment = NSTextAlignmentCenter;
     main.textColor = [UIColor whiteColor];

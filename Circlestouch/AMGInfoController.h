@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMGGameDelegate.h"
 #import "AMGBlackRectButton.h"
 
 @interface AMGInfoController : UIViewController
 
+@property (nonatomic, weak) id<AMGGameDelegate> gameDelegate;
 @property (nonatomic, strong) AMGBlackRectButton *playButton;
 
 - (void)animateArrows;

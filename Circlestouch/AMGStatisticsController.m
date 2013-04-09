@@ -26,13 +26,12 @@
     UIColor *color = [UIColor whiteColor];
     UIColor *backgroundColor = [UIColor clearColor];
     UIFont *smallFont = [UIFont fontWithName:APP_MAIN_FONT size:16.0f];
-    UIFont *middleFont = [UIFont fontWithName:APP_MAIN_FONT size:22.0f];
     UIFont *bigFont = [UIFont fontWithName:APP_MAIN_FONT size:28.0f];
     
     float width = 210.0f;
     float height = 30.0f;
     float x = 30.0f;
-    float y = MARGIN_TOP + (IS_WIDESCREEN ? 80.0f : 40.0f);
+    float y = MARGIN_TOP + (IS_WIDESCREEN ? 60.0f : 20.0f);
         
     // "Circles well touched"
     
@@ -113,9 +112,40 @@
     self.avoidedBadlyResult.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:self.avoidedBadlyResult];
     
+    // "Best score"
+    
+    y += height + 5.0f;
+    
+    UILabel *bestScore = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
+    bestScore.text = NSLocalizedString(@"Your best score", @"Statistics screen");
+    bestScore.textColor = color;
+    bestScore.backgroundColor = backgroundColor;
+    bestScore.font = smallFont;
+    [self.view addSubview:bestScore];
+    
+    // Result for "Best score ever"
+    
+    UILabel *bestScoreResult = [[UILabel alloc] initWithFrame:CGRectMake(x + width, y, 50.0f, height)];
+    bestScoreResult.text = [NSString stringWithFormat:@"%i", [[NSUserDefaults standardUserDefaults] integerForKey:KEY_BEST_SCORE]];
+    bestScoreResult.textColor = color;
+    bestScoreResult.backgroundColor = backgroundColor;
+    bestScoreResult.font = smallFont;
+    bestScoreResult.textAlignment = NSTextAlignmentRight;
+    [self.view addSubview:bestScoreResult];
+    
+    // Button to start or resume game
+    
+    self.playButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(20.0f, PAGECONTROL_DOTS_Y - 70.0f, SCREEN_WIDTH - 40.0f, 60.0f)
+                                                   andImageName:nil
+                                                    andFontName:APP_MAIN_FONT
+                                                        andText:nil];
+    self.playButton.textHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [self.playButton addTarget:self.gameDelegate action:@selector(userPressedResumeOrNewGame:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.playButton];
+    
     // "Game over / Game paused / Start a new game!"
     
-    y = PAGECONTROL_DOTS_Y - (IS_WIDESCREEN ? 100.0f : 70.0f);
+    y = PAGECONTROL_DOTS_Y + 30.0f;
     
     self.gameStatus = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, SCREEN_WIDTH, 50.0f)];
     self.gameStatus.textColor = color;
@@ -123,27 +153,17 @@
     self.gameStatus.font = bigFont;
     self.gameStatus.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.gameStatus];
-    
-    // "Best score"
-    
-    y = PAGECONTROL_DOTS_Y + 45.0f;
-    
-    UILabel *bestScore = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
-    bestScore.text = NSLocalizedString(@"Your best score", @"Statistics screen");
-    bestScore.textColor = color;
-    bestScore.backgroundColor = backgroundColor;
-    bestScore.font = middleFont;
-    [self.view addSubview:bestScore];
-    
-    // Result for "Best score ever"
-    
-    UILabel *bestScoreResult = [[UILabel alloc] initWithFrame:CGRectMake(x + width, y, 50.0f, height)];
-    bestScoreResult.text = @"9990"; // TEMP************************************************************************************************
-    bestScoreResult.textColor = color;
-    bestScoreResult.backgroundColor = backgroundColor;
-    bestScoreResult.font = middleFont;
-    bestScoreResult.textAlignment = NSTextAlignmentRight;
-    [self.view addSubview:bestScoreResult];
+}
+
+- (void)hidePlayButtonForSomeSeconds
+{
+    self.playButton.alpha = 0.0f;
+    [UIView animateWithDuration:2.0f delay:3.0f
+                        options:nil
+                     animations:^() {
+                        self.playButton.alpha = 1.0f;
+                     }
+                     completion:nil];
 }
 
 @end
