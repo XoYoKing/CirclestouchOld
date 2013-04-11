@@ -15,7 +15,7 @@
 #define APP_MAIN_FONT @"Heiti SC"
 #define APP_EMAIL     @"hello@albertmata.net"
 #define APP_WEB_URL   @"http://www.circlestouch.com"
-#define APP_RATE_URL  @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=623927812"
+#define APP_RATE_URL  @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=631303202"
 
 //
 // Macros
@@ -96,22 +96,15 @@ typedef enum {
 //
 // Time intervals
 //
-#define CHANGE_COLORS_INTERVAL 20.0f
-#define UPDATE_SCORE_INTERVAL  1
+#define CHANGE_COLORS_INTERVAL              22.0f
+#define UPDATE_SCORE_INTERVAL               1
 // Difference between MAX and MIN must be at least 0.5f
-#define MAX_CIRCLE_CREATION_INTERVAL 1.3f
-#define MIN_CIRCLE_CREATION_INTERVAL 0.2f
+#define MAX_CIRCLE_CREATION_INTERVAL        1.3f
+#define MIN_CIRCLE_CREATION_INTERVAL        0.2f
 // Difference between MAX and MIN must be at least 1.1f
-#define MAX_CIRCLE_LIFE 2.8f
-#define MIN_CIRCLE_LIFE 1.2f
+#define MAX_CIRCLE_LIFE                     3.2f
+#define MIN_CIRCLE_LIFE                     1.5f
 #define DECREASE_MAX_AND_MIN_INTERVAL_EVERY 10
 
-//
-// Images
-//
-#define IMG_ARROW_TOP_LEFT     @"top_left"
-#define IMG_ARROW_TOP_RIGHT    @"top_right"
-#define IMG_ARROW_BOTTOM_LEFT  @"bottom_left"
-#define IMG_ARROW_BOTTOM_RIGHT @"bottom_right"
 
 

@@ -8,6 +8,11 @@
 
 #import "AMGInfoController.h"
 
+#define IMG_ARROW_TOP_LEFT     @"top_left"
+#define IMG_ARROW_TOP_RIGHT    @"top_right"
+#define IMG_ARROW_BOTTOM_LEFT  @"bottom_left"
+#define IMG_ARROW_BOTTOM_RIGHT @"bottom_right"
+
 @interface AMGInfoController()
 @property (nonatomic, strong) UIImageView *topLeftArrow;
 @property (nonatomic, strong) UIImageView *topRightArrow;

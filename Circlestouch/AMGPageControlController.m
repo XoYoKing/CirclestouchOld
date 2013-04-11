@@ -73,18 +73,12 @@
     
     self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - 100.0f / 2, PAGECONTROL_DOTS_Y, 100.0f, 30.0f)];
     self.pageControl.numberOfPages = NUM_PAGES_IN_PAGECONTROL;
-    self.pageControl.currentPage = self.pageToShow;
-    self.scrollView.contentOffset = CGPointMake(self.pageToShow * SCREEN_WIDTH, 0);
     self.pageControl.enabled = NO;
     [self.view addSubview:self.pageControl];
     
     
     [self drawTopAndBottomLines];
-    
-    
     [self setTextForCirclesResults];
-    [self setTextForGameStatusLabel];
-    [self setTextForPlayButton];
 }
 
 - (void)drawTopAndBottomLines
@@ -105,13 +99,17 @@
 
 - (void)setTextForPlayButton
 {
-    if ([self.delegate gameStatus] == AMGGameStatusGamePlaying || [self.delegate gameStatus] == AMGGameStatusGamePaused) {
-        self.infoController.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
-        self.statisticsController.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
-    } else {
-        self.infoController.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");        
-        self.statisticsController.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");
-        [self.statisticsController hidePlayButtonForSomeSeconds];
+    switch ([self.delegate gameStatus]) {
+        case AMGGameStatusGamePlaying:
+        case AMGGameStatusGamePaused:
+            self.infoController.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
+            self.statisticsController.playButton.text = NSLocalizedString(@"RESUME GAME", @"Play button");
+            break;
+        default:
+            self.infoController.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");
+            self.statisticsController.playButton.text = NSLocalizedString(@"NEW GAME", @"Play button");
+            [self.statisticsController hidePlayButtonForSomeSeconds];            
+            break;
     }
 }
 
@@ -135,21 +133,20 @@
     }
 }
 
+- (void)setPageToShow
+{
+    AMGGameStatus status = [self.delegate gameStatus];
+    int page = (status == AMGGameStatusGamePlaying || status == AMGGameStatusGamePaused || status == AMGGameStatusGameOver) ? 1 : 0;
+    self.pageControl.currentPage = page;
+    self.scrollView.contentOffset = CGPointMake(page * SCREEN_WIDTH, 0);
+}
+
 - (void)setTextForCirclesResults
 {
     self.statisticsController.touchedWellResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesTouchedWell]];
     self.statisticsController.avoidedWellResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesAvoidedWell]];
     self.statisticsController.touchedBadlyResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesTouchedBadly]];
     self.statisticsController.avoidedBadlyResult.text = [NSString stringWithFormat:@"%i",[self.delegate circlesAvoidedBadly]];
-}
-
-#pragma mark - Accessors
-
-- (void)setPageToShow:(int)pageToShow
-{
-    _pageToShow = pageToShow;
-    self.pageControl.currentPage = pageToShow;
-    self.scrollView.contentOffset = CGPointMake(pageToShow * SCREEN_WIDTH, 0);
 }
 
 #pragma mark - Public methods

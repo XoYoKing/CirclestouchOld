@@ -158,7 +158,7 @@
 - (void)hidePlayButtonForSomeSeconds
 {
     self.playButton.alpha = 0.0f;
-    [UIView animateWithDuration:2.0f delay:3.0f
+    [UIView animateWithDuration:1.5f delay:2.5f
                         options:nil
                      animations:^() {
                         self.playButton.alpha = 1.0f;

@@ -12,11 +12,12 @@
 
 @interface AMGPageControlController : UIViewController <UIScrollViewDelegate, MFMailComposeViewControllerDelegate>
 
-@property (nonatomic) int pageToShow;
-
 - (id)initWithDelegate:(id<AMGGameDelegate>)delegate;
 
 - (void)someStatisticHasChanged;
 - (void)animateArrowsInInfoController;
+- (void)setTextForPlayButton;
+- (void)setTextForGameStatusLabel;
+- (void)setPageToShow;
 
 @end

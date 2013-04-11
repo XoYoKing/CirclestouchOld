@@ -173,12 +173,11 @@ void SoundFinished (SystemSoundID snd, void* context)
     
     [self inactivateTimePlayingTimer];
     [self inactivateCircleCreationTimer];
-    
-    int page = ([self gameStatus] == AMGGameStatusGamePlaying ||
-                [self gameStatus] == AMGGameStatusGamePaused ||
-                [self gameStatus] == AMGGameStatusGameOver) ? 1 : 0;
+
     self.pageControlController = [[AMGPageControlController alloc] initWithDelegate:self];
-    self.pageControlController.pageToShow = page;
+    [self.pageControlController setTextForPlayButton];
+    [self.pageControlController setTextForGameStatusLabel];
+    [self.pageControlController setPageToShow];
     [self.view addSubview:self.pageControlController.view];
 }
 
@@ -297,7 +296,6 @@ void SoundFinished (SystemSoundID snd, void* context)
     int min = 10.0f * MAX(MIN_CIRCLE_CREATION_INTERVAL + 0.4f - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_CREATION_INTERVAL);
     int max = 10.0f * MAX(MAX_CIRCLE_CREATION_INTERVAL - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_CREATION_INTERVAL + 0.3f);
     float temp = (min + (arc4random() % (max - min))) / 10.0f;
-    // NSLog(@"nextIntervalForCircleCreation > time = %i - min = %i - max = %i - val = %.1f", self.gameManager.timePlaying, min, max, temp);
     return temp;
 }
 
@@ -306,7 +304,6 @@ void SoundFinished (SystemSoundID snd, void* context)
     int min = 10.0f * MAX(MIN_CIRCLE_LIFE + 1.0f - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_LIFE);
     int max = 10.0f * MAX(MAX_CIRCLE_LIFE - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_LIFE + 0.5f); 
     float temp = (min + (arc4random() % (max - min))) / 10.0f;
-    // NSLog(@"nextCircleLife > time = %i - min = %i - max = %i - val = %.1f", self.gameManager.timePlaying, min, max, temp);
     return temp;
 }
 
@@ -419,14 +416,14 @@ void SoundFinished (SystemSoundID snd, void* context)
 {
     if (!self.pageControlController && self.gameManager.livesRemaining > 0)
         return AMGGameStatusGamePlaying;
-            
+    
     if (self.gameManager.livesRemaining > 0 &&
         self.gameManager.timePlaying == 0 &&
         self.gameManager.circlesAvoidedBadly == 0 &&
         self.gameManager.circlesAvoidedWell == 0 &&
         self.gameManager.circlesTouchedBadly == 0 &&
         self.gameManager.circlesTouchedWell == 0)
-            return AMGGameStatusBeforeFirstGame;
+        return AMGGameStatusBeforeFirstGame;
     
     if (self.gameManager.livesRemaining > 0)
         return AMGGameStatusGamePaused;
