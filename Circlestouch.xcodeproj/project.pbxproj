@@ -39,9 +39,9 @@
 		40668698166C9E110039FB98 /* AMGMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40668697166C9E110039FB98 /* AMGMainController.m */; };
 		406686A3166C9F670039FB98 /* AMGCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 406686A2166C9F670039FB98 /* AMGCircleButton.m */; };
 		409231881678F75800D17A2A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4092318A1678F75800D17A2A /* Localizable.strings */; };
+		4098B850171DC03A0064E895 /* libAMGUIControls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4098B84F171DC00F0064E895 /* libAMGUIControls.a */; };
 		40A3264016750FB500C18B0F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A3263F16750FB500C18B0F /* AudioToolbox.framework */; };
 		40A3265016751C2600C18B0F /* changing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 40A3264F16751C2600C18B0F /* changing.wav */; };
-		40A3EF791710476E00DB8A85 /* AMGBlackRectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A3EF781710476E00DB8A85 /* AMGBlackRectButton.m */; };
 		40A3EF7B17109CCB00DB8A85 /* Icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A3EF7A17109CCB00DB8A85 /* Icon-57.png */; };
 		40A3EF7D17109CD100DB8A85 /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A3EF7C17109CD100DB8A85 /* Icon-114.png */; };
 		40DBD6E2167781AD008F019D /* wrong.aif in Resources */ = {isa = PBXBuildFile; fileRef = 40DBD6E0167781AD008F019D /* wrong.aif */; };
@@ -54,6 +54,16 @@
 		40E4A6A616724A9900B5F180 /* AMGStatisticsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E4A6A416724A9800B5F180 /* AMGStatisticsController.m */; };
 		40E4A6AB16724AC400B5F180 /* AMGAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E4A6A916724AC300B5F180 /* AMGAboutController.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4098B84E171DC00F0064E895 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4098B84A171DC00E0064E895 /* AMGUIControls.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4098B835171DBC900064E895;
+			remoteInfo = AMGUIControls;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		400B00EC166D4D9700B2A1DB /* AMGGameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGGameManager.h; sourceTree = "<group>"; };
@@ -111,10 +121,9 @@
 		409231891678F75800D17A2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4092318B1678F92700D17A2A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4092318C1678F93100D17A2A /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4098B84A171DC00E0064E895 /* AMGUIControls.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AMGUIControls.xcodeproj; path = ../AMGUIControls/AMGUIControls.xcodeproj; sourceTree = "<group>"; };
 		40A3263F16750FB500C18B0F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		40A3264F16751C2600C18B0F /* changing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = changing.wav; sourceTree = "<group>"; };
-		40A3EF771710476E00DB8A85 /* AMGBlackRectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMGBlackRectButton.h; sourceTree = "<group>"; };
-		40A3EF781710476E00DB8A85 /* AMGBlackRectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMGBlackRectButton.m; sourceTree = "<group>"; };
 		40A3EF7A17109CCB00DB8A85 /* Icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-57.png"; path = "../Icon-57.png"; sourceTree = "<group>"; };
 		40A3EF7C17109CD100DB8A85 /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-114.png"; path = "../Icon-114.png"; sourceTree = "<group>"; };
 		40D4ECFE1712D10500B38DBA /* Default.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = Default.pxm; sourceTree = "<group>"; };
@@ -144,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4098B850171DC03A0064E895 /* libAMGUIControls.a in Frameworks */,
 				4028C1C01712EAD00002DD02 /* MessageUI.framework in Frameworks */,
 				40A3264016750FB500C18B0F /* AudioToolbox.framework in Frameworks */,
 				4066867F166C9E110039FB98 /* UIKit.framework in Frameworks */,
@@ -179,8 +189,6 @@
 				40DE79AE166E08A700500786 /* AMGLivesRepresentation.m */,
 				40DE79B5166E6A2A00500786 /* AMGColorsPanel.h */,
 				40DE79B6166E6A2A00500786 /* AMGColorsPanel.m */,
-				40A3EF771710476E00DB8A85 /* AMGBlackRectButton.h */,
-				40A3EF781710476E00DB8A85 /* AMGBlackRectButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -207,6 +215,7 @@
 			children = (
 				40668684166C9E110039FB98 /* Circlestouch */,
 				40D4ECFD1712CEF700B38DBA /* NonTargetResources */,
+				4098B84A171DC00E0064E895 /* AMGUIControls.xcodeproj */,
 				4066867D166C9E110039FB98 /* Frameworks */,
 				4066867B166C9E110039FB98 /* Products */,
 			);
@@ -265,6 +274,14 @@
 				4092318A1678F75800D17A2A /* Localizable.strings */,
 			);
 			name = i18n;
+			sourceTree = "<group>";
+		};
+		4098B84B171DC00E0064E895 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4098B84F171DC00F0064E895 /* libAMGUIControls.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		40D4ECF01712CCF000B38DBA /* Resources */ = {
@@ -366,12 +383,28 @@
 			mainGroup = 4066866F166C9E110039FB98;
 			productRefGroup = 4066867B166C9E110039FB98 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4098B84B171DC00E0064E895 /* Products */;
+					ProjectRef = 4098B84A171DC00E0064E895 /* AMGUIControls.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				40668679166C9E110039FB98 /* Circlestouch */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4098B84F171DC00F0064E895 /* libAMGUIControls.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAMGUIControls.a;
+			remoteRef = 4098B84E171DC00F0064E895 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		40668678166C9E110039FB98 /* Resources */ = {
@@ -428,7 +461,6 @@
 				40E4A6A0167247F800B5F180 /* AMGPageControlController.m in Sources */,
 				40E4A6A616724A9900B5F180 /* AMGStatisticsController.m in Sources */,
 				40E4A6AB16724AC400B5F180 /* AMGAboutController.m in Sources */,
-				40A3EF791710476E00DB8A85 /* AMGBlackRectButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +545,7 @@
 				GCC_PREFIX_HEADER = "Circlestouch/Circlestouch-Prefix.pch";
 				INFOPLIST_FILE = "Circlestouch/Circlestouch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Circlestouch;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -527,6 +560,7 @@
 				GCC_PREFIX_HEADER = "Circlestouch/Circlestouch-Prefix.pch";
 				INFOPLIST_FILE = "Circlestouch/Circlestouch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Circlestouch;
 				PROVISIONING_PROFILE = "829B751A-4DA8-4E13-BA75-FA8F7678B7C9";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -564,6 +598,7 @@
 				GCC_PREFIX_HEADER = "Circlestouch/Circlestouch-Prefix.pch";
 				INFOPLIST_FILE = "Circlestouch/Circlestouch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Circlestouch;
 				PROVISIONING_PROFILE = "829B751A-4DA8-4E13-BA75-FA8F7678B7C9";
 				TARGETED_DEVICE_FAMILY = 1;

@@ -97,10 +97,11 @@
     
     // Button to start or resume game
     
-    self.playButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(20.0f, PAGECONTROL_DOTS_Y - 70.0f, SCREEN_WIDTH - 40.0f, 60.0f)
-                                                   andImageName:nil
-                                                    andFontName:APP_MAIN_FONT
-                                                        andText:nil];
+    self.playButton = [[AMGPlainRectButton alloc] initWithFrame:CGRectMake(20.0f, PAGECONTROL_DOTS_Y - 70.0f, SCREEN_WIDTH - 40.0f, 60.0f)
+                                                backgroundColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.1f alpha:1.0f]
+                                                      imageName:nil
+                                                       fontName:APP_MAIN_FONT
+                                                           text:nil];
     self.playButton.textHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.playButton addTarget:self.gameDelegate action:@selector(userPressedResumeOrNewGame:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.playButton];

@@ -8,14 +8,14 @@
 
 #import "AMGAboutController.h"
 #import "AMGPageControlController.h"
-#import "AMGBlackRectButton.h"
+#import "AMGUIControls/AMGPlainRectButton.h"
 
 #define TURN_SOUND_ON NSLocalizedString(@"Turn sound on", @"Settings screen")
 #define TURN_SOUND_OFF NSLocalizedString(@"Turn sound off", @"Settings screen")
 
 @interface AMGAboutController()
 @property (nonatomic, weak) id<AMGGameDelegate> gameDelegate;
-@property (nonatomic, strong) AMGBlackRectButton *soundButton;
+@property (nonatomic, strong) AMGPlainRectButton *soundButton;
 @end
 
 @implementation AMGAboutController
@@ -40,10 +40,11 @@
     
     // Sound button
     
-    self.soundButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
-                                                    andImageName:nil
-                                                     andFontName:APP_MAIN_FONT
-                                                         andText:nil];
+    self.soundButton = [[AMGPlainRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
+                                                 backgroundColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.1f alpha:1.0f]
+                                                       imageName:nil
+                                                        fontName:APP_MAIN_FONT
+                                                            text:nil];
     self.soundButton.whiteBorder = NO;
     self.soundButton.imageName = ([self.gameDelegate soundActivated]) ? @"sound_on" : @"sound_off";
     self.soundButton.text = ([self.gameDelegate soundActivated]) ? TURN_SOUND_OFF : TURN_SOUND_ON;
@@ -51,28 +52,31 @@
     
     // Web button
     
-    AMGBlackRectButton *webButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
-                                                                 andImageName:@"web"
-                                                                  andFontName:APP_MAIN_FONT
-                                                                      andText:[NSString stringWithFormat:NSLocalizedString(@"Visit %@'s website", @"Settings screen"), APP_NAME]];
+    AMGPlainRectButton *webButton = [[AMGPlainRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
+                                                              backgroundColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.1f alpha:1.0f]
+                                                                    imageName:@"web"
+                                                                     fontName:APP_MAIN_FONT
+                                                                         text:[NSString stringWithFormat:NSLocalizedString(@"Visit %@'s website", @"Settings screen"), APP_NAME]];
     webButton.whiteBorder = NO;
     y += 55.0f + spaceHeight;
     
     // Email button
     
-    AMGBlackRectButton *emailButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
-                                                                   andImageName:@"email"
-                                                                    andFontName:APP_MAIN_FONT
-                                                                        andText:[NSString stringWithFormat:NSLocalizedString(@"Send me an email", @"Settings screen")]];
+    AMGPlainRectButton *emailButton = [[AMGPlainRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
+                                                                backgroundColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.1f alpha:1.0f]
+                                                                      imageName:@"email"
+                                                                       fontName:APP_MAIN_FONT
+                                                                           text:[NSString stringWithFormat:NSLocalizedString(@"Send me an email", @"Settings screen")]];
     emailButton.whiteBorder = NO;
     y += 55.0f + spaceHeight;
     
     // Rate button
     
-    AMGBlackRectButton *rateButton = [[AMGBlackRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
-                                                                  andImageName:@"rate"
-                                                                   andFontName:APP_MAIN_FONT
-                                                                       andText:[NSString stringWithFormat:NSLocalizedString(@"Love %@? Rate it! :)", @"Settings screen"), APP_NAME]];
+    AMGPlainRectButton *rateButton = [[AMGPlainRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
+                                                               backgroundColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.1f alpha:1.0f]
+                                                                     imageName:@"rate"
+                                                                      fontName:APP_MAIN_FONT
+                                                                          text:[NSString stringWithFormat:NSLocalizedString(@"Love %@? Rate it! :)", @"Settings screen"), APP_NAME]];
     rateButton.whiteBorder = NO;
     
     // Adding buttons to view and setting target actions.
