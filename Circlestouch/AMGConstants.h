@@ -96,7 +96,8 @@ typedef enum {
 //
 // Time intervals
 //
-#define CHANGE_COLORS_INTERVAL              22.0f
+#define CHANGE_COLORS_INTERVAL_MAX          35.0f
+#define CHANGE_COLORS_INTERVAL_MIN          18.0f
 #define UPDATE_SCORE_INTERVAL               1
 // Difference between MAX and MIN must be at least 0.5f
 #define MAX_CIRCLE_CREATION_INTERVAL        2.0f

@@ -87,42 +87,13 @@
     }    
 }
 
-void SoundFinished (SystemSoundID snd, void* context)
-{
-    AudioServicesRemoveSystemSoundCompletion(snd);
-    AudioServicesDisposeSystemSoundID(snd);
-}
-
 - (void)vanishRightCircle:(AMGCircleButton *)sender
 {
     [sender removeTarget:self action:@selector(circleTouched:) forControlEvents:UIControlEventTouchUpInside];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(circleExpired:) object:sender];
-    
-    if (self.soundActivated) {
-        NSURL *sndurl = [[NSBundle mainBundle] URLForResource:@"right" withExtension:@"aif"];
-        SystemSoundID snd;
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)sndurl, &snd);
-        AudioServicesAddSystemSoundCompletion(snd, NULL, NULL, &SoundFinished, NULL);
-        AudioServicesPlaySystemSound(snd);        
-    }
-    
-    [UIView animateWithDuration:VANISH_DURATION_RIGHT
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^() {
-                         sender.frame = CGRectMake(sender.frame.origin.x + sender.frame.size.width / 2,
-                                                   sender.frame.origin.y + sender.frame.size.height / 2,
-                                                   0, 0);
-                         sender.alpha = 0.2f;
-                     }
-                     completion:^(BOOL finished) {
-                         [sender removeFromSuperview];
-                     }];
-    
+    [sender disappearAsSuccess:self.soundActivated];
     [self.gameManager.circles performSelector:@selector(removeObject:)
-                                   withObject:[[AMGCircle alloc] initWithX:sender.frame.origin.x - BUTTON_SIZE / 2
-                                                                     andY:sender.frame.origin.y - BUTTON_SIZE / 2
-                                                                 andColor:nil]
+                                   withObject:[[AMGCircle alloc] initWithX:sender.x y:sender.y color:nil]
                                    afterDelay:VANISH_DURATION_RIGHT];
 }
 
@@ -130,38 +101,10 @@ void SoundFinished (SystemSoundID snd, void* context)
 {
     [sender removeTarget:self action:@selector(circleTouched:) forControlEvents:UIControlEventTouchUpInside];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(circleExpired:) object:sender];
-    
-    if (self.soundActivated) {
-        NSURL *sndurl = [[NSBundle mainBundle] URLForResource:@"wrong" withExtension:@"aif"];
-        SystemSoundID snd;
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)sndurl, &snd);
-        AudioServicesAddSystemSoundCompletion(snd, NULL, NULL, &SoundFinished, NULL);
-        AudioServicesPlaySystemSound(snd);
-    }
-    
-    sender.color = [UIColor colorWithRed:0.01f green:0.01f blue:0.01f alpha:1.0f];
-    sender.alpha = 0.85f;
-    
-    // Delay execution of my block for VANISH_DURATION_WRONG_STEP1 seconds.
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, VANISH_DURATION_WRONG_STEP1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:VANISH_DURATION_WRONG_STEP2
-                              delay:0.0f
-                            options:UIViewAnimationOptionCurveEaseIn
-                         animations:^() {
-                             sender.frame = CGRectMake(sender.frame.origin.x + sender.frame.size.width / 2,
-                                                       sender.frame.origin.y + sender.frame.size.height / 2,
-                                                       0, 0);
-                             sender.alpha = 0.0f;
-                         }
-                         completion:^(BOOL finished) {
-                             [sender removeFromSuperview];
-                         }];
-        [self.gameManager.circles performSelector:@selector(removeObject:)
-                                       withObject:[[AMGCircle alloc] initWithX:sender.frame.origin.x - BUTTON_SIZE / 2
-                                                                         andY:sender.frame.origin.y - BUTTON_SIZE / 2
-                                                                     andColor:nil]
-                                       afterDelay:VANISH_DURATION_WRONG_STEP2];
-    });
+    [sender disappearAsFailure:self.soundActivated];
+    [self.gameManager.circles performSelector:@selector(removeObject:)
+                                   withObject:[[AMGCircle alloc] initWithX:sender.x y:sender.y color:nil]
+                                   afterDelay:VANISH_DURATION_WRONG_STEP1 + VANISH_DURATION_WRONG_STEP2];
 }
 
 - (void)showPageControl
@@ -231,7 +174,7 @@ void SoundFinished (SystemSoundID snd, void* context)
                          self.colorsPanel.colorsToAvoid = self.gameManager.colorsToAvoid;
                          // Reactivating timers
                          if (!self.pageControlController) {
-                             [self activateCircleCreationTimer:[self nextIntervalForCircleCreation]];
+                             [self activateCircleCreationTimer:[self.gameManager nextCircleIntervalCreation]];
                          }
                          [self activateColorsChangingTimer];
                      }];
@@ -244,67 +187,42 @@ void SoundFinished (SystemSoundID snd, void* context)
     
     // Setting circle characteristics
     int x, y;
-    int tries = 0;
-    do {
-        // If it can't find a location in 10 tries, try it again after 0.1 second, so the GameManager can remove some circles.
-        // Without this, when it can't find a location it tries forever, as it blocks the app and so no circles are removed
-        // from GameManager, so no location can be ever found.
-        if (tries++ > 10) {
-            [self activateCircleCreationTimer:0.1f];
-            return;
-        }
-        x = MARGIN_BUTTON + (arc4random() % ((int)SCREEN_WIDTH - BUTTON_SIZE - MARGIN_BUTTON * 2));
-        y = MARGIN_TOP + MARGIN_BUTTON + (arc4random() % ((int)SCREEN_HEIGHT - BUTTON_SIZE - MARGIN_TOP - MARGIN_BOTTOM - MARGIN_BUTTON * 2));
-
-    } while (![self.gameManager isItOkToPutACircleInPositionWithX:x andY:y]);
-    UIColor *color = [self.gameManager randomColor];
+    // If it can't find a location in 10 tries, return NO and we'll try again later. This way
+    // the GameManager will have the chance to remove some circles. Without this, when it can't
+    // find a location it tries forever, as it blocks the app and no circles are ever removed
+    // from GameManager, so no location can be ever found.
+    if (![self.gameManager nextCirclePositionX:&x y:&y]) {
+        [self activateCircleCreationTimer:0.1f];
+        return;
+    }
+    UIColor *color = [self.gameManager nextCircleColor];
 
     // Creating AMGCircleButton and adding to main view
-    AMGCircleButton *buttonCircle = [[AMGCircleButton alloc] initWithFrame:CGRectMake(x, y, BUTTON_SIZE, BUTTON_SIZE) andColor:color];
+    AMGCircleButton *buttonCircle = [[AMGCircleButton alloc] initWithFrame:CGRectMake(x, y, BUTTON_SIZE, BUTTON_SIZE) color:color];
     buttonCircle.alpha = 0.85f;
     [self.view addSubview:buttonCircle];
     [buttonCircle addTarget:self action:@selector(circleTouched:) forControlEvents:UIControlEventTouchDown];
     
     // Creating AMGCircle and adding to GameManager
-    AMGCircle *circle = [[AMGCircle alloc] initWithX:buttonCircle.frame.origin.x
-                                              andY:buttonCircle.frame.origin.y
-                                          andColor:buttonCircle.color];
-    [self.gameManager.circles addObject:circle];
+    [self.gameManager.circles addObject:[[AMGCircle alloc] initWithX:x y:y color:color]];
     
     [UIView animateWithDuration:0.7f delay:0.0
                         options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse)
                      animations:^() {
-                         buttonCircle.alpha = 0.80f;//0.65f;
+                         buttonCircle.alpha = 0.80f;
                          buttonCircle.transform = CGAffineTransformMakeScale(0.93f, 0.93f);
                      }
                      completion:nil];
     
     // Removing AMGCircleButton (from main view) and AMGCircle (from GameManager) after it expires
-    float circleLife = [self nextCircleLife];
-    [self performSelector:@selector(circleExpired:) withObject:buttonCircle afterDelay:circleLife];
+    [self performSelector:@selector(circleExpired:) withObject:buttonCircle afterDelay:[self.gameManager nextCircleLife]];
     
     // Reactivating timer
-    [self activateCircleCreationTimer:[self nextIntervalForCircleCreation]];
+    [self activateCircleCreationTimer:[self.gameManager nextCircleIntervalCreation]];
     
     // Activating timePlayingTimer (it must be here to be sure a user cannot pause-resume-pause-
     // resume-... endlessly to add seconds without any circle being created)
     [self activateTimePlayingTimer];
-}
-
-- (float)nextIntervalForCircleCreation
-{
-    int min = 10.0f * MAX(MIN_CIRCLE_CREATION_INTERVAL + 0.4f - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_CREATION_INTERVAL);
-    int max = 10.0f * MAX(MAX_CIRCLE_CREATION_INTERVAL - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_CREATION_INTERVAL + 0.3f);
-    float temp = (min + (arc4random() % (max - min))) / 10.0f;
-    return temp;
-}
-
-- (float)nextCircleLife
-{
-    int min = 10.0f * MAX(MIN_CIRCLE_LIFE + 1.0f - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_LIFE);
-    int max = 10.0f * MAX(MAX_CIRCLE_LIFE - (0.1f * self.gameManager.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_LIFE + 0.5f); 
-    float temp = (min + (arc4random() % (max - min))) / 10.0f;
-    return temp;
 }
 
 #pragma mark -
@@ -325,7 +243,7 @@ void SoundFinished (SystemSoundID snd, void* context)
 - (void)activateColorsChangingTimer
 {
     if (!self.colorsChangingTimer) {
-        self.colorsChangingTimer = [NSTimer scheduledTimerWithTimeInterval:CHANGE_COLORS_INTERVAL
+        self.colorsChangingTimer = [NSTimer scheduledTimerWithTimeInterval:[self.gameManager nextColorsChangeInterval]
                                                                     target:self
                                                                   selector:@selector(changeColors)
                                                                   userInfo:nil
@@ -379,7 +297,7 @@ void SoundFinished (SystemSoundID snd, void* context)
         self.livesRepresentation.livesRemaining = self.gameManager.livesRemaining;
     }
     
-    [self activateCircleCreationTimer:[self nextIntervalForCircleCreation]];
+    [self activateCircleCreationTimer:[self.gameManager nextCircleIntervalCreation]];
 }
 
 - (int)circlesTouchedWell
@@ -573,6 +491,16 @@ void SoundFinished (SystemSoundID snd, void* context)
     // View
     [self.timePlayingButton setTitle:[NSString stringWithFormat:@"%i", self.gameManager.timePlaying] forState:UIControlStateNormal];
     self.livesRepresentation.livesRemaining = self.gameManager.livesRemaining;
+}
+
+#pragma mark -
+#pragma mark Auxiliary C functions
+#pragma mark -
+
+void SoundFinished (SystemSoundID snd, void* context)
+{
+    AudioServicesRemoveSystemSoundCompletion(snd);
+    AudioServicesDisposeSystemSoundID(snd);
 }
 
 @end

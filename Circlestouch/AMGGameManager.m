@@ -41,13 +41,13 @@
     NSMutableSet *ms = [[NSMutableSet alloc] init];
     
     while ([ms count] < NUM_COLORS_TOUCH_INITIAL) {
-        [ms addObject:[self randomColor]];
+        [ms addObject:[self nextCircleColor]];
     }
     self.colorsToTouch = [ms allObjects];
     
     [ms removeAllObjects];
     while ([ms count] < (NUM_COLORS - NUM_COLORS_TOUCH_INITIAL)) {
-        UIColor *c = [self randomColor];
+        UIColor *c = [self nextCircleColor];
         if (![self.colorsToTouch containsObject:c]) {
             [ms addObject:c];
         }
@@ -55,30 +55,71 @@
     self.colorsToAvoid = [ms allObjects];
 }
 
-- (BOOL)isItOkToPutACircleInPositionWithX:(int)x andY:(int)y
-{
-    CGRect testFrame = CGRectMake(x - MARGIN_BUTTON,
-                                  y - MARGIN_BUTTON,
-                                  BUTTON_SIZE + MARGIN_BUTTON * 2,
-                                  BUTTON_SIZE + MARGIN_BUTTON * 2);
-    for (AMGCircle *c in self.circles) {
-        CGRect busyFrame = CGRectMake(c.x - MARGIN_BUTTON,
-                                      c.y - MARGIN_BUTTON,
-                                      BUTTON_SIZE + MARGIN_BUTTON * 2,
-                                      BUTTON_SIZE + MARGIN_BUTTON * 2);
-        if(CGRectIntersectsRect(testFrame, busyFrame)) {
-            return NO;
-        }
-    }
-    return YES;
-}
-
 - (BOOL)isItOkToTouchColor:(UIColor *)color
 {
     return [self.colorsToTouch containsObject:color];
 }
 
-- (UIColor *)randomColor
+- (void)makeSomeChangesInArraysWithColorsToTouchAndAvoid
+{
+    // Moving 2 to 3 colors from Touch to Avoid
+    int rnd = 2 + (arc4random() % 2);
+    for (int i = 1; i <= rnd; i++) {
+        [self removeOneColorFromColorsToTouchAndAddToColorsToAvoid];
+    }
+    
+    // Moving 0 to N colors from Avoid to Touch
+    rnd =  arc4random() % [self.colorsToAvoid count];
+    // Tuning so Avoid never has less than 3 colors or more than 6 (so the same for Touch)
+    if ([self.colorsToAvoid count] - rnd < 3) rnd = [self.colorsToAvoid count] - 3;
+    if ([self.colorsToAvoid count] - rnd > 6) rnd = [self.colorsToAvoid count] - 6;
+    for (int i = 1; i <= rnd; i++) {
+        [self removeOneColorFromColorsToAvoidAndAddToColorsToTouch];
+    }
+}
+
+- (float)nextColorsChangeInterval
+{
+    int min = 10.0f * CHANGE_COLORS_INTERVAL_MIN;
+    int max = 10.0f * CHANGE_COLORS_INTERVAL_MAX;
+    return (min + (arc4random() % (max - min))) / 10.0f;
+}
+
+#pragma mark - 
+#pragma mark Next circle randoms
+#pragma mark -
+
+- (float)nextCircleIntervalCreation
+{
+    int min = 10.0f *
+    MAX(MIN_CIRCLE_CREATION_INTERVAL + 0.4f - (0.1f * self.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_CREATION_INTERVAL);
+    int max = 10.0f *
+    MAX(MAX_CIRCLE_CREATION_INTERVAL - (0.1f * self.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_CREATION_INTERVAL + 0.3f);
+    return (min + (arc4random() % (max - min))) / 10.0f;
+}
+
+- (float)nextCircleLife
+{
+    int min = 10.0f * MAX(MIN_CIRCLE_LIFE + 1.0f - (0.1f * self.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_LIFE);
+    int max = 10.0f * MAX(MAX_CIRCLE_LIFE - (0.1f * self.timePlaying / DECREASE_MAX_AND_MIN_INTERVAL_EVERY), MIN_CIRCLE_LIFE + 0.5f);
+    return (min + (arc4random() % (max - min))) / 10.0f;
+}
+
+- (BOOL)nextCirclePositionX:(int *)x y:(int *)y
+{
+    // If it can't find a location in 10 tries, return NO and we'll try again later. This way
+    // the GameManager will have the chance to remove some circles. Without this, when it can't
+    // find a location it tries forever, as it blocks the app and no circles are ever removed
+    // from GameManager, so no location can be ever found.
+    for (int tries = 0; tries < 10; tries++) {
+        *x = MARGIN_BUTTON + (arc4random() % ((int)SCREEN_WIDTH - BUTTON_SIZE - MARGIN_BUTTON * 2));
+        *y = MARGIN_TOP + MARGIN_BUTTON + (arc4random() % ((int)SCREEN_HEIGHT - BUTTON_SIZE - MARGIN_TOP - MARGIN_BOTTOM - MARGIN_BUTTON * 2));
+        if ([self isItOkToPutACircleInPositionWithX:*x andY:*y]) return YES;
+    }
+    return NO;
+}
+
+- (UIColor *)nextCircleColor
 {
     switch (arc4random() % NUM_COLORS) {
         case 0:
@@ -101,29 +142,12 @@
             return [UIColor colorWithRed:1.0f green:0.8f blue:0.0f alpha:1.0f]; // dark yellow
         default:
             return [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]; // white
-    }
-}
-
-- (void)makeSomeChangesInArraysWithColorsToTouchAndAvoid
-{
-    // Moving 2 to 3 colors from Touch to Avoid
-    int rnd = 2 + (arc4random() % 2);
-    for (int i = 1; i <= rnd; i++) {
-        [self removeOneColorFromColorsToTouchAndAddToColorsToAvoid];
-    }
-    
-    // Moving 0 to N colors from Avoid to Touch
-    rnd =  arc4random() % [self.colorsToAvoid count];
-    // Tuning so Avoid never has less than 3 colors or more than 6 (so the same for Touch)
-    if ([self.colorsToAvoid count] - rnd < 3) rnd = [self.colorsToAvoid count] - 3;
-    if ([self.colorsToAvoid count] - rnd > 6) rnd = [self.colorsToAvoid count] - 6;
-    for (int i = 1; i <= rnd; i++) {
-        [self removeOneColorFromColorsToAvoidAndAddToColorsToTouch];
-    }
+    }    
 }
 
 #pragma mark -
 #pragma mark Private methods
+#pragma mark -
 
 - (void)removeOneColorFromColorsToTouchAndAddToColorsToAvoid
 {
@@ -147,6 +171,24 @@
     [touch addObject:color];
     self.colorsToTouch = [NSArray arrayWithArray:touch];
     self.colorsToAvoid = [NSArray arrayWithArray:avoid];
+}
+
+- (BOOL)isItOkToPutACircleInPositionWithX:(int)x andY:(int)y
+{
+    CGRect testFrame = CGRectMake(x - MARGIN_BUTTON,
+                                  y - MARGIN_BUTTON,
+                                  BUTTON_SIZE + MARGIN_BUTTON * 2,
+                                  BUTTON_SIZE + MARGIN_BUTTON * 2);
+    for (AMGCircle *c in self.circles) {
+        CGRect busyFrame = CGRectMake(c.x - MARGIN_BUTTON,
+                                      c.y - MARGIN_BUTTON,
+                                      BUTTON_SIZE + MARGIN_BUTTON * 2,
+                                      BUTTON_SIZE + MARGIN_BUTTON * 2);
+        if(CGRectIntersectsRect(testFrame, busyFrame)) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end

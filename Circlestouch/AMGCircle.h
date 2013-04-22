@@ -14,6 +14,6 @@
 @property (nonatomic) int y;
 @property (nonatomic, strong) UIColor *color;
 
-- (id)initWithX:(int)x andY:(int)y andColor:(UIColor *)color;
+- (id)initWithX:(int)x y:(int)y color:(UIColor *)color;
 
 @end

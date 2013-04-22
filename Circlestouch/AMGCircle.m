@@ -12,16 +12,16 @@
 
 - (id)init
 {
-    return [self initWithX:0 andY:0 andColor:[UIColor whiteColor]];
+    return [self initWithX:0 y:0 color:[UIColor whiteColor]];
 }
 
-- (id)initWithX:(int)x andY:(int)y andColor:(UIColor *)color
+- (id)initWithX:(int)x y:(int)y color:(UIColor *)color
 {
     self = [super init];
     if (self) {
-        self.x = x;
-        self.y = y;
-        self.color = color;
+        _x = x;
+        _y = y;
+        _color = color;
     }
     return self;
 }

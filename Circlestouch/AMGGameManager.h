@@ -23,9 +23,14 @@
 @property (nonatomic) int circlesAvoidedBadly;
 
 - (void)loadInitialArraysWithColorsToTouchAndAvoid;
-- (BOOL)isItOkToPutACircleInPositionWithX:(int)x andY:(int)y;
 - (BOOL)isItOkToTouchColor:(UIColor *)color;
-- (UIColor *)randomColor;
 - (void)makeSomeChangesInArraysWithColorsToTouchAndAvoid;
+- (float)nextColorsChangeInterval;
+
+// Next circle randoms
+- (float)nextCircleIntervalCreation;
+- (float)nextCircleLife;
+- (BOOL)nextCirclePositionX:(int *)x y:(int *)y;
+- (UIColor *)nextCircleColor;
 
 @end

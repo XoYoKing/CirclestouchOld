@@ -10,8 +10,13 @@
 
 @interface AMGCircleButton : UIButton
 
+@property (nonatomic) int x;
+@property (nonatomic) int y;
 @property (nonatomic, strong) UIColor *color;
 
-- (id)initWithFrame:(CGRect)frame andColor:(UIColor *)color;
+- (id)initWithFrame:(CGRect)frame color:(UIColor *)color;
+
+- (void)disappearAsSuccess:(BOOL)soundActivated;
+- (void)disappearAsFailure:(BOOL)soundActivated;
 
 @end
