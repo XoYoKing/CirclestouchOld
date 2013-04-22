@@ -158,13 +158,21 @@
 
 - (void)hidePlayButtonForSomeSeconds
 {
+    if (!self.playButton.enabled) return;
+    
+    self.playButton.enabled = NO;
     self.playButton.alpha = 0.0f;
-    [UIView animateWithDuration:1.5f delay:2.5f
+    [UIView animateWithDuration:1.5f delay:3.0f
                         options:nil
                      animations:^() {
                         self.playButton.alpha = 1.0f;
                      }
-                     completion:nil];
+                     completion:^(BOOL finished) {
+                         if (finished) self.playButton.enabled = YES;
+                     }];
+    // Setting the enabled property is necessary because at this point (even BEFORE the first 1.5
+    // seconds) the alpha property has already value 1.0 and so the button is enabled all the time.
+    // Setting the enabled property we make the button be enabled only AFTER the 1.5 + 1.5 seconds.
 }
 
 @end

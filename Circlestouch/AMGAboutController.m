@@ -144,7 +144,11 @@
         [controller setMessageBody:@"" isHTML:NO];
         if (controller) [(UIViewController *)self.emailDelegate presentViewController:controller animated:YES completion:nil];
     } else {
-        // This device can't send emails
+        [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ %@", APP_NAME, APP_VERSION]
+                                    message:NSLocalizedString(@"No email message", @"Settings screen")
+                                   delegate:nil
+                          cancelButtonTitle:NSLocalizedString(@"Ok", @"Settings screen")
+                          otherButtonTitles: nil] show];
     }
 }
 

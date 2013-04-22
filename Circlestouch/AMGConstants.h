@@ -10,7 +10,7 @@
 // App constants
 //
 #define APP_NAME      @"Circlestouch"
-#define APP_VERSION   @"1.0"
+#define APP_VERSION   @"1.1"
 #define APP_COPYRIGHT @"2013 Albert Mata"
 #define APP_MAIN_FONT @"Heiti SC"
 #define APP_EMAIL     @"hello@albertmata.net"
@@ -99,12 +99,12 @@ typedef enum {
 #define CHANGE_COLORS_INTERVAL              22.0f
 #define UPDATE_SCORE_INTERVAL               1
 // Difference between MAX and MIN must be at least 0.5f
-#define MAX_CIRCLE_CREATION_INTERVAL        1.3f
+#define MAX_CIRCLE_CREATION_INTERVAL        2.0f
 #define MIN_CIRCLE_CREATION_INTERVAL        0.2f
 // Difference between MAX and MIN must be at least 1.1f
-#define MAX_CIRCLE_LIFE                     3.2f
-#define MIN_CIRCLE_LIFE                     1.5f
-#define DECREASE_MAX_AND_MIN_INTERVAL_EVERY 10
+#define MAX_CIRCLE_LIFE                     4.0f
+#define MIN_CIRCLE_LIFE                     1.2f
+#define DECREASE_MAX_AND_MIN_INTERVAL_EVERY 12
 
 
 
