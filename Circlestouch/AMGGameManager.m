@@ -41,13 +41,13 @@
     NSMutableSet *ms = [[NSMutableSet alloc] init];
     
     while ([ms count] < NUM_COLORS_TOUCH_INITIAL) {
-        [ms addObject:[self nextCircleColor]];
+        [ms addObject:[self randomColor]];
     }
     self.colorsToTouch = [ms allObjects];
     
     [ms removeAllObjects];
     while ([ms count] < (NUM_COLORS - NUM_COLORS_TOUCH_INITIAL)) {
-        UIColor *c = [self nextCircleColor];
+        UIColor *c = [self randomColor];
         if (![self.colorsToTouch containsObject:c]) {
             [ms addObject:c];
         }
@@ -83,6 +83,17 @@
     int min = 10.0f * CHANGE_COLORS_INTERVAL_MIN;
     int max = 10.0f * CHANGE_COLORS_INTERVAL_MAX;
     return (min + (arc4random() % (max - min))) / 10.0f;
+}
+
+- (void)resetGame
+{
+    [self.circles removeAllObjects];
+    self.livesRemaining = INITIAL_LIVES;
+    self.timePlaying = 0;
+    self.circlesTouchedWell = 0;
+    self.circlesTouchedBadly = 0;
+    self.circlesAvoidedWell = 0;
+    self.circlesAvoidedBadly = 0;
 }
 
 #pragma mark - 
@@ -121,28 +132,7 @@
 
 - (UIColor *)nextCircleColor
 {
-    switch (arc4random() % NUM_COLORS) {
-        case 0:
-            return [UIColor colorWithRed:0.5f green:0.0f blue:0.5f alpha:1.0f]; // purple
-        case 1:
-            return [UIColor colorWithRed:0.953f green:0.518f blue:0.478f alpha:1.0f]; // salmon
-        case 2:
-            return [UIColor colorWithRed:0.404f green:0.733f blue:0.953f alpha:1.0f]; // light blue
-        case 3:
-            return [UIColor colorWithRed:0.7f green:0.1f blue:0.1f alpha:1.0f]; // red
-        case 4:
-            return [UIColor colorWithRed:0.15f green:0.15f blue:0.7f alpha:1.0f]; // dark blue
-        case 5:
-            return [UIColor colorWithRed:0.5f green:0.8f blue:0.0f alpha:1.0f]; // green
-        case 6:
-            return [UIColor colorWithRed:0.5f green:0.5f blue:0.5f alpha:1.0f]; // light gray
-        case 7:
-            return [UIColor colorWithRed:1.0f green:0.5f blue:0.0f alpha:1.0f]; // orange
-        case 8:
-            return [UIColor colorWithRed:1.0f green:0.8f blue:0.0f alpha:1.0f]; // dark yellow
-        default:
-            return [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]; // white
-    }    
+    return [self randomColor];
 }
 
 #pragma mark -
@@ -189,6 +179,32 @@
         }
     }
     return YES;
+}
+
+- (UIColor *)randomColor
+{
+    switch (arc4random() % NUM_COLORS) {
+        case 0:
+            return [UIColor colorWithRed:0.5f green:0.0f blue:0.5f alpha:1.0f]; // purple
+        case 1:
+            return [UIColor colorWithRed:0.953f green:0.518f blue:0.478f alpha:1.0f]; // salmon
+        case 2:
+            return [UIColor colorWithRed:0.404f green:0.733f blue:0.953f alpha:1.0f]; // light blue
+        case 3:
+            return [UIColor colorWithRed:0.7f green:0.1f blue:0.1f alpha:1.0f]; // red
+        case 4:
+            return [UIColor colorWithRed:0.15f green:0.15f blue:0.7f alpha:1.0f]; // dark blue
+        case 5:
+            return [UIColor colorWithRed:0.5f green:0.8f blue:0.0f alpha:1.0f]; // green
+        case 6:
+            return [UIColor colorWithRed:0.5f green:0.5f blue:0.5f alpha:1.0f]; // light gray
+        case 7:
+            return [UIColor colorWithRed:1.0f green:0.5f blue:0.0f alpha:1.0f]; // orange
+        case 8:
+            return [UIColor colorWithRed:1.0f green:0.8f blue:0.0f alpha:1.0f]; // dark yellow
+        default:
+            return [UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f]; // white
+    }
 }
 
 @end

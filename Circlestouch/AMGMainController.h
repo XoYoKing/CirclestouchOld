@@ -14,7 +14,7 @@
 #import "AMGLivesRepresentation.h"
 #import "AMGCircleButton.h"
 
-@interface AMGMainController : UIViewController <AMGGameDelegate, AMGCircleButtonDelegate>
+@interface AMGMainController : UIViewController <AMGGameDelegate, AMGCircleButtonDelegate, AMGColorsPanelDelegate>
 
 @property (nonatomic, strong) AMGGameManager *gameManager;
 

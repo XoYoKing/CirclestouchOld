@@ -39,8 +39,9 @@
     
     // Add view for colors to touch and avoid
     self.colorsPanel = [[AMGColorsPanel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, MARGIN_TOP)
-                                            andColorsToTouch:self.gameManager.colorsToTouch
-                                            andColorsToAvoid:self.gameManager.colorsToAvoid];
+                                               colorsToTouch:self.gameManager.colorsToTouch
+                                               colorsToAvoid:self.gameManager.colorsToAvoid
+                                                    delegate:self];
     self.colorsPanel.backgroundColor = [UIColor clearColor];
     self.colorsPanel.alpha = 0.8f;
     [self.view addSubview:self.colorsPanel];
@@ -93,48 +94,12 @@
         return;
     }
     
-    if (self.soundActivated) {
-        // Sound to show that some colors to touch and avoid are going to change
-        NSURL *sndurl = [[NSBundle mainBundle] URLForResource:@"changing" withExtension:@"wav"];
-        SystemSoundID snd;
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)sndurl, &snd);
-        AudioServicesAddSystemSoundCompletion(snd, NULL, NULL, &SoundFinished, NULL);
-        AudioServicesPlaySystemSound(snd);        
-    }
+    [self.gameManager makeSomeChangesInArraysWithColorsToTouchAndAvoid];
+    [self.colorsPanel changeColorsToTouch:self.gameManager.colorsToTouch
+                            colorsToAvoid:self.gameManager.colorsToAvoid
+                      usingAnimationColor:[self gameStatus] == AMGGameStatusGamePlaying ? [UIColor blackColor] : [UIColor whiteColor]];
     
-    // Animation to show that some colors to touch and avoid are going to change
-    UIView __block *v1 = [[UIView alloc] initWithFrame:CGRectMake(-5, MARGIN_TOP - 7, 8, 2)];
-    if ([self gameStatus] == AMGGameStatusGamePlaying) {
-        v1.backgroundColor = [UIColor blackColor];
-    } else {
-        v1.backgroundColor = [UIColor whiteColor];
-    }
-    v1.alpha = 0.75f;
-    [self.view addSubview:v1];
-    UIView __block *v2 = [[UIView alloc] initWithFrame:CGRectMake(-80, MARGIN_TOP - 7, 8, 2)];
-    v2.backgroundColor = v1.backgroundColor;
-    v2.alpha = 0.75f;
-    [self.view addSubview:v2];
-    [UIView animateWithDuration:COLORS_CHANGING_ALERT delay:0.0f
-                        options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse)
-                     animations:^() {
-                         [UIView setAnimationRepeatCount:2];
-                         v1.frame = CGRectMake(SCREEN_WIDTH, MARGIN_TOP - 7, 8, 2);
-                         v2.frame = CGRectMake(SCREEN_WIDTH, MARGIN_TOP - 7, 8, 2);
-                     }
-                     completion:^(BOOL finished) {
-                         [v1 removeFromSuperview];
-                         [v2 removeFromSuperview];
-                         // Changing colors
-                         [self.gameManager makeSomeChangesInArraysWithColorsToTouchAndAvoid];
-                         self.colorsPanel.colorsToTouch = self.gameManager.colorsToTouch;
-                         self.colorsPanel.colorsToAvoid = self.gameManager.colorsToAvoid;
-                         // Reactivating timers
-                         if (!self.pageControlController) {
-                             [self activateCircleCreationTimer:[self.gameManager nextCircleIntervalCreation]];
-                         }
-                         [self activateColorsChangingTimer];
-                     }];
+    // Reactivating timers > didFinishChangingColors
 }
 
 - (void)createNewCircle
@@ -174,51 +139,52 @@
 }
 
 #pragma mark -
+#pragma mark AMGColorsPanelDelegate
+#pragma mark -
+
+- (void)didFinishChangingColors
+{
+    // Reactivating timers
+    if (!self.pageControlController)
+        [self activateCircleCreationTimer:[self.gameManager nextCircleIntervalCreation]];
+    [self activateColorsChangingTimer];
+}
+
+#pragma mark -
 #pragma mark AMGCircleButtonDelegate
 #pragma mark -
 
-- (void)circleDisappearedAsWellAvoided:(AMGCircleButton *)circleButton
-{
-    self.gameManager.circlesAvoidedWell++;
-    if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
-    [self increaseLivesRemaining];
-    
-    [self.gameManager.circles performSelector:@selector(removeObject:)
-                                   withObject:[[AMGCircle alloc] initWithX:circleButton.x y:circleButton.y color:nil]
-                                   afterDelay:VANISH_DURATION_RIGHT];
-}
-
-- (void)circleDisappearedAsWellTouched:(AMGCircleButton *)circleButton
+- (void)circleButtonWasTouchedWell
 {
     self.gameManager.circlesTouchedWell++;
     if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
-    [self increaseLivesRemaining];
-    
-    [self.gameManager.circles performSelector:@selector(removeObject:)
-                                   withObject:[[AMGCircle alloc] initWithX:circleButton.x y:circleButton.y color:nil]
-                                   afterDelay:VANISH_DURATION_RIGHT];
+    [self increaseLivesRemaining];    
 }
 
-- (void)circleDisappearedAsBadlyAvoided:(AMGCircleButton *)circleButton
-{
-    self.gameManager.circlesAvoidedBadly++;
-    if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
-    [self decreaseLivesRemaining];
-    
-    [self.gameManager.circles performSelector:@selector(removeObject:)
-                                   withObject:[[AMGCircle alloc] initWithX:circleButton.x y:circleButton.y color:nil]
-                                   afterDelay:VANISH_DURATION_WRONG_STEP1 + VANISH_DURATION_WRONG_STEP2];
-}
-
-- (void)circleDisappearedAsBadlyTouched:(AMGCircleButton *)circleButton
+- (void)circleButtonWasTouchedBadly
 {
     self.gameManager.circlesTouchedBadly++;
     if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
     [self decreaseLivesRemaining];
-    
-    [self.gameManager.circles performSelector:@selector(removeObject:)
-                                   withObject:[[AMGCircle alloc] initWithX:circleButton.x y:circleButton.y color:nil]
-                                   afterDelay:VANISH_DURATION_WRONG_STEP1 + VANISH_DURATION_WRONG_STEP2];
+}
+
+- (void)circleButtonWasAvoidedWell
+{
+    self.gameManager.circlesAvoidedWell++;
+    if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
+    [self increaseLivesRemaining];
+}
+
+- (void)circleButtonWasAvoidedBadly
+{
+    self.gameManager.circlesAvoidedBadly++;
+    if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
+    [self decreaseLivesRemaining];    
+}
+
+- (void)circleButtonDisappearedFromSuperview:(AMGCircleButton *)circleButton
+{
+    [self.gameManager.circles removeObject:[[AMGCircle alloc] initWithX:circleButton.x y:circleButton.y color:nil]];
 }
 
 #pragma mark -
@@ -286,9 +252,7 @@
     self.pageControlController = nil;
     
     if ([self gameStatus] == AMGGameStatusGameOver) {
-        self.gameManager = [[AMGGameManager alloc] init];
-        self.colorsPanel.colorsToTouch = self.gameManager.colorsToTouch;
-        self.colorsPanel.colorsToAvoid = self.gameManager.colorsToAvoid;
+        [self.gameManager resetGame];
         [self.timePlayingButton setTitle:[NSString stringWithFormat:@"%i", self.gameManager.timePlaying] forState:UIControlStateNormal];
         self.livesRepresentation.livesRemaining = self.gameManager.livesRemaining;
     }

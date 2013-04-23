@@ -14,10 +14,11 @@
 
 @property (nonatomic) BOOL soundActivated;
 
-- (void)circleDisappearedAsWellAvoided:(AMGCircleButton *)circleButton;
-- (void)circleDisappearedAsWellTouched:(AMGCircleButton *)circleButton;
-- (void)circleDisappearedAsBadlyAvoided:(AMGCircleButton *)circleButton;
-- (void)circleDisappearedAsBadlyTouched:(AMGCircleButton *)circleButton;
+- (void)circleButtonWasTouchedWell;
+- (void)circleButtonWasTouchedBadly;
+- (void)circleButtonWasAvoidedWell;
+- (void)circleButtonWasAvoidedBadly;
+- (void)circleButtonDisappearedFromSuperview:(AMGCircleButton *)circleButton;
 
 @end
 

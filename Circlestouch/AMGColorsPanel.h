@@ -8,11 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AMGColorsPanelDelegate <NSObject>
+
+@property (nonatomic) BOOL soundActivated;
+
+- (void)didFinishChangingColors;
+
+@end
+
 @interface AMGColorsPanel : UIView
 
-@property (nonatomic, strong) NSArray *colorsToTouch; // of UIColor
-@property (nonatomic, strong) NSArray *colorsToAvoid; // of UIColor
+- (id)initWithFrame:(CGRect)frame
+      colorsToTouch:(NSArray *)colorsToTouch
+      colorsToAvoid:(NSArray *)colorsToAvoid
+           delegate:(id<AMGColorsPanelDelegate>)delegate;
 
-- (id)initWithFrame:(CGRect)frame andColorsToTouch:(NSArray *)colorsToTouch andColorsToAvoid:(NSArray *)colorsToAvoid;
+- (void)changeColorsToTouch:(NSArray *)colorsToTouch
+              colorsToAvoid:(NSArray *)colorsToAvoid
+        usingAnimationColor:(UIColor *)animationColor;
 
 @end

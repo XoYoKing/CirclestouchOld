@@ -26,6 +26,7 @@
 - (BOOL)isItOkToTouchColor:(UIColor *)color;
 - (void)makeSomeChangesInArraysWithColorsToTouchAndAvoid;
 - (float)nextColorsChangeInterval;
+- (void)resetGame;
 
 // Next circle randoms
 - (float)nextCircleIntervalCreation;

@@ -6,35 +6,76 @@
 //  Copyright (c) 2012 Albert Mata. All rights reserved.
 //
 
+#import <AudioToolbox/AudioToolbox.h>
 #import "AMGColorsPanel.h"
+
+@interface AMGColorsPanel()
+@property (nonatomic, strong) NSArray *colorsToTouch; // of UIColor
+@property (nonatomic, strong) NSArray *colorsToAvoid; // of UIColor
+@property (nonatomic, weak) id<AMGColorsPanelDelegate> delegate;
+@end
 
 @implementation AMGColorsPanel
 
 - (id)initWithFrame:(CGRect)frame 
 {
-    return [self initWithFrame:frame andColorsToTouch:nil andColorsToAvoid:nil];
+    return [self initWithFrame:frame colorsToTouch:nil colorsToAvoid:nil delegate:nil];
 }
 
-- (id)initWithFrame:(CGRect)frame andColorsToTouch:(NSArray *)colorsToTouch andColorsToAvoid:(NSArray *)colorsToAvoid
+- (id)initWithFrame:(CGRect)frame
+        colorsToTouch:(NSArray *)colorsToTouch
+        colorsToAvoid:(NSArray *)colorsToAvoid
+             delegate:(id<AMGColorsPanelDelegate>)delegate
 {
     self = [super initWithFrame:frame];
     if (self) {
         _colorsToTouch = colorsToTouch;
         _colorsToAvoid = colorsToAvoid;
+        _delegate = delegate;
     }
     return self;
 }
 
-- (void)setColorsToTouch:(NSArray *)colorsToTouch
-{
-    _colorsToTouch = colorsToTouch;
-    [self setNeedsDisplay];
-}
+void SoundFinished (SystemSoundID snd, void* context);
 
-- (void)setColorsToAvoid:(NSArray *)colorsToAvoid
+- (void)changeColorsToTouch:(NSArray *)colorsToTouch
+              colorsToAvoid:(NSArray *)colorsToAvoid
+        usingAnimationColor:(UIColor *)animationColor
 {
-    _colorsToAvoid = colorsToAvoid;
-    [self setNeedsDisplay];
+    if (self.delegate.soundActivated) {
+        // Sound to show that some colors to touch and avoid are going to change
+        NSURL *sndurl = [[NSBundle mainBundle] URLForResource:@"changing" withExtension:@"wav"];
+        SystemSoundID snd;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)sndurl, &snd);
+        AudioServicesAddSystemSoundCompletion(snd, NULL, NULL, &SoundFinished, NULL);
+        AudioServicesPlaySystemSound(snd);
+    }
+    
+    // Animation to show that some colors to touch and avoid are going to change
+    UIView __block *v1 = [[UIView alloc] initWithFrame:CGRectMake(-5, MARGIN_TOP - 7, 8, 2)];
+    UIView __block *v2 = [[UIView alloc] initWithFrame:CGRectMake(-80, MARGIN_TOP - 7, 8, 2)];
+    v1.backgroundColor = v2.backgroundColor = animationColor;
+    v1.alpha = v2.alpha = 0.75f;
+    [self.superview addSubview:v1];
+    [self.superview addSubview:v2];
+    
+    [UIView animateWithDuration:COLORS_CHANGING_ALERT delay:0.0f
+                        options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionAutoreverse)
+                     animations:^() {
+                         [UIView setAnimationRepeatCount:2];
+                         v1.frame = CGRectMake(SCREEN_WIDTH, MARGIN_TOP - 7, 8, 2);
+                         v2.frame = CGRectMake(SCREEN_WIDTH, MARGIN_TOP - 7, 8, 2);
+                     }
+                     completion:^(BOOL finished) {
+                         [v1 removeFromSuperview];
+                         [v2 removeFromSuperview];
+
+                         _colorsToTouch = colorsToTouch;
+                         _colorsToAvoid = colorsToAvoid;
+                         [self setNeedsDisplay];
+
+                         [self.delegate didFinishChangingColors];
+                     }];
 }
 
 - (void)drawRect:(CGRect)rect

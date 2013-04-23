@@ -73,10 +73,10 @@
     [self removeTarget:self action:@selector(touchUpInside) forControlEvents:UIControlEventTouchUpInside];
     
     if (!self.okToTouch) {
-        [self.delegate circleDisappearedAsWellAvoided:self];
+        [self.delegate circleButtonWasAvoidedWell];
         [self disappearAsSuccess];
     } else {
-        [self.delegate circleDisappearedAsBadlyAvoided:self];
+        [self.delegate circleButtonWasAvoidedBadly];
         [self disappearAsFailure];
     }
 }
@@ -87,10 +87,10 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(expire) object:self];
     
     if (self.okToTouch) {
-        [self.delegate circleDisappearedAsWellTouched:self];
+        [self.delegate circleButtonWasTouchedWell];
         [self disappearAsSuccess];
     } else {
-        [self.delegate circleDisappearedAsBadlyTouched:self];
+        [self.delegate circleButtonWasTouchedBadly];
         [self disappearAsFailure];
     }
 }
@@ -120,6 +120,7 @@ void SoundFinished (SystemSoundID snd, void* context);
                      }
                      completion:^(BOOL finished) {
                          [self removeFromSuperview];
+                         [self.delegate circleButtonDisappearedFromSuperview:self];
                      }];
 }
 
@@ -149,6 +150,7 @@ void SoundFinished (SystemSoundID snd, void* context);
                          }
                          completion:^(BOOL finished) {
                              [self removeFromSuperview];
+                             [self.delegate circleButtonDisappearedFromSuperview:self];
                          }];
     });
 }
