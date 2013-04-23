@@ -8,15 +8,28 @@
 
 #import <UIKit/UIKit.h>
 
+@class AMGCircleButton;
+
+@protocol AMGCircleButtonDelegate <NSObject>
+
+@property (nonatomic) BOOL soundActivated;
+
+- (void)circleDisappearedAsWellAvoided:(AMGCircleButton *)circleButton;
+- (void)circleDisappearedAsWellTouched:(AMGCircleButton *)circleButton;
+- (void)circleDisappearedAsBadlyAvoided:(AMGCircleButton *)circleButton;
+- (void)circleDisappearedAsBadlyTouched:(AMGCircleButton *)circleButton;
+
+@end
+
 @interface AMGCircleButton : UIButton
 
 @property (nonatomic) int x;
 @property (nonatomic) int y;
-@property (nonatomic, strong) UIColor *color;
 
-- (id)initWithFrame:(CGRect)frame color:(UIColor *)color;
-
-- (void)disappearAsSuccess:(BOOL)soundActivated;
-- (void)disappearAsFailure:(BOOL)soundActivated;
+- (id)initWithFrame:(CGRect)frame
+              color:(UIColor *)color
+          okToTouch:(BOOL)okToTouch
+               life:(float)life
+           delegate:(id<AMGCircleButtonDelegate>)delegate;
 
 @end

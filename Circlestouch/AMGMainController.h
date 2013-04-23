@@ -12,8 +12,9 @@
 #import "AMGPageControlController.h"
 #import "AMGColorsPanel.h"
 #import "AMGLivesRepresentation.h"
+#import "AMGCircleButton.h"
 
-@interface AMGMainController : UIViewController <AMGGameDelegate>
+@interface AMGMainController : UIViewController <AMGGameDelegate, AMGCircleButtonDelegate>
 
 @property (nonatomic, strong) AMGGameManager *gameManager;
 
@@ -26,8 +27,6 @@
 @property (nonatomic, strong) AMGColorsPanel *colorsPanel;
 @property (nonatomic, strong) AMGLivesRepresentation *livesRepresentation;
 @property (nonatomic, strong) UIButton *timePlayingButton;
-
-//@property (nonatomic, getter=soundActivated, setter=setSoundActivated:) BOOL soundActivated;
 
 @property (nonatomic) float lifeAcum;
 @property (nonatomic) int circlesAcum;

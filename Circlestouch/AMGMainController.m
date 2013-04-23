@@ -12,11 +12,10 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "AMGMainController.h"
 #import "AMGCircle.h"
-#import "AMGCircleButton.h"
 
 @implementation AMGMainController
 
-@synthesize soundActivated; // required as it's a property defined in a protocol
+@synthesize soundActivated; // required as it's a property defined in protocols
 
 - (void)viewDidLoad
 {
@@ -63,48 +62,6 @@
                                                            andLivesRemaining:self.gameManager.livesRemaining];
     self.livesRepresentation.alpha = 0.9f;
     [self.view addSubview:self.livesRepresentation];
-}
-
-- (void)circleTouched:(AMGCircleButton *)sender
-{
-    if ([self.gameManager isItOkToTouchColor:sender.color]) {
-        [self increaseCirclesTouchedWell];
-        [self vanishRightCircle:sender];
-    } else {
-        [self increaseCirclesTouchedBadly];
-        [self vanishWrongCircle:sender];
-    }    
-}
-
-- (void)circleExpired:(AMGCircleButton *)sender
-{
-    if (![self.gameManager isItOkToTouchColor:sender.color]) {
-        [self increaseCirclesAvoidedWell];
-        [self vanishRightCircle:sender];
-    } else {
-        [self increaseCirclesAvoidedBadly];
-        [self vanishWrongCircle:sender];
-    }    
-}
-
-- (void)vanishRightCircle:(AMGCircleButton *)sender
-{
-    [sender removeTarget:self action:@selector(circleTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(circleExpired:) object:sender];
-    [sender disappearAsSuccess:self.soundActivated];
-    [self.gameManager.circles performSelector:@selector(removeObject:)
-                                   withObject:[[AMGCircle alloc] initWithX:sender.x y:sender.y color:nil]
-                                   afterDelay:VANISH_DURATION_RIGHT];
-}
-
-- (void)vanishWrongCircle:(AMGCircleButton *)sender
-{
-    [sender removeTarget:self action:@selector(circleTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(circleExpired:) object:sender];
-    [sender disappearAsFailure:self.soundActivated];
-    [self.gameManager.circles performSelector:@selector(removeObject:)
-                                   withObject:[[AMGCircle alloc] initWithX:sender.x y:sender.y color:nil]
-                                   afterDelay:VANISH_DURATION_WRONG_STEP1 + VANISH_DURATION_WRONG_STEP2];
 }
 
 - (void)showPageControl
@@ -198,24 +155,15 @@
     UIColor *color = [self.gameManager nextCircleColor];
 
     // Creating AMGCircleButton and adding to main view
-    AMGCircleButton *buttonCircle = [[AMGCircleButton alloc] initWithFrame:CGRectMake(x, y, BUTTON_SIZE, BUTTON_SIZE) color:color];
-    buttonCircle.alpha = 0.85f;
+    AMGCircleButton *buttonCircle = [[AMGCircleButton alloc] initWithFrame:CGRectMake(x, y, BUTTON_SIZE, BUTTON_SIZE)
+                                                                     color:color
+                                                                 okToTouch:[self.gameManager isItOkToTouchColor:color]
+                                                                      life:[self.gameManager nextCircleLife]
+                                                                  delegate:self];
     [self.view addSubview:buttonCircle];
-    [buttonCircle addTarget:self action:@selector(circleTouched:) forControlEvents:UIControlEventTouchDown];
     
     // Creating AMGCircle and adding to GameManager
     [self.gameManager.circles addObject:[[AMGCircle alloc] initWithX:x y:y color:color]];
-    
-    [UIView animateWithDuration:0.7f delay:0.0
-                        options:(UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse)
-                     animations:^() {
-                         buttonCircle.alpha = 0.80f;
-                         buttonCircle.transform = CGAffineTransformMakeScale(0.93f, 0.93f);
-                     }
-                     completion:nil];
-    
-    // Removing AMGCircleButton (from main view) and AMGCircle (from GameManager) after it expires
-    [self performSelector:@selector(circleExpired:) withObject:buttonCircle afterDelay:[self.gameManager nextCircleLife]];
     
     // Reactivating timer
     [self activateCircleCreationTimer:[self.gameManager nextCircleIntervalCreation]];
@@ -223,6 +171,54 @@
     // Activating timePlayingTimer (it must be here to be sure a user cannot pause-resume-pause-
     // resume-... endlessly to add seconds without any circle being created)
     [self activateTimePlayingTimer];
+}
+
+#pragma mark -
+#pragma mark AMGCircleButtonDelegate
+#pragma mark -
+
+- (void)circleDisappearedAsWellAvoided:(AMGCircleButton *)circleButton
+{
+    self.gameManager.circlesAvoidedWell++;
+    if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
+    [self increaseLivesRemaining];
+    
+    [self.gameManager.circles performSelector:@selector(removeObject:)
+                                   withObject:[[AMGCircle alloc] initWithX:circleButton.x y:circleButton.y color:nil]
+                                   afterDelay:VANISH_DURATION_RIGHT];
+}
+
+- (void)circleDisappearedAsWellTouched:(AMGCircleButton *)circleButton
+{
+    self.gameManager.circlesTouchedWell++;
+    if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
+    [self increaseLivesRemaining];
+    
+    [self.gameManager.circles performSelector:@selector(removeObject:)
+                                   withObject:[[AMGCircle alloc] initWithX:circleButton.x y:circleButton.y color:nil]
+                                   afterDelay:VANISH_DURATION_RIGHT];
+}
+
+- (void)circleDisappearedAsBadlyAvoided:(AMGCircleButton *)circleButton
+{
+    self.gameManager.circlesAvoidedBadly++;
+    if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
+    [self decreaseLivesRemaining];
+    
+    [self.gameManager.circles performSelector:@selector(removeObject:)
+                                   withObject:[[AMGCircle alloc] initWithX:circleButton.x y:circleButton.y color:nil]
+                                   afterDelay:VANISH_DURATION_WRONG_STEP1 + VANISH_DURATION_WRONG_STEP2];
+}
+
+- (void)circleDisappearedAsBadlyTouched:(AMGCircleButton *)circleButton
+{
+    self.gameManager.circlesTouchedBadly++;
+    if (self.pageControlController) [self.pageControlController someStatisticHasChanged];
+    [self decreaseLivesRemaining];
+    
+    [self.gameManager.circles performSelector:@selector(removeObject:)
+                                   withObject:[[AMGCircle alloc] initWithX:circleButton.x y:circleButton.y color:nil]
+                                   afterDelay:VANISH_DURATION_WRONG_STEP1 + VANISH_DURATION_WRONG_STEP2];
 }
 
 #pragma mark -
@@ -398,62 +394,6 @@
     // View
     [self.timePlayingButton setTitle:[NSString stringWithFormat:@"%i", self.gameManager.timePlaying]
                             forState:UIControlStateNormal];
-}
-
-- (void)increaseCirclesTouchedWell
-{
-    // Model
-    self.gameManager.circlesTouchedWell++;
-    
-    // View
-    if (self.pageControlController) {
-        [self.pageControlController someStatisticHasChanged];
-    }
-    
-    // Controller
-    [self increaseLivesRemaining];
-}
-
-- (void)increaseCirclesTouchedBadly
-{
-    // Model
-    self.gameManager.circlesTouchedBadly++;
-
-    // View
-    if (self.pageControlController) {
-        [self.pageControlController someStatisticHasChanged];
-    }
-    
-    // Controller
-    [self decreaseLivesRemaining];
-}
-
-- (void)increaseCirclesAvoidedWell
-{
-    // Model
-    self.gameManager.circlesAvoidedWell++;
-    
-    // View
-    if (self.pageControlController) {
-        [self.pageControlController someStatisticHasChanged];
-    }
-    
-    // Controller
-    [self increaseLivesRemaining];
-}
-
-- (void)increaseCirclesAvoidedBadly
-{
-    // Model
-    self.gameManager.circlesAvoidedBadly++;
-
-    // View
-    if (self.pageControlController) {
-        [self.pageControlController someStatisticHasChanged];
-    }
-
-    // Controller
-    [self decreaseLivesRemaining];
 }
 
 #pragma mark -
