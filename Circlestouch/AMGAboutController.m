@@ -52,6 +52,7 @@
     
     // Web button
     
+    /*
     AMGPlainRectButton *webButton = [[AMGPlainRectButton alloc] initWithFrame:CGRectMake(0.0f, y, 320.0f, 55.0f)
                                                               backgroundColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.1f alpha:1.0f]
                                                                     imageName:@"web"
@@ -59,6 +60,7 @@
                                                                          text:[NSString stringWithFormat:NSLocalizedString(@"Visit %@'s website", @"Settings screen"), APP_NAME]];
     webButton.whiteBorder = NO;
     y += 55.0f + spaceHeight;
+    */
     
     // Email button
     
@@ -82,12 +84,12 @@
     // Adding buttons to view and setting target actions.
     
     [self.view addSubview:self.soundButton];
-    [self.view addSubview:webButton];
+    //[self.view addSubview:webButton];
     [self.view addSubview:emailButton];
     [self.view addSubview:rateButton];
     
     [self.soundButton addTarget:self action:@selector(changeSound) forControlEvents:UIControlEventTouchUpInside];
-    [webButton addTarget:self action:@selector(openWeb) forControlEvents:UIControlEventTouchUpInside];
+    //[webButton addTarget:self action:@selector(openWeb) forControlEvents:UIControlEventTouchUpInside];
     [emailButton addTarget:self action:@selector(sendEmail) forControlEvents:UIControlEventTouchUpInside];
     [rateButton addTarget:self action:@selector(rateApp) forControlEvents:UIControlEventTouchUpInside];
     

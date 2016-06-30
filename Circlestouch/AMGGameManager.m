@@ -71,8 +71,8 @@
     // Moving 0 to N colors from Avoid to Touch
     rnd =  arc4random() % [self.colorsToAvoid count];
     // Tuning so Avoid never has less than 3 colors or more than 6 (so the same for Touch)
-    if ([self.colorsToAvoid count] - rnd < 3) rnd = [self.colorsToAvoid count] - 3;
-    if ([self.colorsToAvoid count] - rnd > 6) rnd = [self.colorsToAvoid count] - 6;
+    if ([self.colorsToAvoid count] - rnd < 3) rnd = (int)[self.colorsToAvoid count] - 3;
+    if ([self.colorsToAvoid count] - rnd > 6) rnd = (int)[self.colorsToAvoid count] - 6;
     for (int i = 1; i <= rnd; i++) {
         [self removeOneColorFromColorsToAvoidAndAddToColorsToTouch];
     }

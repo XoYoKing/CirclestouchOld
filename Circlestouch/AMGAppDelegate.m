@@ -8,6 +8,8 @@
 
 #import "AMGAppDelegate.h"
 #import "AMGMainController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AMGAppDelegate
 
@@ -19,6 +21,7 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     //[[AMGGameCenterHelper sharedInstance] authenticateLocalPlayer];
+    [Fabric with:@[[Crashlytics class]]];
     return YES;
 }
 

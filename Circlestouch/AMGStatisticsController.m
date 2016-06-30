@@ -126,7 +126,7 @@
     // Result for "Best score ever"
     
     UILabel *bestScoreResult = [[UILabel alloc] initWithFrame:CGRectMake(x + width, y, 50.0f, height)];
-    bestScoreResult.text = [NSString stringWithFormat:@"%i", [[NSUserDefaults standardUserDefaults] integerForKey:KEY_BEST_SCORE]];
+    bestScoreResult.text = [NSString stringWithFormat:@"%li", (long)[[NSUserDefaults standardUserDefaults] integerForKey:KEY_BEST_SCORE]];
     bestScoreResult.textColor = color;
     bestScoreResult.backgroundColor = backgroundColor;
     bestScoreResult.font = smallFont;

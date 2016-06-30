@@ -8,7 +8,7 @@
 //  This game uses this sound from freesound:
 //  Double zap by chipfork (http://www.freesound.org/people/chipfork/)
 
-
+#import <Crashlytics/Crashlytics.h> // If using Answers with Crashlytics
 #import <AudioToolbox/AudioToolbox.h>
 #import "AMGMainController.h"
 #import "AMGCircle.h"
@@ -255,6 +255,9 @@
         [self.gameManager resetGame];
         [self.timePlayingButton setTitle:[NSString stringWithFormat:@"%i", self.gameManager.timePlaying] forState:UIControlStateNormal];
         self.livesRepresentation.livesRemaining = self.gameManager.livesRemaining;
+        [Answers logCustomEventWithName:@"userPressedResumeOrNewGame" customAttributes:@{@"Action":@"Resume"}];
+    } else {
+        [Answers logCustomEventWithName:@"userPressedResumeOrNewGame" customAttributes:@{@"Action":@"New Game"}];
     }
     
     [self activateCircleCreationTimer:[self.gameManager nextCircleIntervalCreation]];
@@ -383,12 +386,12 @@
 
     // Model
     if ([userDefaults integerForKey:KEY_TIME_PLAYING] != 0 || [userDefaults integerForKey:KEY_LIVES_REMAINING] != 0) {
-        self.gameManager.timePlaying = [userDefaults integerForKey:KEY_TIME_PLAYING];
-        self.gameManager.livesRemaining = [userDefaults integerForKey:KEY_LIVES_REMAINING];
-        self.gameManager.circlesTouchedWell = [userDefaults integerForKey:KEY_CIRCLES_TOUCHED_WELL];
-        self.gameManager.circlesTouchedBadly = [userDefaults integerForKey:KEY_CIRCLES_TOUCHED_BADLY];
-        self.gameManager.circlesAvoidedWell = [userDefaults integerForKey:KEY_CIRCLES_AVOIDED_WELL];
-        self.gameManager.circlesAvoidedBadly = [userDefaults integerForKey:KEY_CIRCLES_AVOIDED_BADLY];
+        self.gameManager.timePlaying = (int)[userDefaults integerForKey:KEY_TIME_PLAYING];
+        self.gameManager.livesRemaining = (int)[userDefaults integerForKey:KEY_LIVES_REMAINING];
+        self.gameManager.circlesTouchedWell = (int)[userDefaults integerForKey:KEY_CIRCLES_TOUCHED_WELL];
+        self.gameManager.circlesTouchedBadly = (int)[userDefaults integerForKey:KEY_CIRCLES_TOUCHED_BADLY];
+        self.gameManager.circlesAvoidedWell = (int)[userDefaults integerForKey:KEY_CIRCLES_AVOIDED_WELL];
+        self.gameManager.circlesAvoidedBadly = (int)[userDefaults integerForKey:KEY_CIRCLES_AVOIDED_BADLY];
         self.soundActivated = [userDefaults boolForKey:KEY_SOUND_ACTIVATED];
     }
     

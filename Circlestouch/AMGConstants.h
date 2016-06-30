@@ -10,12 +10,12 @@
 // App constants
 //
 #define APP_NAME      @"Circlestouch"
-#define APP_VERSION   @"1.1"
-#define APP_COPYRIGHT @"2013 Albert Mata"
+#define APP_VERSION   @"1.3"
+#define APP_COPYRIGHT @"2016 Albert Mata"
 #define APP_MAIN_FONT @"Heiti SC"
 #define APP_EMAIL     @"hello@albertmata.net"
 #define APP_WEB_URL   @"http://www.circlestouch.com"
-#define APP_RATE_URL  @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=631303202"
+#define APP_RATE_URL  @"itms-apps://itunes.apple.com/app/id631303202"
 
 //
 // Macros

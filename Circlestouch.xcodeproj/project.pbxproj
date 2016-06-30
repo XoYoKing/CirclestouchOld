@@ -44,6 +44,13 @@
 		40A3265016751C2600C18B0F /* changing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 40A3264F16751C2600C18B0F /* changing.wav */; };
 		40A3EF7B17109CCB00DB8A85 /* Icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A3EF7A17109CCB00DB8A85 /* Icon-57.png */; };
 		40A3EF7D17109CD100DB8A85 /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A3EF7C17109CD100DB8A85 /* Icon-114.png */; };
+		40CD18F01CA2D786000E1A2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CD18EC1CA2D786000E1A2C /* Security.framework */; };
+		40CD18F11CA2D786000E1A2C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CD18ED1CA2D786000E1A2C /* SystemConfiguration.framework */; };
+		40CD18F21CA2D786000E1A2C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CD18EE1CA2D786000E1A2C /* Fabric.framework */; };
+		40CD18F31CA2D786000E1A2C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CD18EF1CA2D786000E1A2C /* Crashlytics.framework */; };
+		40CD18F51CA2D8E7000E1A2C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CD18F41CA2D8E7000E1A2C /* libc++.tbd */; };
+		40CD18F71CA2D8F3000E1A2C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CD18F61CA2D8F3000E1A2C /* libz.tbd */; };
+		40CD18F91CA2E8FD000E1A2C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40CD18F81CA2E8FD000E1A2C /* Images.xcassets */; };
 		40DBD6E2167781AD008F019D /* wrong.aif in Resources */ = {isa = PBXBuildFile; fileRef = 40DBD6E0167781AD008F019D /* wrong.aif */; };
 		40DBD6E41677827C008F019D /* right.aif in Resources */ = {isa = PBXBuildFile; fileRef = 40DBD6E31677827C008F019D /* right.aif */; };
 		40DE79AF166E08A700500786 /* AMGLivesRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE79AE166E08A700500786 /* AMGLivesRepresentation.m */; };
@@ -126,6 +133,13 @@
 		40A3264F16751C2600C18B0F /* changing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = changing.wav; sourceTree = "<group>"; };
 		40A3EF7A17109CCB00DB8A85 /* Icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-57.png"; path = "../Icon-57.png"; sourceTree = "<group>"; };
 		40A3EF7C17109CD100DB8A85 /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-114.png"; path = "../Icon-114.png"; sourceTree = "<group>"; };
+		40CD18EC1CA2D786000E1A2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		40CD18ED1CA2D786000E1A2C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		40CD18EE1CA2D786000E1A2C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
+		40CD18EF1CA2D786000E1A2C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
+		40CD18F41CA2D8E7000E1A2C /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		40CD18F61CA2D8F3000E1A2C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		40CD18F81CA2E8FD000E1A2C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		40D4ECFE1712D10500B38DBA /* Default.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = Default.pxm; sourceTree = "<group>"; };
 		40D4ECFF1712D10500B38DBA /* Icon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-1024.png"; sourceTree = "<group>"; };
 		40D4ED001712D10500B38DBA /* Icon-1024.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Icon-1024.pxm"; sourceTree = "<group>"; };
@@ -153,11 +167,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40CD18F71CA2D8F3000E1A2C /* libz.tbd in Frameworks */,
+				40CD18F51CA2D8E7000E1A2C /* libc++.tbd in Frameworks */,
 				4098B850171DC03A0064E895 /* libAMGUIControls.a in Frameworks */,
 				4028C1C01712EAD00002DD02 /* MessageUI.framework in Frameworks */,
 				40A3264016750FB500C18B0F /* AudioToolbox.framework in Frameworks */,
 				4066867F166C9E110039FB98 /* UIKit.framework in Frameworks */,
+				40CD18F01CA2D786000E1A2C /* Security.framework in Frameworks */,
+				40CD18F21CA2D786000E1A2C /* Fabric.framework in Frameworks */,
+				40CD18F31CA2D786000E1A2C /* Crashlytics.framework in Frameworks */,
 				40668681166C9E110039FB98 /* Foundation.framework in Frameworks */,
+				40CD18F11CA2D786000E1A2C /* SystemConfiguration.framework in Frameworks */,
 				40668683166C9E110039FB98 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,6 +252,8 @@
 		4066867D166C9E110039FB98 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				40CD18F61CA2D8F3000E1A2C /* libz.tbd */,
+				40CD18F41CA2D8E7000E1A2C /* libc++.tbd */,
 				4028C1BF1712EAD00002DD02 /* MessageUI.framework */,
 				4079A5A716A5B8950085F15C /* GameKit.framework */,
 				40A3263F16750FB500C18B0F /* AudioToolbox.framework */,
@@ -245,11 +267,16 @@
 		40668684166C9E110039FB98 /* Circlestouch */ = {
 			isa = PBXGroup;
 			children = (
+				40CD18EC1CA2D786000E1A2C /* Security.framework */,
+				40CD18ED1CA2D786000E1A2C /* SystemConfiguration.framework */,
+				40CD18EE1CA2D786000E1A2C /* Fabric.framework */,
+				40CD18EF1CA2D786000E1A2C /* Crashlytics.framework */,
 				40D4ECF01712CCF000B38DBA /* Resources */,
 				400B00E5166D47BF00B2A1DB /* Model */,
 				400B00E7166D47C900B2A1DB /* View */,
 				400B00E8166D47D000B2A1DB /* Controller */,
 				409231851678F6C800D17A2A /* i18n */,
+				40CD18F81CA2E8FD000E1A2C /* Images.xcassets */,
 				40668685166C9E110039FB98 /* Supporting Files */,
 			);
 			path = Circlestouch;
@@ -347,6 +374,7 @@
 				40668676166C9E110039FB98 /* Sources */,
 				40668677166C9E110039FB98 /* Frameworks */,
 				40668678166C9E110039FB98 /* Resources */,
+				40CD18EB1CA2D728000E1A2C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -364,7 +392,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AM;
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Albert Mata";
 			};
 			buildConfigurationList = 40668674166C9E110039FB98 /* Build configuration list for PBXProject "Circlestouch" */;
@@ -437,12 +465,29 @@
 				4048541F1713D32400BCC654 /* email.png in Resources */,
 				404854201713D32400BCC654 /* rate.png in Resources */,
 				404854211713D32400BCC654 /* sound_off.png in Resources */,
+				40CD18F91CA2E8FD000E1A2C /* Images.xcassets in Resources */,
 				404854221713D32400BCC654 /* sound_on.png in Resources */,
 				404854231713D32400BCC654 /* web.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		40CD18EB1CA2D728000E1A2C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run c1e7f18c1fdf0200c5fa113bdf9ca8d249ee93a5 c29aadf342f6501036a1414e01e15a60f5ccf0efedc15de9b45ab9e23dd45dc5";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		40668676166C9E110039FB98 /* Sources */ = {
@@ -499,6 +544,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -541,11 +587,18 @@
 		4066869F166C9E110039FB98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circlestouch/Circlestouch-Prefix.pch";
 				INFOPLIST_FILE = "Circlestouch/Circlestouch-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.albertmata.circlestouch;
 				PRODUCT_NAME = Circlestouch;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -555,14 +608,21 @@
 		406686A0166C9E110039FB98 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ALBERT MATA GUERRA";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Albert Mata (BCMZJ83BWT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circlestouch/Circlestouch-Prefix.pch";
 				INFOPLIST_FILE = "Circlestouch/Circlestouch-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.albertmata.circlestouch;
 				PRODUCT_NAME = Circlestouch;
-				PROVISIONING_PROFILE = "829B751A-4DA8-4E13-BA75-FA8F7678B7C9";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -593,14 +653,21 @@
 		40B5D0551716CEBB00D08114 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ALBERT MATA GUERRA";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Albert Mata (BCMZJ83BWT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Circlestouch/Circlestouch-Prefix.pch";
 				INFOPLIST_FILE = "Circlestouch/Circlestouch-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.albertmata.circlestouch;
 				PRODUCT_NAME = Circlestouch;
-				PROVISIONING_PROFILE = "829B751A-4DA8-4E13-BA75-FA8F7678B7C9";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

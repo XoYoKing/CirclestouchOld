@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "EA2006D424629DA4102CA071FFBBAEA543FF464E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "76D53F3F8FFDB554B43EFD39133A4E21150AEB30" : 0,
+    "EA2006D424629DA4102CA071FFBBAEA543FF464E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A1F6C66D-CF79-4106-A74A-1A05007B4F19",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "76D53F3F8FFDB554B43EFD39133A4E21150AEB30" : "AMGUIControls\/",
+    "EA2006D424629DA4102CA071FFBBAEA543FF464E" : "circlestouch\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Circlestouch",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Circlestouch.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/almata\/AMGUIControls.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "76D53F3F8FFDB554B43EFD39133A4E21150AEB30"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/almata\/circlestouch.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EA2006D424629DA4102CA071FFBBAEA543FF464E"
+    }
+  ]
+}
